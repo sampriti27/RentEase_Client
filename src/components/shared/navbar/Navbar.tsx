@@ -93,7 +93,7 @@ const Navbar: React.FC = () => {
         {openUserMenu && (
           <div
             ref={userMenuRef}
-            className="absolute right-0 mt-64 z-50 w-48 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow"
+            className="absolute right-0 mt-[272px] z-50 w-48 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow"
             id="user-dropdown"
           >
             <div className="px-4 py-3 hover:bg-gray-50 rounded-lg">
