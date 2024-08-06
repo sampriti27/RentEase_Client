@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
   }, [openUserMenu]);
 
   return (
-    <div className="bg-sky-700 border-gray-200 w-full flex items-center justify-between mx-auto py-4 px-2 sm:px-8 h-[72px]">
+    <div className="bg-sky-700 border-gray-200 w-full flex items-center justify-between mx-auto py-4  px-2 sm:px-8 h-[72px]">
       <div className="w-1/8 h-full flex items-center">
         <a
           href="https://rent-ease-client-two.vercel.app/"
@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
       </div>
 
       <div
-        className="items-center justify-between flex w-60 sm:w-1/2"
+        className="items-center justify-between flex w-60 sm:w-1/2 px-4 sm:px-0"
         id="navbar-user"
       >
         <Search />
