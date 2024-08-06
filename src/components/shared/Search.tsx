@@ -2,7 +2,7 @@ import React from "react";
 
 const Search: React.FC = () => {
   return (
-    <div className="flex items-center w-full  mx-auto bg-bg-primary rounded-lg ">
+    <div className="flex items-center w-full mx-auto bg-bg-primary rounded-lg ">
       <div className="w-full">
         <input
           type="search"

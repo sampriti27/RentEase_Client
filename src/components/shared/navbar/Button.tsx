@@ -7,7 +7,7 @@ const Button: React.FC<Props> = ({ text }) => {
   return (
     <button
       type="button"
-      className="hidden md:flex items-center justify-center gap-2 lg:w-full text-text-color bg-bg-primary hover:bg-gray-50 font-medium rounded-xl text-xs xl:text-sm px-3 xl:px-5 py-2"
+      className="hidden md:flex items-center justify-center gap-2 lg:w-full text-emerald-700 bg-bg-primary hover:bg-gray-50 font-medium rounded-lg text-xs xl:text-sm py-2"
     >
       {text}
       <svg
@@ -16,7 +16,7 @@ const Button: React.FC<Props> = ({ text }) => {
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        className="size-5 text-text-color"
+        className="size-5 text-emerald-700"
       >
         <path
           stroke-linecap="round"

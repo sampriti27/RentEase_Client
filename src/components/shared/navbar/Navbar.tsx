@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
   }, [openUserMenu]);
 
   return (
-    <div className="bg-bg-secondary border-gray-200 w-full flex items-center justify-between mx-auto py-4 px-2 sm:px-8 h-[72px]">
+    <div className="bg-emerald-700 border-gray-200 w-full flex items-center justify-between mx-auto py-4 px-2 sm:px-8 h-[72px]">
       <div className="w-1/8 h-full flex items-center">
         <a
           href="http://localhost:5173/"
@@ -97,7 +97,7 @@ const Navbar: React.FC = () => {
             id="user-dropdown"
           >
             <div className="px-4 py-3 hover:bg-gray-50">
-              <span className="block text-bg-secondary truncate cursor-pointer">
+              <span className="block font-medium text-sm text-emerald-700 truncate cursor-pointer">
                 LOGIN/REGISTER
               </span>
             </div>
@@ -128,7 +128,7 @@ const Navbar: React.FC = () => {
               </li>
               <li>
                 <div className="border-t border-gray-100 pt-4 px-4">
-                  <button className="block w-full px-4 py-2 text-sm text-indigo-900 bg-indigo-200  font-medium rounded-lg">
+                  <button className="block w-full px-4 py-2 text-sm text-emerald-900 bg-emerald-100  font-medium rounded-lg hover:text-white hover:bg-emerald-600 transition ease-in ">
                     Post Property
                   </button>
                 </div>
