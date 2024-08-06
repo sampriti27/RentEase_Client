@@ -6,17 +6,17 @@ const Search: React.FC = () => {
       <div className="w-full">
         <input
           type="search"
-          className="w-full px-4 py-1 text-gray-800 rounded-full focus:outline-none"
+          className="w-full px-4 py-1 text-gray-800 rounded-full focus:outline-none text-sm md:text-base"
           placeholder="Enter Locality/ Project/ Society/ City"
         />
       </div>
       <div>
         <button
           type="submit"
-          className="flex items-center bg-bg-primary justify-center w-12 h-12 text-gray-800 rounded-r-lg"
+          className="flex items-center bg-bg-primary justify-center w-8 h-8 md:w-12 md:h-12 text-gray-800 rounded-r-lg"
         >
           <svg
-            className="w-5 h-5"
+            className="w-4 h-4 md:w-5 md:h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
