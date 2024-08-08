@@ -4,19 +4,21 @@ import {
   Filter,
   SearchResult,
   PropertyCard,
-} from "../components/shared/home";
+} from "../components/home";
 
 const Home: React.FC = () => {
   return (
-    <div className="h-full w-full  px-48">
+    <div className="h-full w-full px-4 xl:px-48">
       <Breadcrumb />
       <div className="w-full h-screen flex gap-4">
-        <div className="w-1/3 border">
+        <div className="hidden lg:block md:w-1/4 border">
           <Filter />
         </div>
-        <div className="w-2/3  px-2 pt-2">
+        <div className="w-full lg:w-3/4  px-2 pt-2">
           <SearchResult />
           <div className="w-full mt-8">
+            <PropertyCard />
+            <PropertyCard />
             <PropertyCard />
           </div>
         </div>
