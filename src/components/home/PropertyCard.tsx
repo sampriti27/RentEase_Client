@@ -2,7 +2,7 @@ import React from "react";
 import propertyImg from "../../assets/images/modern-apartment-architecture_1268-14696.avif";
 import Button from "../shared/buttons/Button";
 import Rating from "../shared/badges/Rating";
-import TenantTypeBadge from "../shared/badges/TenantTypeBadge.tsx/TenantTypeBadge";
+import TenantTypeBadge from "../shared/badges/TenantTypeBadge";
 
 const PropertyCard: React.FC = () => {
   return (
