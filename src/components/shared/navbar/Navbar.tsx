@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
   }, [openUserMenu]);
 
   return (
-    <div className="bg-sky-700 border-gray-200 w-full flex items-center justify-between mx-auto py-4  px-2 sm:px-8 h-[72px]">
+    <div className="bg-sky-700 border-gray-200 w-full flex items-center justify-between mx-auto py-4  px-2 sm:px-8 h-[72px] fixed">
       <div className="w-1/8 h-full flex items-center">
         <a
           href="https://rent-ease-client-two.vercel.app/"

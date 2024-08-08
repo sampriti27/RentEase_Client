@@ -29,7 +29,7 @@ const PropertyCard: React.FC = () => {
             </div>
             <div>
               {/* Tenant Type Family, Bachelor  */}
-              <TenantTypeBadge />
+              <TenantTypeBadge type="Bachelor" />
             </div>
           </div>
           {/* Property Type 2 / 3/ 4 bhk  */}
