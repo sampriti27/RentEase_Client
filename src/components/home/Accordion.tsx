@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Accordion: React.FC<Props> = ({ option }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(option.isOpen);
 
   return (
     <div className=" transition-all duration-300">

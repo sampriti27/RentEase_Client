@@ -11,7 +11,7 @@ const SortFilter: React.FC = () => {
             value={option.value}
             className="form-checkbox h-4 w-4 text-blue-600"
           />
-          <span className="text-gray-700">{option.label}</span>
+          <span className="text-gray-600">{option.label}</span>
         </label>
       ))}
     </div>

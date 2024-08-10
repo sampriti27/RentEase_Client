@@ -6,7 +6,7 @@ import TenantTypeBadge from "../shared/badges/TenantTypeBadge";
 
 const PropertyCard: React.FC = () => {
   return (
-    <div className="w-full md:h-[328px] bg-white rounded-lg border shadow-md p-4 flex flex-col sm:flex-row items-center gap-2 my-8">
+    <div className="w-full md:h-[328px] bg-white rounded-lg border shadow-md p-4 flex flex-col sm:flex-row items-center gap-2 my-6">
       {/* Prroperty Image  */}
       <div className="w-full md:w-2/5 h-full border rounded-lg">
         <img
@@ -40,9 +40,9 @@ const PropertyCard: React.FC = () => {
               in Southern Bypass, Kolkata South
             </span>
           </h3>
-          <div className="mt-4 flex">
+          <div className="mt-4 flex justify-start sm:justify-normal">
             {/* Property Price  */}
-            <div className="w-1/3 h-full border-r-2">
+            <div className="w-1/3 h-full">
               <p className="text-sm md:text-lg text-gray-800 font-semibold">
                 {" "}
                 &#8377; 29.07 - 31.09 Lac
@@ -52,12 +52,17 @@ const PropertyCard: React.FC = () => {
                 &#8377; 3800 / sqft
               </p>
             </div>
+
+            {/* Vertical Divider */}
+            <div className="border-l border-gray-300 mx-4"></div>
+
             {/* Property Type and move in status  */}
-            <div className="ml-2 text-sm md:text-base">
-              <p className=" font-semibold text-gray-800">2 BHK</p>
+            <div className="text-sm md:text-base">
+              <p className="font-semibold text-gray-800">2 BHK</p>
               <p className="text-gray-500">Ready to Move</p>
             </div>
           </div>
+
           {/* Property Setails  */}
           <div>
             <p className="text-xs md:text-sm text-gray-500  tracking-tight my-2">

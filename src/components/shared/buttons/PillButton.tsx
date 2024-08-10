@@ -7,13 +7,13 @@ const PillButton: React.FC<Props> = ({ item }) => {
   return (
     <button
       type="button"
-      className="text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100  rounded-full text-sm px-5 py-2.5 me-2 mb-2 flex items-center gap-2"
+      className="text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100  rounded-full text-sm flex items-center py-1 px-2 me-2 mb-2 gap-1"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
-        className="size-4"
+        className="size-3"
       >
         <path
           fill-rule="evenodd"

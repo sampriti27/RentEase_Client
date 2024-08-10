@@ -19,10 +19,10 @@ const BudgetFilter: React.FC = () => {
   return (
     <div className="w-full p-4 bg-white rounded-lg ">
       <div className="flex items-center justify-between mt-4">
-        <div className="bg-sky-700 text-white rounded-lg py-1 px-3 text-sm">
+        <div className="bg-[#091e42] text-white rounded-md px-2 py-1 text-xs">
           {minBudget}
         </div>
-        <div className="bg-sky-700 text-white rounded-lg py-1 px-3 text-sm">
+        <div className="bg-[#091e42] text-white rounded-md px-2 py-1 text-xs">
           {maxBudget === 100 ? "100+ Crores" : maxBudget}
         </div>
       </div>
@@ -34,7 +34,7 @@ const BudgetFilter: React.FC = () => {
           max="100"
           value={minBudget}
           onChange={(e) => setMinBudget(Number(e.target.value))}
-          className="w-full h-2 bg-sky-700 rounded-full"
+          className="w-full h-2 bg-sky-500 rounded-full appearance-none cursor-pointer"
         />
       </div>
 
@@ -42,7 +42,7 @@ const BudgetFilter: React.FC = () => {
         <select
           value={minBudget}
           onChange={handleMinBudgetChange}
-          className="w-1/2 p-2 border border-gray-300 rounded-lg outline-none text-sm text-gray-800"
+          className="w-1/2 p-2 border border-gray-300 outline-none text-xs text-gray-400"
         >
           {/* You can add more options as needed */}
           <option value="0">Min Budget</option>
@@ -53,7 +53,7 @@ const BudgetFilter: React.FC = () => {
         <select
           value={maxBudget}
           onChange={handleMaxBudgetChange}
-          className="w-1/2 p-2 border border-gray-300 rounded-lg ml-2 outline-none text-sm text-gray-800"
+          className="w-1/2 p-2 border border-gray-300 ml-2 outline-none text-xs text-gray-400"
         >
           {/* You can add more options as needed */}
           <option value="100">Max Budget</option>
