@@ -2,8 +2,8 @@ import React from "react";
 
 const Rating: React.FC = () => {
   return (
-    <div className="bg-green-700 text-white font-medium flex items-center px-1 gap-0 md:gap-1 rounded-md cursor-pointer">
-      <p className="text-xs">4.2</p>
+    <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+      4.2
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -16,7 +16,7 @@ const Rating: React.FC = () => {
           clip-rule="evenodd"
         />
       </svg>
-    </div>
+    </span>
   );
 };
 
