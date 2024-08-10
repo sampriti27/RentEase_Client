@@ -46,9 +46,9 @@ const BudgetFilter: React.FC = () => {
         >
           {/* You can add more options as needed */}
           <option value="0">Min Budget</option>
-          <option value="10">5 Lakhs</option>
-          <option value="20">10 Lakhs</option>
-          <option value="30">14 Lakhs</option>
+          <option value="5">5 Lakhs</option>
+          <option value="10">10 Lakhs</option>
+          <option value="15">15 Lakhs</option>
         </select>
         <select
           value={maxBudget}

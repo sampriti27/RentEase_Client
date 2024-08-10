@@ -3,7 +3,7 @@ import AccordionHeader from "../shared/accordion/AccordionHeader";
 import BudgetFilter from "./BudgetFilter";
 
 const Budget: React.FC = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   return (
     <>
       <AccordionHeader
