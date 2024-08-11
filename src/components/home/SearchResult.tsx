@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import mapIcon from "../../assets/images/map-image.png";
-import { ApplyIcon, CloseIcon, DownArrow, FilterIcon, SortIcon } from "../icons";
+import {
+  ApplyIcon,
+  CloseIcon,
+  DownArrow,
+  FilterIcon,
+  SortIcon,
+} from "../icons";
 import SortFilter from "./SortFilter";
 import { motion } from "framer-motion";
 import { filterOptions } from "../../constants/filterOptions";
@@ -47,7 +53,7 @@ const SearchResult: React.FC = () => {
           </span>
         </p>
       </div>
-      {/* FOR MOBILE */}
+      {/* BELOW CODE MOBILE SCREEN*/}
       <div className="flex sm:hidden bg-[#f7f5dc] items-center justify-between px-5 py-2 rounded-sm mt-5">
         <div className="flex items-center">
           <img alt="Map" src={mapIcon} className="h-6 md:h-8 w-6 md:w-8" />
@@ -122,12 +128,17 @@ const SearchResult: React.FC = () => {
               animate={{ y: "0%", opacity: 1 }} // Moves to the top
               exit={{ y: "100%", opacity: 0 }} // Moves back down
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed bottom-0 overflow-y-scroll left-0 w-full h-[55%] bg-white divide-y divide-gray-100 rounded-t-[20px] shadow-lg pb-4 scrollbar-hide "
+              className="fixed bottom-0 left-0 w-full h-[90vh] bg-white divide-y divide-gray-100 rounded-t-[20px] shadow-lg overflow-y-scroll scrollbar-hide"
               id="filter-dropdown"
             >
               <div className="flex items-center justify-between py-3 px-4 bg-gray-100">
-                <p className="sm:text-xl flex items-center gap-2"><CloseIcon onClick={handleClose} /> Filters</p>
-                <p className="text-xs">Clear All</p>
+                <p className="sm:text-xl flex items-center gap-2">
+                  <CloseIcon onClick={handleClose} />
+                  Filters
+                </p>
+                <p className="text-xs cursor-pointer" onClick={handleClose}>
+                  Clear All
+                </p>
               </div>
               <Budget />
               {filterOptions?.map((option) => (
