@@ -21,7 +21,7 @@ export const filterOptions = [
       id: 4,
       filterName: "Amenities",
       filterItems: ["Parking", "Lift", "Gym", "Swimming Pool", "Power Backup"],
-      isOpen: false
+      isOpen: true
     },
     {
       id: 5,

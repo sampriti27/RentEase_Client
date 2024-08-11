@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import mapIcon from "../../assets/images/map-image.png";
-import { DownArrow, FilterIcon, SortIcon } from "../icons";
+import { ApplyIcon, CloseIcon, DownArrow, FilterIcon, SortIcon } from "../icons";
 import SortFilter from "./SortFilter";
 import { motion } from "framer-motion";
+import { filterOptions } from "../../constants/filterOptions";
+import Accordion from "./Accordion";
+import Budget from "./Budget";
 
 const SearchResult: React.FC = () => {
   const [sortOptionOpen, setSortOptionOpen] = useState<boolean>(false);
+  const [filterOptionOpen, setFilterOptionOpen] = useState<boolean>(false);
+
+  const handleClose = () => {
+    setFilterOptionOpen(false);
+  };
 
   return (
     <div className="text-sky-950 font-medium">
@@ -69,16 +77,20 @@ const SearchResult: React.FC = () => {
           </svg>
         </span>
       </div>
-      {/* FILTER */}
+      {/* FILTER + SORT*/}
       <div className="block lg:hidden mt-4">
         <div className="flex items-center justify-between">
+          {/* FILTER */}
           <button
+            onClick={() => setFilterOptionOpen(!filterOptionOpen)}
             type="button"
             className="text-gray-600 bg-white border border-gray-400 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 cursor-pointer rounded-full text-sm flex items-center py-1 px-3 me-2"
           >
             <FilterIcon />
             Filters
           </button>
+
+          {/* SORT */}
           <button
             type="button"
             onClick={() => setSortOptionOpen(!sortOptionOpen)}
@@ -96,12 +108,38 @@ const SearchResult: React.FC = () => {
                 y: sortOptionOpen ? "0%" : "-20%",
                 opacity: sortOptionOpen ? 1 : 0,
               }}
-              exit={{ scale: 0.9, y: '-20%', opacity: 0 }}  
+              exit={{ scale: 0.9, y: "-20%", opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               className="absolute right-3 mt-[170px] z-1 w-48 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-lg py-4"
               id="user-dropdown"
             >
               <SortFilter />
+            </motion.div>
+          )}
+          {filterOptionOpen && (
+            <motion.div
+              initial={{ y: "100%", opacity: 0 }} // Starts from below the viewport
+              animate={{ y: "0%", opacity: 1 }} // Moves to the top
+              exit={{ y: "100%", opacity: 0 }} // Moves back down
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed bottom-0 overflow-y-scroll left-0 w-full h-[55%] bg-white divide-y divide-gray-100 rounded-t-[20px] shadow-lg pb-4 scrollbar-hide "
+              id="filter-dropdown"
+            >
+              <div className="flex items-center justify-between py-3 px-4 bg-gray-100">
+                <p className="sm:text-xl flex items-center gap-2"><CloseIcon onClick={handleClose} /> Filters</p>
+                <p className="text-xs">Clear All</p>
+              </div>
+              <Budget />
+              {filterOptions?.map((option) => (
+                <Accordion key={option.id} option={option} />
+              ))}
+
+              <button
+                type="button"
+                className="fixed bottom-4 right-4 bg-sky-500 text-white p-3 rounded-md shadow-lg hover:bg-sky-600 transition-colors duration-300"
+              >
+                <ApplyIcon />
+              </button>
             </motion.div>
           )}
         </div>
