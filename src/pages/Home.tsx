@@ -8,7 +8,7 @@ import {
 
 const Home: React.FC = () => {
   return (
-    <div className="w-full px-4 xl:px-36">
+    <div className="w-full px-1 md:px-3 xl:px-36">
       <Breadcrumb />
       <div className="w-full  flex gap-4">
         <div className="hidden lg:block  md:w-1/4 mb-12">

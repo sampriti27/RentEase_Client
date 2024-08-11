@@ -3,33 +3,34 @@ import logo from "../../../assets/rentease_white.png";
 import logo_icon from "../../../assets/RentEase_Icon.png";
 import Search from "../Search";
 import Button from "../buttons/Button";
+import { motion } from "framer-motion";
 
 const Navbar: React.FC = () => {
   const [openUserMenu, setOpenUserMenu] = useState<boolean>(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      userMenuRef.current &&
-      !userMenuRef.current.contains(event.target as Node)
-    ) {
-      setOpenUserMenu(false);
-    }
-  };
+  const userMenuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (openUserMenu) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node) &&
+        userMenuButtonRef.current &&
+        !userMenuButtonRef.current.contains(event.target as Node)
+      ) {
+        setOpenUserMenu(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [openUserMenu]);
+  }, []);
 
   return (
-    <div className="sticky z-10 top-0 bg-sky-700 border-gray-200 w-full flex items-center justify-between mx-auto py-4  px-2 sm:px-8 h-[72px]">
+    <div className="sticky z-10 top-0 bg-sky-700 border-gray-200 w-full flex items-center justify-between py-4  px-2 sm:px-8 h-[72px]">
+      {/* LOGO */}
       <div className="w-1/8 h-full flex items-center">
         <a
           href="https://rent-ease-client-two.vercel.app/"
@@ -43,32 +44,22 @@ const Navbar: React.FC = () => {
           />
         </a>
       </div>
-
+      {/* SEARCH BAR */}
       <div
         className="items-center justify-between flex w-60 sm:w-1/2 px-4 sm:px-0"
         id="navbar-user"
       >
         <Search />
       </div>
-      <div className="flex md:w-1/4 items-center px:2 lg:px-4 relative  justify-between">
-        <div className="w-2/3 lg:w-1/2  hidden sm:block">
+      {/* POST PROPERTY + USER ICON */}
+      <div className="flex items-center gap-4">
+        <div className="hidden md:block">
           <Button
             text="Post Property"
-            icon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                className="size-5 text-sky-700"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-                />
-              </svg>
+            badge={
+              <span className="bg-green-800 text-green-100 text-[9px] font-medium me-2 px-1 rounded ">
+                FREE
+              </span>
             }
             iconPosition="right"
           />
@@ -79,7 +70,11 @@ const Navbar: React.FC = () => {
           id="user-menu-button"
           aria-expanded={openUserMenu}
           aria-controls="user-dropdown"
-          onClick={() => setOpenUserMenu(!openUserMenu)}
+          ref={userMenuButtonRef}
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpenUserMenu(!openUserMenu);
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +107,15 @@ const Navbar: React.FC = () => {
         </button>
 
         {openUserMenu && (
-          <div
+          <motion.div
+            initial={{ scale: 0.9, y: "-20%", opacity: 0 }}
+            animate={{
+              scale: openUserMenu ? 1 : 0.9,
+              y: openUserMenu ? "0%" : "-20%",
+              opacity: openUserMenu ? 1 : 0,
+            }}
+            exit={{ scale: 0.9, y: "-20%", opacity: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
             ref={userMenuRef}
             className="absolute right-0 mt-[272px] z-50 w-48 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow"
             id="user-dropdown"
@@ -149,13 +152,16 @@ const Navbar: React.FC = () => {
               </li>
               <li>
                 <div className="border-t border-gray-100 pt-4 px-4">
-                  <button className="block w-full px-4 py-2 text-sm text-sky-900 bg-sky-100  font-medium rounded-lg hover:text-white hover:bg-sky-600 transition ease-in ">
-                    Post Property
+                  <button className="flex item-center w-full px-4 py-2 text-xs text-sky-900 bg-sky-100  font-medium rounded-lg hover:text-white hover:bg-sky-600 transition ease-in ">
+                    Post Property{" "}
+                    <span className="bg-green-800 text-green-100 text-[9px] font-medium ms-2 px-1 rounded ">
+                      FREE
+                    </span>
                   </button>
                 </div>
               </li>
             </ul>
-          </div>
+          </motion.div>
         )}
       </div>
     </div>
