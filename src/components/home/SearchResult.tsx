@@ -128,7 +128,7 @@ const SearchResult: React.FC = () => {
               animate={{ y: "0%", opacity: 1 }} // Moves to the top
               exit={{ y: "100%", opacity: 0 }} // Moves back down
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed bottom-0 left-0 w-full h-[100vh] z-50 bg-white divide-y divide-gray-100  shadow-lg overflow-y-scroll scrollbar-hide"
+              className="fixed bottom-0 left-0 w-full h-[90vh] z-50 bg-white divide-y divide-gray-100  shadow-lg overflow-y-scroll scrollbar-hide"
               id="filter-dropdown"
             >
               <div className="flex items-center justify-between py-3 px-4 bg-gray-100">
