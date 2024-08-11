@@ -54,7 +54,7 @@ const SearchResult: React.FC = () => {
         </p>
       </div>
       {/* BELOW CODE MOBILE SCREEN*/}
-      <div className="flex sm:hidden bg-[#f7f5dc] items-center justify-between px-5 py-2 rounded-sm mt-5">
+      <div className="flex sm:hidden bg-[#f7f5dc] items-center justify-between px-2 py-2 rounded-sm mt-5">
         <div className="flex items-center">
           <img alt="Map" src={mapIcon} className="h-6 md:h-8 w-6 md:w-8" />
           <p className="text-[13px] ms-2">
@@ -128,7 +128,7 @@ const SearchResult: React.FC = () => {
               animate={{ y: "0%", opacity: 1 }} // Moves to the top
               exit={{ y: "100%", opacity: 0 }} // Moves back down
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed bottom-0 left-0 w-full h-[95vh] z-50 bg-white divide-y divide-gray-100  shadow-lg overflow-y-scroll scrollbar-hide"
+              className="fixed bottom-0 left-0 w-full h-full z-50 bg-white divide-y divide-gray-100  shadow-lg overflow-y-scroll scrollbar-hide"
               id="filter-dropdown"
             >
               <div className="flex items-center justify-between py-3 px-4 bg-gray-100">
