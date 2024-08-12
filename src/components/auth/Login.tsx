@@ -2,7 +2,10 @@ import React from "react";
 import { Label, Input } from "../shared/form";
 import Button from "../shared/buttons/Button";
 
-const Login: React.FC = () => {
+interface Props {
+  setAuth: React.Dispatch<React.SetStateAction<string>>;
+}
+const Login: React.FC<Props> = ({ setAuth }) => {
   return (
     <>
       <div className="w-full">
@@ -14,7 +17,10 @@ const Login: React.FC = () => {
           <Button text="Login" isDark={true} />
           <p className="text-xs mt-2 ml-2">
             Not Registered?{" "}
-            <span className="text-sky-700 cursor-pointer hover:underline underline-offset-2">
+            <span
+              className="text-sky-500 cursor-pointer hover:underline underline-offset-2"
+              onClick={() => setAuth("register")}
+            >
               Create an account
             </span>
           </p>

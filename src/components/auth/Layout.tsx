@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { CloseIcon } from "../icons";
 import Login from "./Login";
 import { motion } from "framer-motion";
+import Register from "./Register";
 
 interface Props {
   openAuthModal: boolean;
@@ -11,6 +12,7 @@ const Layout: React.FC<Props> = ({ setOpenAuthModal, openAuthModal }) => {
   const handleClose = () => {
     setOpenAuthModal(false);
   };
+  const [auth, setAuth] = useState<string>("login");
   return (
     <motion.div
       initial={{ scale: 0.9, y: "-20%", opacity: 0 }}
@@ -30,8 +32,12 @@ const Layout: React.FC<Props> = ({ setOpenAuthModal, openAuthModal }) => {
       <div className="w-full text-sky-950">
         {/* Heading  */}
         <h3 className="font-medium text-2xl">Login / Register</h3>
-        {/* Login Component  */}
-        <Login />
+        {/* Login / Register Component  */}
+        {auth === "login" ? (
+          <Login setAuth={setAuth} />
+        ) : (
+          <Register setAuth={setAuth} />
+        )}
       </div>
     </motion.div>
   );
