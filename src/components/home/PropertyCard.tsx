@@ -45,11 +45,7 @@ const PropertyCard: React.FC = () => {
             <div className="w-1/3 h-full">
               <p className="text-sm md:text-lg text-gray-800 font-semibold">
                 {" "}
-                &#8377; 29.07 - 31.09 Lac
-              </p>
-              <p className="text-xs md:text-sm text-gray-500">
-                {" "}
-                &#8377; 3800 / sqft
+                &#8377; 30K - 35K
               </p>
             </div>
 
