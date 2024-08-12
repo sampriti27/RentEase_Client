@@ -133,7 +133,7 @@ const SearchResult: React.FC = () => {
             >
               <div className="flex items-center justify-between py-3 px-4 bg-gray-100">
                 <p className="sm:text-xl flex items-center gap-2">
-                  <CloseIcon onClick={handleClose} />
+                  <CloseIcon onClick={handleClose} size={4} />
                   Filters
                 </p>
                 <p className="text-xs cursor-pointer" onClick={handleClose}>

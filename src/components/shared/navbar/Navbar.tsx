@@ -5,7 +5,12 @@ import Search from "../Search";
 import Button from "../buttons/Button";
 import { motion } from "framer-motion";
 
-const Navbar: React.FC = () => {
+interface Props {
+  openAuthModal: boolean;
+  setOpenAuthModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Navbar: React.FC<Props> = ({ openAuthModal, setOpenAuthModal }) => {
   const [openUserMenu, setOpenUserMenu] = useState<boolean>(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
   const userMenuButtonRef = useRef<HTMLButtonElement>(null);
@@ -120,7 +125,13 @@ const Navbar: React.FC = () => {
             className="absolute right-0 mt-[272px] z-50 w-48 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow"
             id="user-dropdown"
           >
-            <div className="px-4 py-3 hover:bg-gray-50 rounded-lg">
+            <div
+              className="px-4 py-3 hover:bg-gray-50 rounded-lg"
+              onClick={() => {
+                setOpenAuthModal(!openAuthModal);
+                setOpenUserMenu(false);
+              }}
+            >
               <span className="block font-medium text-sm text-sky-700 truncate cursor-pointer">
                 LOGIN/REGISTER
               </span>

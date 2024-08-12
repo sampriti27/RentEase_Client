@@ -2,16 +2,17 @@ import React from "react";
 
 interface CloseIconProps {
   onClick?: () => void;
+  size: number;
 }
 
-const CloseIcon: React.FC<CloseIconProps> = ({ onClick }) => (
+const CloseIcon: React.FC<CloseIconProps> = ({ onClick, size }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
     stroke-width="1.5"
     stroke="currentColor"
-    className="size-4"
+    className={`size-${size} cursor-pointer`}
     onClick={onClick}
   >
     <path
