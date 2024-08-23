@@ -4,6 +4,7 @@ import logo_icon from "../../../assets/RentEase_Icon.png";
 import Search from "../Search";
 import Button from "../buttons/Button";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const [openUserMenu, setOpenUserMenu] = useState<boolean>(false);
@@ -127,12 +128,12 @@ const Navbar: React.FC = () => {
             </div>
             <ul className="py-2" aria-labelledby="user-menu-button">
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/profile/landlord"
                   className="block px-4 py-2 text-sm text-text-color hover:bg-gray-50"
                 >
                   For LandLords
-                </a>
+                </Link>
               </li>
               <li>
                 <a

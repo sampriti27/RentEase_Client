@@ -1,9 +1,9 @@
 
-const LandlordDashboard = () => {
+const LandlordDashboard: React.FC = () => {
   return (
-    <>
-      <h1>heloo this is dashboard</h1>
-    </>
+    <div className="px-4 py-14">
+      This is Dashbaord
+    </div>
   );
 };
 

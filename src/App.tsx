@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "./components/shared/navbar/Navbar";
 import Home from "./pages/Home";
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
-import { LandlordDashboard, LandlordLayout, LandlordProfile, LandlordProperties } from "./pages/landlord";
+import { AddProperties, LandlordDashboard, LandlordLayout, LandlordProfile, LandlordProperties, LandlordTenants } from "./pages/landlord";
 
 function App() {
   return (
@@ -17,8 +17,10 @@ function App() {
         {/* Landlord Routes with Sidebar */}
         <Route path="/profile/landlord" element={<LandlordLayout />}>
           <Route index element={<LandlordDashboard />} /> {/* Default to Dashboard */}
-          <Route path="profile" element={<LandlordProfile />} />
+          <Route path=":id" element={<LandlordProfile />} />
           <Route path="properties" element={<LandlordProperties />} />
+          <Route path="tenants" element={<LandlordTenants />} />
+          <Route path="add-property" element={<AddProperties />} />
         </Route>
       </Routes>
     </Router>
