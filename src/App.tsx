@@ -7,7 +7,7 @@ import { AddProperties, LandlordDashboard, LandlordLayout, LandlordProfile, Land
 import Layout from "./components/auth/Layout";
 
 function App() {
-
+  
   return (
     <Router>
       <Routes>
