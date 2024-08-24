@@ -24,7 +24,7 @@ const Layout: React.FC<Props> = ({ setOpenAuthModal, openAuthModal }) => {
       }}
       exit={{ scale: 0.9, x: "-50%", y: "-50%", opacity: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className="w-[420px] bg-white p-4 rounded-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+      className="w-[90vw] md:w-[420px] max-w-[95vw] bg-white p-4 rounded-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
     >
       <div className="w-full flex justify-end">
         <CloseIcon size={6} onClick={handleClose} />
