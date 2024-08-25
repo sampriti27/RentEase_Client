@@ -64,5 +64,5 @@ export interface AllPropertyAPIResponse {
   message: string;
   success: boolean;
   status: string;
-  allProperties: PropertyDetails[];
+  data: PropertyDetails[];
 }

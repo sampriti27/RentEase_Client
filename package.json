@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^1.7.5",
     "client": "file:",
+    "date-fns": "^3.6.0",
     "framer-motion": "^11.3.24",
     "notistack": "^3.0.1",
     "react": "^18.3.1",
