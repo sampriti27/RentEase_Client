@@ -59,3 +59,10 @@ export interface PropertyDetails {
     joinedDate: string;
   };
 }
+
+export interface AllPropertyAPIResponse {
+  message: string;
+  success: boolean;
+  status: string;
+  allProperties: PropertyDetails[];
+}

@@ -11,5 +11,4 @@ const api = axios.create({
 });
 
 //List of all api endpoints
-export const getAllProperties = () =>
-  api.get("/api/v1/real-estate/properties/filter");
+export const getAllProperties = () => api.get("/api/v1/real-estate/properties/filter");

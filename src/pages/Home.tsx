@@ -7,21 +7,23 @@ import {
 } from "../components/home";
 import { useQuery } from "react-query";
 import { getAllProperties } from "../http";
-import { PropertyDetails } from "../types";
+import { AxiosResponse } from "axios";
+import { AllPropertyAPIResponse } from "../types";
 
-interface PropertyApiResponse {
-  message: string;
-  success: boolean;
-  status: string;
-  allProperties: PropertyDetails[];
-}
+
 const Home: React.FC = () => {
-  const { isPending, isError, data, error } = useQuery<PropertyApiResponse>({
+
+
+  const { isError, data: properties, error } = useQuery({
     queryKey: ["properties"],
-    queryFn: getAllProperties,
+    retry: 3,
+    queryFn: async (): Promise<AxiosResponse<AllPropertyAPIResponse>> => { // Function to fetch rooms data
+      return await getAllProperties();
+    },
   });
 
-  console.log(data);
+
+  console.log(properties);
   return (
     <div className="w-full px-1 md:px-3 xl:px-36">
       <Breadcrumb />
