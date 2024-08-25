@@ -5,8 +5,23 @@ import {
   SearchResult,
   PropertyCard,
 } from "../components/home";
+import { useQuery } from "react-query";
+import { getAllProperties } from "../http";
+import { PropertyDetails } from "../types";
 
+interface PropertyApiResponse {
+  message: string;
+  success: boolean;
+  status: string;
+  allProperties: PropertyDetails[];
+}
 const Home: React.FC = () => {
+  const { isPending, isError, data, error } = useQuery<PropertyApiResponse>({
+    queryKey: ["properties"],
+    queryFn: getAllProperties,
+  });
+
+  console.log(data);
   return (
     <div className="w-full px-1 md:px-3 xl:px-36">
       <Breadcrumb />
