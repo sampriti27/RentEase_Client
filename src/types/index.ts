@@ -26,6 +26,7 @@ export interface PropertyFormData {
 
 export interface PropertyDetails {
   propertyId: string;
+  name: string;
   address: string;
   city: string;
   state: string;
