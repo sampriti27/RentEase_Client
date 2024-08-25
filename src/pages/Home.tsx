@@ -12,9 +12,7 @@ import { AllPropertyAPIResponse, PropertyDetails } from "../types";
 
 const Home: React.FC = () => {
   const {
-    isError,
     data: properties,
-    error,
     isLoading,
   } = useQuery({
     queryKey: ["properties"],
