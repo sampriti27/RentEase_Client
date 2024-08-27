@@ -6,6 +6,9 @@ import ConfigurationCard from "../components/property/ConfigurationCard";
 import Highlights from "../components/property/Highlights";
 import AmenitiesItem from "../components/property/AmenitiesItem";
 import { desc } from "../constants/propertyDescription";
+import alarm from "../assets/images/bell_8967963.png";
+import staff from "../assets/images/technician_17474326.png";
+import van from "../assets/images/van_963684.png";
 
 const PropertyDetails: React.FC = () => {
   const location = useLocation();
@@ -112,6 +115,24 @@ const PropertyDetails: React.FC = () => {
               {desc}
             </p>
           )}
+        </div>
+        {/* Features Section  */}
+        <div className="text-gray-500 border-t-2 border-t-gray-300 border-b-2 border-b-gray-300  py-4 lg:py-8">
+          <p className=" font-medium text-lg ">Features</p>
+          <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
+            <div className="flex items-center gap-2">
+              <img src={alarm} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
+              <p className="text-sm md:text-base">Security / Fire Alarm</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <img src={staff} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
+              <p className="text-sm md:text-base">Maintenance Staff</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <img src={van} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
+              <p className="text-sm md:text-base ">Waste Disposal</p>
+            </div>
+          </div>
         </div>
       </div>
     </>
