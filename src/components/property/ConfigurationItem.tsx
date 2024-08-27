@@ -14,12 +14,12 @@ const ConfigurationItem: React.FC<Props> = ({
 }) => {
   return (
     <div className="p-2">
-      <div className="flex items-center gap-1">
-        <img src={imgsrc} alt="configurationIcon" className="h-7 w-7" />
+      <div className="flex items-start gap-2">
+        <img src={imgsrc} alt="configurationIcon" className="w-6" />
         <p className="text-gray-400">{title}</p>
       </div>
-      <p className="text-gray-800 font-medium">{content}</p>
-      <span className="text-sm">{subcontent}</span>
+      <p className="text-gray-700 font-medium text-[15px] mt-1">{content}</p>
+      <span className="text-[14px]">{subcontent}</span>
     </div>
   );
 };
