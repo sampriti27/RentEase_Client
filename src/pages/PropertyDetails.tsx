@@ -4,6 +4,7 @@ import { PropertyDetails as PropertyDetailsType } from "../types";
 import ImageCarousel from "../components/property/ImageCarousel";
 import ConfigurationCard from "../components/property/ConfigurationCard";
 import Highlights from "../components/property/Highlights";
+import AmenitiesItem from "../components/property/AmenitiesItem";
 
 const PropertyDetails: React.FC = () => {
   const location = useLocation();
@@ -67,6 +68,19 @@ const PropertyDetails: React.FC = () => {
             Why you should consider this property?
           </h3>
           <Highlights />
+        </div>
+        {/* Amenities Section  */}
+        <div className="mt-8 lg:mt-16 mb-16 border-t-2 border-t-gray-300 border-b-2 border-b-gray-300  py-4 lg:py-8">
+          <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-2 auto-cols-fr">
+            <AmenitiesItem title="Transaction Type" content="Resale" />
+            <AmenitiesItem title="Pet Friendly" content="Yes" />
+            <AmenitiesItem title="Property Ownership" content="Freehold" />
+            <AmenitiesItem title="Water Source" content="24*7 Water" />
+            <AmenitiesItem title="Furnishing" content="Unfurnished" />
+            <AmenitiesItem title="Power Backup" content="None" />
+            <AmenitiesItem title="Corner Property" content="Yes" />
+            <AmenitiesItem title="Property Code" content="D75936497" />
+          </div>
         </div>
       </div>
     </>
