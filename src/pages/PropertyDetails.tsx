@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { PropertyDetails as PropertyDetailsType } from "../types";
 import ImageCarousel from "../components/property/ImageCarousel";
 import ConfigurationCard from "../components/property/ConfigurationCard";
+import Highlights from "../components/property/Highlights";
 
 const PropertyDetails: React.FC = () => {
   const location = useLocation();
@@ -14,12 +15,12 @@ const PropertyDetails: React.FC = () => {
 
   return (
     <>
-      <div className="w-full px-1 md:px-3 xl:px-36 ">
-        <div className="text-xs text-gray-400 flex items-center justify-between py-2 px-4">
+      <div className="w-full px-4 sm:px-8  xl:px-36 ">
+        <div className="text-xs text-gray-400 flex items-center justify-between py-2">
           <p>Home</p>
           <p>Posted on Aug 22, 2024 | Ready to move</p>
         </div>
-        <div className="px-4 sm:px-0 mt-4 flex justify-start sm:justify-normal">
+        <div className="mt-4 flex justify-start sm:justify-normal">
           {/* Property Price  */}
           <div className="w-1/4 h-full">
             <p className="text-base  sm:text-2xl lg:text-3xl text-gray-500 font-semibold">
@@ -49,8 +50,9 @@ const PropertyDetails: React.FC = () => {
         </div>
 
         {/* Horizontal Divider */}
-        <div className="hidden sm:block px-4 sm:px-0 border-b border-gray-300 my-4"></div>
-        <div className="mt-2 sm:mt-0 flex flex-col lg:flex-row gap-8 lg:gap-4 items-center">
+        <div className="hidden sm:block  border-b border-gray-300 my-4"></div>
+        {/* Images and configuration section  */}
+        <div className="mt-2   sm:mt-0 flex flex-col lg:flex-row gap-8 lg:gap-4 items-center">
           <div className="w-full lg:w-1/2">
             <ImageCarousel />
           </div>
@@ -58,6 +60,13 @@ const PropertyDetails: React.FC = () => {
           <div className="w-full lg:w-1/2">
             <ConfigurationCard />
           </div>
+        </div>
+        {/* Highlight Section  */}
+        <div className="mt-8 lg:mt-16">
+          <h3 className="font-medium text-lg text-center lg:text-left">
+            Why you should consider this property?
+          </h3>
+          <Highlights />
         </div>
       </div>
     </>
