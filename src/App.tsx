@@ -3,7 +3,7 @@ import Navbar from "./components/shared/navbar/Navbar";
 import Home from "./pages/Home";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
-import { AddProperties, LandlordDashboard, LandlordLayout, LandlordProfile, LandlordProperties, LandlordTenants } from "./pages/landlord";
+import { AddProperties, LandlordDashboard, LandlordLayout, LandlordProfile, LandlordProperties, LandlordTenants, SingleProperty } from "./pages/landlord";
 import Layout from "./components/auth/Layout";
 
 function App() {
@@ -22,6 +22,7 @@ function App() {
           <Route index element={<LandlordDashboard />} /> {/* Default to Dashboard */}
           <Route path=":id" element={<LandlordProfile />} />
           <Route path="properties" element={<LandlordProperties />} />
+          <Route path="properties/:propertyId" element={<SingleProperty />} />
           <Route path="tenants" element={<LandlordTenants />} />
           <Route path="add-property" element={<AddProperties />} />
         </Route>
