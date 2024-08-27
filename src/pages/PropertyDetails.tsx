@@ -1,19 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { PropertyDetails as PropertyDetailsType } from "../types";
 import ImageCarousel from "../components/property/ImageCarousel";
 import ConfigurationCard from "../components/property/ConfigurationCard";
 import Highlights from "../components/property/Highlights";
 import AmenitiesItem from "../components/property/AmenitiesItem";
+import { desc } from "../constants/propertyDescription";
 
 const PropertyDetails: React.FC = () => {
   const location = useLocation();
   const property = location.state?.property as PropertyDetailsType;
-
+  const [showFullDescription, setShowFullDescription] =
+    useState<boolean>(false);
   if (!property) {
     return <div>No property details available.</div>;
   }
-
+  const words = desc.split(" ");
+  const description =
+    words.length > 100 ? words.slice(0, 100).join(" ") + "..." : desc;
   return (
     <>
       <div className="w-full px-4 sm:px-8  xl:px-36 ">
@@ -70,7 +74,7 @@ const PropertyDetails: React.FC = () => {
           <Highlights />
         </div>
         {/* Amenities Section  */}
-        <div className="mt-8 lg:mt-16 mb-16 border-t-2 border-t-gray-300 border-b-2 border-b-gray-300  py-4 lg:py-8">
+        <div className="mt-8 lg:mt-16 border-t-2 border-t-gray-300 border-b-2 border-b-gray-300  py-4 lg:py-8">
           <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-2 auto-cols-fr">
             <AmenitiesItem title="Transaction Type" content="Resale" />
             <AmenitiesItem title="Pet Friendly" content="Yes" />
@@ -81,6 +85,33 @@ const PropertyDetails: React.FC = () => {
             <AmenitiesItem title="Corner Property" content="Yes" />
             <AmenitiesItem title="Property Code" content="D75936497" />
           </div>
+        </div>
+        {/* Property-Description Section  */}
+        <div className="py-4 lg:py-8 text-gray-500">
+          <p className=" font-medium text-lg">About Property</p>
+          <p className="mt-2 tracking-tight text-sm">
+            <span className="text-base font-medium">Address:</span> Chiria
+            bagan, Kolkata North, Kolkata
+          </p>
+
+          {words.length >= 100 && !showFullDescription && (
+            <>
+              <p className="text-sm tracking-tighter mt-2 text-justify text-gray-500">
+                {description}
+              </p>
+              <span
+                className="text-sm cursor-pointer hover:underline underline-offset-2"
+                onClick={() => setShowFullDescription(!showFullDescription)}
+              >
+                More &#8811;
+              </span>
+            </>
+          )}
+          {showFullDescription && (
+            <p className="text-sm tracking-tighter mt-2 text-justify text-gray-500">
+              {desc}
+            </p>
+          )}
         </div>
       </div>
     </>
