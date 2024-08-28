@@ -2,7 +2,7 @@ import axios from "axios";
 
 //axios instance
 const api = axios.create({
-  baseURL: "https://renteasebackend-production.up.railway.app",
+  baseURL: import.meta.env.VITE_BASE_URL,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",

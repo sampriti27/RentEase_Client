@@ -67,3 +67,10 @@ export interface AllPropertyAPIResponse {
   status: string;
   data: PropertyDetails[];
 }
+
+export interface PropertyUpdateForm {
+  rent : number,
+  deposit: number,
+  availabilityStatus: string;
+  photos: string[];
+}
