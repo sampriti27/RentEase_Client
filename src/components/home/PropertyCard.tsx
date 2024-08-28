@@ -6,6 +6,7 @@ import TenantTypeBadge from "../shared/badges/TenantTypeBadge";
 import { PropertyDetails } from "../../types";
 import { formatDistance, subDays, parseISO } from "date-fns";
 import ContactIcon from "../icons/ContactIcon";
+import { Link } from "react-router-dom";
 
 interface Props {
   item: PropertyDetails;
@@ -19,7 +20,9 @@ const PropertyCard: React.FC<Props> = ({ item }) => {
   );
   // display only partial description
   const truncatedDescription =
-    item.description.split(" ").slice(0, 30).join(" ") + "...";
+    item.description.split(" ").length > 30
+      ? item.description.split(" ").slice(0, 30).join(" ") + "..."
+      : item.description;
   return (
     <div className="w-full md:h-[328px] bg-white rounded-lg border shadow-md p-4 flex flex-col sm:flex-row items-center gap-2 my-6">
       {/* Prroperty Image  */}
@@ -90,7 +93,13 @@ const PropertyCard: React.FC<Props> = ({ item }) => {
             </p>
           </div>
           <div className="w-full sm:w-2/3  flex items-center  sm:justify-center gap-2 mt-2 sm:mt-0">
-            <Button text="View Details" />
+            <Link
+              to={`/properties/${item.propertyId}`}
+              state={{ property: item }}
+              className="w-full"
+            >
+              <Button text="View Details" />
+            </Link>
             <Button
               text="Contact"
               icon={<ContactIcon />}

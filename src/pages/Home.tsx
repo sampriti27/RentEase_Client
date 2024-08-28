@@ -9,12 +9,10 @@ import { useQuery } from "react-query";
 import { getAllProperties } from "../http";
 import { AxiosResponse } from "axios";
 import { AllPropertyAPIResponse, PropertyDetails } from "../types";
+import SkeletonLoader from "../components/loader/Skeleton";
 
 const Home: React.FC = () => {
-  const {
-    data: properties,
-    isLoading,
-  } = useQuery({
+  const { data: properties, isLoading } = useQuery({
     queryKey: ["properties"],
     retry: 3,
     queryFn: async (): Promise<AxiosResponse<AllPropertyAPIResponse>> => {
@@ -35,7 +33,12 @@ const Home: React.FC = () => {
         <div className="w-full lg:w-3/4 px-2 pt-2">
           <SearchResult />
           {isLoading ? (
-            <div>Loading</div>
+            <div className="w-full h-[calc(100vh-160px)] mt-4 flex flex-col gap-6">
+              {/* Skeleton loader for PropertyCards */}
+              {[...Array(3)].map((_, index) => (
+                <SkeletonLoader key={index} />
+              ))}
+            </div>
           ) : (
             <div className="w-full h-[calc(100vh-160px)] mt-4">
               {properties?.data?.data?.map((item: PropertyDetails) => (
