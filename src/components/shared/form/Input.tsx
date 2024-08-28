@@ -18,11 +18,6 @@ const Input: React.FC<Props> = ({ type, label }) => {
         </label>
       </div>
     </div>
-    //     <input
-    //       type="text"
-    //       placeholder="EmailId/Username"
-    //       className="w-full p-4 border rounded-sm my-4 outline-none focus:ring-sky-700 focus:border-sky-700 cursor-pointer"
-    //     ></input>
   );
 };
 
