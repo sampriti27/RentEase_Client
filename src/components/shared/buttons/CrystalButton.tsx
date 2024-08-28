@@ -18,15 +18,11 @@ const CrystalButton: React.FC<Props> = ({
   badge,
   page,
 }) => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const handleClick = () => {
     if (page) {
       navigate(`${page}`);
     }
-  };
-
-  // Determine if the text starts with 'update' (case-insensitive)
-  const isUpdate = text.toLowerCase().startsWith("update");
   };
 
   // Determine if the text starts with 'update' (case-insensitive)
@@ -37,8 +33,11 @@ const CrystalButton: React.FC<Props> = ({
       type="button"
       onClick={handleClick}
       className={`flex items-center
-        ${isUpdate ? `bg-orange-100 hover:bg-orange-200 text-orange-500` : 
-          isDark ? `bg-blue-100 hover:bg-blue-200 text-blue-500` 
+        ${
+          isUpdate
+            ? `bg-orange-100 hover:bg-orange-200 text-orange-500`
+            : isDark
+            ? `bg-blue-100 hover:bg-blue-200 text-blue-500`
             : `text-blue-600 hover:bg-blue-100 border border-blue-500`
         }
         font-medium rounded-md px-4 py-2`}
