@@ -38,8 +38,8 @@ const Navbar: React.FC<Props> = ({ openAuthModal, setOpenAuthModal }) => {
     <div className="sticky z-10 top-0 bg-sky-700 border-gray-200 w-full flex items-center justify-between py-4  px-2 sm:px-8 h-[72px]">
       {/* LOGO */}
       <div className="w-1/8 h-full flex items-center">
-        <a
-          href="https://rent-ease-client-two.vercel.app/"
+        <Link
+          to="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
           <img src={logo} className="hidden sm:block h-4" alt="RentEase Logo" />
@@ -48,7 +48,7 @@ const Navbar: React.FC<Props> = ({ openAuthModal, setOpenAuthModal }) => {
             className="block sm:hidden h-8"
             alt="RentEase Logo"
           />
-        </a>
+        </Link>
       </div>
       {/* SEARCH BAR */}
       <div

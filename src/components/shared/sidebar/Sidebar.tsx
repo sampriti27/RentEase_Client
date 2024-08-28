@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import logo from "../../../assets/images/download.svg";
 import { motion } from "framer-motion";
@@ -10,6 +10,7 @@ interface SideBarProps {
 
 const Sidebar = ({ children }: SideBarProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -44,7 +45,7 @@ const Sidebar = ({ children }: SideBarProps) => {
       {/* Sidebar for Large Screens */}
       <div className="hidden md:flex fixed w-20 h-screen p-4 bg-white border-r-[1px] flex flex-col justify-between">
         <div className="flex flex-col justify-start items-center gap-2">
-          <Link to="/">
+          <Link to="/profile/landlord">
             <div
               className="bg-blue-500 hover:bg-blue-400 rounded-lg text-white p-1 flex justify-center items-center"
               data-tooltip-id="rentease"
@@ -206,7 +207,7 @@ const Sidebar = ({ children }: SideBarProps) => {
           transition={{ type: "tween", duration: 0.5 }} // Control the smoothness
           >
             <div className="flex justify-between items-center mb-4">
-              <img src={logo} alt="main-icon" className="w-36 mt-1" />
+              <img onClick={() => navigate("/profile/landlord")} src={logo} alt="main-icon" className="w-36 mt-1" />
               <button
                 onClick={toggleSidebar}
                 className="text-blue-700 focus:outline-none"

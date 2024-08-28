@@ -13,7 +13,9 @@ const LandlordProperties: React.FC = () => {
         isDark={true}
         page="/profile/landlord/add-property"
       />
-      <PropertyTable />
+      <div>
+        <PropertyTable />
+      </div>
     </div>
   );
 };

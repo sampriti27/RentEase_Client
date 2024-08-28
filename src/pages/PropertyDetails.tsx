@@ -171,7 +171,7 @@ const PropertyDetails: React.FC = () => {
           )}
         </div>
         {/* Owner Details and Enquiry Form Section  */}
-        <div className=" w-full bg-white shadow-sm flex flex-col md:flex-row items-center">
+        <div className=" w-full bg-white shadow-sm flex flex-col md:flex-row items-center mb-10">
           <div className="w-full md:w-1/2 p-8">
             <OwnerDetails />
           </div>

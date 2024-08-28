@@ -8,7 +8,11 @@ import ConfigurationCard from "../../components/property/ConfigurationCard";
 import Highlights from "../../components/property/Highlights";
 import CrystalButton from "../../components/shared/buttons/CrystalButton";
 import { motion } from "framer-motion";
+import { amenitiesIcon } from "../../constants/ammenties";
 import UpdateProperty from "../../components/landlord/UpdateProperty";
+import alarm from "../../assets/images/bell_8967963.png";
+import staff from "../../assets/images/technician_17474326.png";
+import van from "../../assets/images/van_963684.png";
 
 const SingleProperty: React.FC = () => {
   const navigate = useNavigate();
@@ -66,8 +70,8 @@ const SingleProperty: React.FC = () => {
           </div>
         </div>
 
-        <div className="w-full">
-          <div className="text-sm text-gray-400 flex items-center justify-between py-2">
+        <div className="w-full px-4">
+          <div className="text-xs text-gray-400 flex items-center justify-between py-2">
             <p>Landlord &gt; Properties &gt; Luxury Apartment </p>
             <p>Posted on Aug 22, 2024 | Ready to move</p>
           </div>
@@ -119,6 +123,74 @@ const SingleProperty: React.FC = () => {
             </h3>
             <Highlights />
           </div>
+
+ {/* Furniture Section  */}
+ <div className="mt-8 lg:mt-16 text-gray-500 border-t-2 border-t-gray-300  py-4 lg:py-8">
+          <p className=" font-medium text-lg ">Semi-Furnished</p>
+          <p className="tracking-tight mt-1">Furnishing Details</p>
+          <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
+            <div className="flex items-center gap-2">
+              <img
+                src={amenitiesIcon["Television"]}
+                alt="tv"
+                className="w-4 h-4 md:w-7 md:h-7"
+              />
+              <p className="text-sm md:text-base">Television</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <img
+                src={amenitiesIcon["Air conditioning"]}
+                alt="tv"
+                className="w-4 h-4 md:w-7 md:h-7"
+              />
+              <p className="text-sm md:text-base">Air conditioning</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <img
+                src={amenitiesIcon["Bed"]}
+                alt="tv"
+                className="w-4 h-4 md:w-7 md:h-7"
+              />
+              <p className="text-sm md:text-base">Bed</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <img
+                src={amenitiesIcon["Refrigerator"]}
+                alt="tv"
+                className="w-4 h-4 md:w-7 md:h-7"
+              />
+              <p className="text-sm md:text-base">Refrigerator</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <img
+                src={amenitiesIcon["Television"]}
+                alt="tv"
+                className="w-4 h-4 md:w-7 md:h-7"
+              />
+              <p className="text-sm md:text-base">Television</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Features Section  */}
+        <div className="text-gray-500 border-t-2 border-t-gray-300 border-b-2 border-b-gray-300  py-4 lg:py-8">
+          <p className=" font-medium text-lg ">Features</p>
+          <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
+            <div className="flex items-center gap-2">
+              <img src={alarm} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
+              <p className="text-sm md:text-base">Security / Fire Alarm</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <img src={staff} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
+              <p className="text-sm md:text-base">Maintenance Staff</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <img src={van} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
+              <p className="text-sm md:text-base ">Waste Disposal</p>
+            </div>
+          </div>
+        </div>
+
           {/* Property-Description Section  */}
           <div className="py-4 lg:py-8 text-gray-500">
             <p className=" font-medium text-lg">About Property</p>
