@@ -16,13 +16,17 @@ const CrystalButton: React.FC<Props> = ({
   iconPosition = "right",
   isDark,
   badge,
-  page
+  page,
 }) => {
   const navigate = useNavigate(); 
   const handleClick = () => {
     if (page) {
       navigate(`${page}`);
     }
+  };
+
+  // Determine if the text starts with 'update' (case-insensitive)
+  const isUpdate = text.toLowerCase().startsWith("update");
   };
 
   // Determine if the text starts with 'update' (case-insensitive)
