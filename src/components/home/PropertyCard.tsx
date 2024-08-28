@@ -95,8 +95,8 @@ const PropertyCard: React.FC<Props> = ({ item }) => {
           <div className="w-full sm:w-2/3  flex items-center  sm:justify-center gap-2 mt-2 sm:mt-0">
             <Link
               to={`/properties/${item.propertyId}`}
-              state={{ property: item }}
               className="w-full"
+              target="_blank"
             >
               <Button text="View Details" />
             </Link>

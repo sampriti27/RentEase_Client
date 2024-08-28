@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
-import { PropertyDetails as PropertyDetailsType } from "../types";
 import ImageCarousel from "../components/property/ImageCarousel";
 import ConfigurationCard from "../components/property/ConfigurationCard";
 import Highlights from "../components/property/Highlights";
@@ -14,13 +12,9 @@ import EnquiryForm from "../components/property/EnquiryForm";
 import CrystalButton from "../components/shared/buttons/CrystalButton";
 
 const PropertyDetails: React.FC = () => {
-  const location = useLocation();
-  const property = location.state?.property as PropertyDetailsType;
   const [showFullDescription, setShowFullDescription] =
     useState<boolean>(false);
-  if (!property) {
-    return <div>No property details available.</div>;
-  }
+
   const words = desc.split(" ");
   const description =
     words.length > 100 ? words.slice(0, 100).join(" ") + "..." : desc;
