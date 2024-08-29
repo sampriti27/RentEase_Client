@@ -6,7 +6,7 @@ import { desc } from "../constants/propertyDescription";
 import alarm from "../assets/images/bell_8967963.png";
 import staff from "../assets/images/technician_17474326.png";
 import van from "../assets/images/van_963684.png";
-import { amenitiesIcon } from "../constants/ammenties";
+import { amenitiesIcon } from "../constants";
 import OwnerDetails from "../components/landlord/OwnerDetails";
 import EnquiryForm from "../components/property/EnquiryForm";
 import CrystalButton from "../components/shared/buttons/CrystalButton";
@@ -27,8 +27,8 @@ const PropertyDetails: React.FC = () => {
         </div>
         <div className="mt-4 flex justify-start sm:justify-normal">
           {/* Property Price  */}
-          <div className="w-1/4 h-full">
-            <p className="text-base  sm:text-2xl lg:text-3xl text-gray-500 font-semibold">
+          <div className="w-1/2 sm:w-1/4 h-full">
+            <p className="text-base  sm:text-2xl lg:text-3xl text-gray-600 font-semibold">
               {" "}
               <span className="text-sm  sm:text-xl lg:text-2xl font-normal mr-1">
                 &#8377;
@@ -47,18 +47,24 @@ const PropertyDetails: React.FC = () => {
           {/* Property Type and move in status  */}
           <div className="text-sm md:text-base  w-full flex items-center justify-between">
             <div>
-              <p className="text-base sm:text-xl lg:text-3xl  text-gray-500">
+              <p className="font-medium text-base sm:text-xl lg:text-3xl  text-gray-600">
                 4 BHK
               </p>
               <p className="text-gray-400 my-1">Flat/ Apartment for rent</p>
               <p className="text-sm text-gray-400">in 101 Pine Road</p>
             </div>
-            <CrystalButton text="Book Now" isDark={true} />
+            <div className="hidden sm:block">
+              <CrystalButton text="Book Now" isDark={true} />
+            </div>
           </div>
         </div>
 
         {/* Horizontal Divider */}
         <div className="hidden sm:block  border-b border-gray-300 my-4"></div>
+
+        <div className="block sm:hidden my-4">
+          <CrystalButton text="Book Now" isDark={true} />
+        </div>
         {/* Images and configuration section  */}
         <div className="mt-2   sm:mt-0 flex flex-col lg:flex-row gap-8 lg:gap-4 items-center">
           <div className="w-full lg:w-1/2">
@@ -172,10 +178,10 @@ const PropertyDetails: React.FC = () => {
         </div>
         {/* Owner Details and Enquiry Form Section  */}
         <div className=" w-full bg-white shadow-sm flex flex-col md:flex-row items-center mb-10">
-          <div className="w-full md:w-1/2 p-8">
+          <div className="w-full md:w-1/2 p-4 sm:p-8">
             <OwnerDetails />
           </div>
-          <div className="w-full md:w-1/2 p-8">
+          <div className="w-full md:w-1/2 p-4 sm:p-8">
             <EnquiryForm />
           </div>
         </div>

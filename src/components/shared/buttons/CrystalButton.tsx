@@ -35,7 +35,7 @@ const CrystalButton: React.FC<Props> = ({
     <button
       type="button"
       onClick={handleClick}
-      className={`flex items-center
+      className={`text-sm sm:text-base flex items-center
         ${
           isSkyTheme
             ? `bg-sky-100 hover:bg-sky-200 text-sky-500`
@@ -45,7 +45,7 @@ const CrystalButton: React.FC<Props> = ({
             ? `bg-blue-100 hover:bg-blue-200 text-blue-500`
             : `text-blue-600 hover:bg-blue-100 border border-blue-500`
         }
-        font-medium rounded-md px-4 py-2`}
+        font-medium rounded-md px-2 sm:px-4  py-2`}
     >
       {icon && iconPosition === "left" && (
         <span className="icon-left">{icon}</span>
