@@ -3,8 +3,8 @@ import React from "react";
 interface Props {
   imgsrc: string;
   title: string;
-  content: string;
-  subcontent?: string;
+  content: string | undefined | number;
+  subcontent?: string | undefined | number;
 }
 const ConfigurationItem: React.FC<Props> = ({
   imgsrc,

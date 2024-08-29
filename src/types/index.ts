@@ -24,7 +24,7 @@ export interface PropertyFormData {
   description: string;
 }
 
-export interface PropertyDetails {
+export interface IPropertyDetails {
   propertyId: string;
   name: string;
   address: string;
@@ -65,14 +65,14 @@ export interface AllPropertyAPIResponse {
   message: string;
   success: boolean;
   status: string;
-  data: PropertyDetails[];
+  data: IPropertyDetails[];
 }
 
 export interface PropertyAPIResponse {
   message: string;
   success: boolean;
   status: string;
-  data: PropertyDetails;
+  data: IPropertyDetails;
 }
 export interface PropertyUpdateForm {
   rent: number;

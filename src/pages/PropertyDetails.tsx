@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { AxiosResponse } from "axios";
+import { useQuery } from "react-query";
+
 import {
   AmenitiesItem,
   ConfigurationCard,
@@ -12,9 +15,9 @@ import { amenitiesIcon, featureIcon } from "../constants";
 import OwnerDetails from "../components/landlord/OwnerDetails";
 
 import CrystalButton from "../components/shared/buttons/CrystalButton";
-import { useQuery } from "react-query";
-import { PropertyAPIResponse } from "../types";
-import { AxiosResponse } from "axios";
+
+import { PropertyAPIResponse, IPropertyDetails } from "../types";
+
 import { getPropertyById } from "../http";
 
 const PropertyDetails: React.FC = () => {
@@ -22,29 +25,38 @@ const PropertyDetails: React.FC = () => {
 
   const [showFullDescription, setShowFullDescription] =
     useState<boolean>(false);
+  const [details, setDetails] = useState<IPropertyDetails>();
 
   const words = desc.split(" ");
   const description =
     words.length > 100 ? words.slice(0, 100).join(" ") + "..." : desc;
 
-  console.log(propertyId);
+  // console.log(propertyId);
 
   const { data: propertyDetails } = useQuery({
     queryKey: ["propertyDetails"],
     retry: 3,
     queryFn: async (): Promise<AxiosResponse<PropertyAPIResponse>> => {
-      // Function to fetch rooms data
       return await getPropertyById(propertyId);
     },
   });
 
-  console.log(propertyDetails?.data.data);
+  useEffect(() => {
+    if (propertyDetails) {
+      setDetails(propertyDetails.data.data);
+    }
+  }, [propertyDetails]);
+
+  console.log(details);
   return (
     <>
       <div className="w-full px-4 sm:px-8  xl:px-36 ">
         <div className="text-xs text-gray-400 flex items-center justify-between py-2">
-          <p>Home</p>
-          <p>Posted on Aug 22, 2024 | Ready to move</p>
+          <p>Home : {details?.name}</p>
+          <p>
+            Posted on {details?.dateListed} | {details?.availabilityStatus}{" "}
+            {/*have to change the format */}
+          </p>
         </div>
         <div className="mt-4 flex justify-start sm:justify-normal">
           {/* Property Price  */}
@@ -54,11 +66,12 @@ const PropertyDetails: React.FC = () => {
               <span className="text-sm  sm:text-xl lg:text-2xl font-normal mr-1">
                 &#8377;
               </span>
-              60 Thousand
+              {details?.rent} {/*have to change the format */}
             </p>
             <p className="text-xs sm:text-sm tracking-tighter text-sky-500">
               {" "}
-              Deposit Amt &#8377;60 Thousand
+              Deposit Amt &#8377; {details?.deposit}{" "}
+              {/*have to change the format */}
             </p>
           </div>
 
@@ -69,10 +82,12 @@ const PropertyDetails: React.FC = () => {
           <div className="text-sm md:text-base  w-full flex items-center justify-between">
             <div>
               <p className="font-medium text-base sm:text-xl lg:text-3xl  text-gray-600">
-                4 BHK
+                {details?.size}
               </p>
-              <p className="text-gray-400 my-1">Flat/ Apartment for rent</p>
-              <p className="text-sm text-gray-400">in 101 Pine Road</p>
+              <p className="text-gray-400 my-1">
+                {details?.propertyType} for rent
+              </p>
+              <p className="text-sm text-gray-400">{details?.address}</p>
             </div>
             <div className="hidden sm:block">
               <CrystalButton text="Book Now" isDark={true} />
@@ -89,11 +104,11 @@ const PropertyDetails: React.FC = () => {
         {/* Images and configuration section  */}
         <div className="mt-2   sm:mt-0 flex flex-col lg:flex-row gap-8 lg:gap-4 items-center">
           <div className="w-full lg:w-1/2">
-            <ImageCarousel />
+            <ImageCarousel urls={details?.photos} />
           </div>
 
           <div className="w-full lg:w-1/2">
-            <ConfigurationCard />
+            <ConfigurationCard details={details} />
           </div>
         </div>
         {/* Highlight Section  */}

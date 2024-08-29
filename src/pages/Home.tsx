@@ -8,7 +8,7 @@ import {
 import { useQuery } from "react-query";
 import { getAllProperties } from "../http";
 import { AxiosResponse } from "axios";
-import { AllPropertyAPIResponse, PropertyDetails } from "../types";
+import { AllPropertyAPIResponse, IPropertyDetails } from "../types";
 import SkeletonLoader from "../components/loader/Skeleton";
 
 const Home: React.FC = () => {
@@ -21,8 +21,8 @@ const Home: React.FC = () => {
     },
   });
 
-  console.log(properties);
-  console.log("Array:", properties?.data.data);
+  // console.log(properties);
+  // console.log("Array:", properties?.data.data);
   return (
     <div className="w-full px-1 md:px-3 xl:px-36">
       <Breadcrumb />
@@ -41,7 +41,7 @@ const Home: React.FC = () => {
             </div>
           ) : (
             <div className="w-full h-[calc(100vh-160px)] mt-4">
-              {properties?.data?.data?.map((item: PropertyDetails) => (
+              {properties?.data?.data?.map((item: IPropertyDetails) => (
                 <PropertyCard key={item.propertyId} item={item} />
               ))}
             </div>

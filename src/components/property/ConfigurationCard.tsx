@@ -5,38 +5,43 @@ import ConfigurationItem from "./ConfigurationItem";
 import rent from "../../assets/images/pricingIcon.png";
 import address from "../../assets/images/addressIcon.png";
 import propertyAge from "../../assets/images/propertyAgeIcon.png";
+import { IPropertyDetails } from "../../types";
 
-const ConfigurationCard: React.FC = () => {
+interface Props {
+  details: IPropertyDetails | undefined;
+}
+
+const ConfigurationCard: React.FC<Props> = ({ details }) => {
   return (
     <div className="bg-gray-50 rounded-lg h-full md:p-8 grid grid-cols-2">
       {/* ConfigurationItem  */}
       <ConfigurationItem
         imgsrc={configuration}
         title="Configuration"
-        content="2 Bedrooms , 1 Bathroom, No Balcony"
+        content={details?.configuration}
       />
       <ConfigurationItem
         imgsrc={floor}
         title="Floor Number"
-        content="3rd of 3 Floors"
+        content={details?.floor}
       />
       <ConfigurationItem
         imgsrc={rent}
         title="Rent"
-        content="60 Thousand"
-        subcontent="Deposit 60 Thousand"
+        content={details?.rent}
+        subcontent={`Deposit ${details?.deposit}`}
       />
       <ConfigurationItem
         imgsrc={address}
         title="Address"
-        content="Tulshi Apartment"
-        subcontent="Chiria bagan, Kolkata North"
+        content={details?.name}
+        subcontent={details?.address}
       />
       <ConfigurationItem
         imgsrc={propertyAge}
         title="
         Property Age"
-        content="1 to 5 Years Old"
+        content={details?.propertyAge}
       />
     </div>
   );
