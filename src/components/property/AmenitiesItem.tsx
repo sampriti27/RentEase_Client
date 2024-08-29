@@ -1,18 +1,18 @@
 import React from "react";
 
 interface Props {
+  imgsrc: string;
   title: string;
-  content: string;
 }
-const AmenitiesItem: React.FC<Props> = ({ title, content }) => {
+const AmenitiesItem: React.FC<Props> = ({ imgsrc, title }) => {
   return (
-    <div className="flex items-center gap-1">
-      <p className="text-sm md:text-base text-gray-400 tracking-tight">
-        {title} :
-      </p>
-      <p className="text-sm md:text-base text-gray-800 font-medium">
-        {content}
-      </p>
+    <div className="flex items-center gap-2">
+      <img
+        src={imgsrc}
+        alt={title + "Icon"}
+        className="w-4 h-4 md:w-7 md:h-7"
+      />
+      <p className="text-sm md:text-base">{title} </p>
     </div>
   );
 };

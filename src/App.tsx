@@ -2,8 +2,21 @@ import { useState } from "react";
 import Navbar from "./components/shared/navbar/Navbar";
 import Home from "./pages/Home";
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
-import { AddProperties, LandlordDashboard, LandlordLayout, LandlordProfile, LandlordProperties, LandlordTenants, SingleProperty } from "./pages/landlord";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
+import {
+  AddProperties,
+  LandlordDashboard,
+  LandlordLayout,
+  LandlordProfile,
+  LandlordProperties,
+  LandlordTenants,
+  SingleProperty,
+} from "./pages/landlord";
 import Layout from "./components/auth/Layout";
 import PropertyDetails from "./pages/PropertyDetails";
 
@@ -14,7 +27,7 @@ function App() {
         {/* Common Routes with Navbar */}
         <Route element={<CommonLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/properties/:id" element={<PropertyDetails />} />
+          <Route path="/properties/:propertyId" element={<PropertyDetails />} />
         </Route>
 
         {/* Landlord Routes with Sidebar */}

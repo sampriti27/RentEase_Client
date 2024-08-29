@@ -8,11 +8,8 @@ import ConfigurationCard from "../../components/property/ConfigurationCard";
 import Highlights from "../../components/property/Highlights";
 import CrystalButton from "../../components/shared/buttons/CrystalButton";
 import { motion } from "framer-motion";
-import { amenitiesIcon } from "../../constants/ammenties";
+import { amenitiesIcon } from "../../constants";
 import UpdateProperty from "../../components/landlord/UpdateProperty";
-import alarm from "../../assets/images/bell_8967963.png";
-import staff from "../../assets/images/technician_17474326.png";
-import van from "../../assets/images/van_963684.png";
 
 const SingleProperty: React.FC = () => {
   const navigate = useNavigate();
@@ -24,7 +21,6 @@ const SingleProperty: React.FC = () => {
   const description =
     words.length > 100 ? words.slice(0, 100).join(" ") + "..." : desc;
 
-    
   // Modal component with Framer Motion animation
   const Modal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
@@ -124,72 +120,59 @@ const SingleProperty: React.FC = () => {
             <Highlights />
           </div>
 
- {/* Furniture Section  */}
- <div className="mt-8 lg:mt-16 text-gray-500 border-t-2 border-t-gray-300  py-4 lg:py-8">
-          <p className=" font-medium text-lg ">Semi-Furnished</p>
-          <p className="tracking-tight mt-1">Furnishing Details</p>
-          <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Television"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Television</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Air conditioning"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Air conditioning</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Bed"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Bed</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Refrigerator"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Refrigerator</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Television"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Television</p>
+          {/* Furniture Section  */}
+          <div className="mt-8 lg:mt-16 text-gray-500 border-t-2 border-t-gray-300  py-4 lg:py-8">
+            <p className=" font-medium text-lg ">Semi-Furnished</p>
+            <p className="tracking-tight mt-1">Furnishing Details</p>
+            <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
+              <div className="flex items-center gap-2">
+                <img
+                  src={amenitiesIcon["Television"]}
+                  alt="tv"
+                  className="w-4 h-4 md:w-7 md:h-7"
+                />
+                <p className="text-sm md:text-base">Television</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <img
+                  src={amenitiesIcon["Air conditioning"]}
+                  alt="tv"
+                  className="w-4 h-4 md:w-7 md:h-7"
+                />
+                <p className="text-sm md:text-base">Air conditioning</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <img
+                  src={amenitiesIcon["Bed"]}
+                  alt="tv"
+                  className="w-4 h-4 md:w-7 md:h-7"
+                />
+                <p className="text-sm md:text-base">Bed</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <img
+                  src={amenitiesIcon["Refrigerator"]}
+                  alt="tv"
+                  className="w-4 h-4 md:w-7 md:h-7"
+                />
+                <p className="text-sm md:text-base">Refrigerator</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <img
+                  src={amenitiesIcon["Television"]}
+                  alt="tv"
+                  className="w-4 h-4 md:w-7 md:h-7"
+                />
+                <p className="text-sm md:text-base">Television</p>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Features Section  */}
-        <div className="text-gray-500 border-t-2 border-t-gray-300 border-b-2 border-b-gray-300  py-4 lg:py-8">
-          <p className=" font-medium text-lg ">Features</p>
-          <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
-            <div className="flex items-center gap-2">
-              <img src={alarm} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
-              <p className="text-sm md:text-base">Security / Fire Alarm</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img src={staff} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
-              <p className="text-sm md:text-base">Maintenance Staff</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img src={van} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
-              <p className="text-sm md:text-base ">Waste Disposal</p>
-            </div>
+          {/* Features Section  */}
+          <div className="text-gray-500 border-t-2 border-t-gray-300 border-b-2 border-b-gray-300  py-4 lg:py-8">
+            <p className=" font-medium text-lg ">Features</p>
+            <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4"></div>
           </div>
-        </div>
 
           {/* Property-Description Section  */}
           <div className="py-4 lg:py-8 text-gray-500">

@@ -1,23 +1,44 @@
 import React, { useState } from "react";
-import ImageCarousel from "../components/property/ImageCarousel";
-import ConfigurationCard from "../components/property/ConfigurationCard";
-import Highlights from "../components/property/Highlights";
+import { useParams } from "react-router-dom";
+import {
+  AmenitiesItem,
+  ConfigurationCard,
+  EnquiryForm,
+  Highlights,
+  ImageCarousel,
+} from "../components/property";
 import { desc } from "../constants/propertyDescription";
-import alarm from "../assets/images/bell_8967963.png";
-import staff from "../assets/images/technician_17474326.png";
-import van from "../assets/images/van_963684.png";
-import { amenitiesIcon } from "../constants";
+import { amenitiesIcon, featureIcon } from "../constants";
 import OwnerDetails from "../components/landlord/OwnerDetails";
-import EnquiryForm from "../components/property/EnquiryForm";
+
 import CrystalButton from "../components/shared/buttons/CrystalButton";
+import { useQuery } from "react-query";
+import { PropertyAPIResponse } from "../types";
+import { AxiosResponse } from "axios";
+import { getPropertyById } from "../http";
 
 const PropertyDetails: React.FC = () => {
+  const { propertyId } = useParams();
+
   const [showFullDescription, setShowFullDescription] =
     useState<boolean>(false);
 
   const words = desc.split(" ");
   const description =
     words.length > 100 ? words.slice(0, 100).join(" ") + "..." : desc;
+
+  console.log(propertyId);
+
+  const { data: propertyDetails } = useQuery({
+    queryKey: ["propertyDetails"],
+    retry: 3,
+    queryFn: async (): Promise<AxiosResponse<PropertyAPIResponse>> => {
+      // Function to fetch rooms data
+      return await getPropertyById(propertyId);
+    },
+  });
+
+  console.log(propertyDetails?.data.data);
   return (
     <>
       <div className="w-full px-4 sm:px-8  xl:px-36 ">
@@ -87,46 +108,10 @@ const PropertyDetails: React.FC = () => {
           <p className=" font-medium text-lg ">Semi-Furnished</p>
           <p className="tracking-tight mt-1">Furnishing Details</p>
           <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Television"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Television</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Air conditioning"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Air conditioning</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Bed"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Bed</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Refrigerator"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Refrigerator</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Television"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Television</p>
-            </div>
+            <AmenitiesItem
+              imgsrc={amenitiesIcon["Television"]}
+              title="Television"
+            />
           </div>
         </div>
 
@@ -134,18 +119,10 @@ const PropertyDetails: React.FC = () => {
         <div className="text-gray-500 border-t-2 border-t-gray-300 border-b-2 border-b-gray-300  py-4 lg:py-8">
           <p className=" font-medium text-lg ">Features</p>
           <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
-            <div className="flex items-center gap-2">
-              <img src={alarm} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
-              <p className="text-sm md:text-base">Security / Fire Alarm</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img src={staff} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
-              <p className="text-sm md:text-base">Maintenance Staff</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img src={van} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
-              <p className="text-sm md:text-base ">Waste Disposal</p>
-            </div>
+            <AmenitiesItem
+              imgsrc={featureIcon["Waste Disposal"]}
+              title="Waste Disposal"
+            />
           </div>
         </div>
 

@@ -10,16 +10,30 @@ import sofa from "../assets/furnitures/sofa_7485520.png";
 import tv from "../assets/furnitures/television_6163242.png";
 import light from "../assets/furnitures/tungsten_1420572.png";
 import wardrobe from "../assets/furnitures/wardrobe_574856.png";
-import laundry from "../assets/furnitures/washing-machine_11893473.png";
+import washing from "../assets/furnitures/washing-machine_11893473.png";
+import alarm from "../assets/features/bell_8967963.png";
+import backup from "../assets/features/database_16630997.png";
+import lift from "../assets/features/elevator_3073775.png";
+import gym from "../assets/features/gym_6040568.png";
+import pool from "../assets/features/swimming-pool_6348600.png";
+import park from "../assets/features/parking-area_2830310.png";
+import cctv from "../assets/features/monitoring_1279570.png";
+import staff from "../assets/features/technician_17474326.png";
+import waste from "../assets/features/van_963684.png";
+import laundry from "../assets/features/washing_3223741.png";
 
 export const otherAmenities: string[] = [
+  "Security / Fire Alarm",
+  "Battery Backup",
+  "Elevator",
   "Gym",
-  "Lift",
   "Parking",
   "Power Backup",
   "Swimming Pool",
   "Laundry Facilities",
   "Security Surveillance",
+  "Maintenance Staff",
+  "Waste Disposal",
 ];
 
 export const furnishedAmmenties: string[] = [
@@ -52,5 +66,18 @@ export const amenitiesIcon: Record<string, string> = {
   Television: tv,
   Light: light,
   Wardrobe: wardrobe,
-  "Washing Machine": laundry,
+  "Washing Machine": washing,
+};
+
+export const featureIcon: Record<string, string> = {
+  "Security / Fire Alarm": alarm,
+  "Battery Backup": backup,
+  Elevator: lift,
+  Gym: gym,
+  Parking: park,
+  "Swimming Pool": pool,
+  "Laundry Facilities": laundry,
+  "Security Surveillance": cctv,
+  "Maintenance Staff": staff,
+  "Waste Disposal": waste,
 };
