@@ -24,7 +24,6 @@ const SingleProperty: React.FC = () => {
   const description =
     words.length > 100 ? words.slice(0, 100).join(" ") + "..." : desc;
 
-    
   // Modal component with Framer Motion animation
   const Modal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
@@ -52,7 +51,7 @@ const SingleProperty: React.FC = () => {
 
   return (
     <>
-      <div className="px-4 py-14">
+      <div className="px-4 py-8 md:py-14">
         <div className="flex gap-4">
           <div
             onClick={() => navigate(-1)}
@@ -70,14 +69,14 @@ const SingleProperty: React.FC = () => {
           </div>
         </div>
 
-        <div className="w-full px-4">
+        <div className="w-full md:px-4">
           <div className="text-xs text-gray-400 flex items-center justify-between py-2">
             <p>Landlord &gt; Properties &gt; Luxury Apartment </p>
             <p>Posted on Aug 22, 2024 | Ready to move</p>
           </div>
           <div className="mt-4 flex justify-start sm:justify-normal">
             {/* Property Price  */}
-            <div className="w-1/4 h-full">
+            <div className="w-[45%] sm:w-1/4 h-full">
               <p className="text-base  sm:text-2xl lg:text-3xl text-gray-800 font-semibold">
                 {" "}
                 <span className="text-sm  sm:text-xl lg:text-2xl font-normal mr-1">
@@ -99,8 +98,10 @@ const SingleProperty: React.FC = () => {
               <p className="text-base sm:text-xl lg:text-3xl  text-gray-800 font-semibold">
                 4 BHK
               </p>
-              <p className="text-gray-800">Flat/ Apartment for rent</p>
-              <p className="text-sm text-gray-800 -mt-1">in 101 Pine Road</p>
+              <p className="text-gray-800 text-xs sm:text-sm">
+                Flat/ Apartment in 101 Pine Road
+              </p>
+              <p className="text-xs sm:text-sm text-gray-800"></p>
             </div>
           </div>
 
@@ -124,72 +125,72 @@ const SingleProperty: React.FC = () => {
             <Highlights />
           </div>
 
- {/* Furniture Section  */}
- <div className="mt-8 lg:mt-16 text-gray-500 border-t-2 border-t-gray-300  py-4 lg:py-8">
-          <p className=" font-medium text-lg ">Semi-Furnished</p>
-          <p className="tracking-tight mt-1">Furnishing Details</p>
-          <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Television"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Television</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Air conditioning"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Air conditioning</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Bed"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Bed</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Refrigerator"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Refrigerator</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Television"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Television</p>
+          {/* Furniture Section  */}
+          <div className="mt-8 lg:mt-16 text-gray-500 border-t-2 border-t-gray-300  py-4 lg:py-8">
+            <p className=" font-medium text-lg ">Semi-Furnished</p>
+            <p className="tracking-tight mt-1">Furnishing Details</p>
+            <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
+              <div className="flex items-center gap-2">
+                <img
+                  src={amenitiesIcon["Television"]}
+                  alt="tv"
+                  className="w-4 h-4 md:w-7 md:h-7"
+                />
+                <p className="text-sm md:text-base">Television</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <img
+                  src={amenitiesIcon["Air conditioning"]}
+                  alt="tv"
+                  className="w-4 h-4 md:w-7 md:h-7"
+                />
+                <p className="text-sm md:text-base">Air conditioning</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <img
+                  src={amenitiesIcon["Bed"]}
+                  alt="tv"
+                  className="w-4 h-4 md:w-7 md:h-7"
+                />
+                <p className="text-sm md:text-base">Bed</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <img
+                  src={amenitiesIcon["Refrigerator"]}
+                  alt="tv"
+                  className="w-4 h-4 md:w-7 md:h-7"
+                />
+                <p className="text-sm md:text-base">Refrigerator</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <img
+                  src={amenitiesIcon["Television"]}
+                  alt="tv"
+                  className="w-4 h-4 md:w-7 md:h-7"
+                />
+                <p className="text-sm md:text-base">Television</p>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Features Section  */}
-        <div className="text-gray-500 border-t-2 border-t-gray-300 border-b-2 border-b-gray-300  py-4 lg:py-8">
-          <p className=" font-medium text-lg ">Features</p>
-          <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
-            <div className="flex items-center gap-2">
-              <img src={alarm} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
-              <p className="text-sm md:text-base">Security / Fire Alarm</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img src={staff} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
-              <p className="text-sm md:text-base">Maintenance Staff</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img src={van} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
-              <p className="text-sm md:text-base ">Waste Disposal</p>
+          {/* Features Section  */}
+          <div className="text-gray-500 border-t-2 border-t-gray-300 border-b-2 border-b-gray-300  py-4 lg:py-8">
+            <p className=" font-medium text-lg ">Features</p>
+            <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
+              <div className="flex items-center gap-2">
+                <img src={alarm} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
+                <p className="text-sm md:text-base">Security / Fire Alarm</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <img src={staff} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
+                <p className="text-sm md:text-base">Maintenance Staff</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <img src={van} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
+                <p className="text-sm md:text-base ">Waste Disposal</p>
+              </div>
             </div>
           </div>
-        </div>
 
           {/* Property-Description Section  */}
           <div className="py-4 lg:py-8 text-gray-500">

@@ -6,7 +6,7 @@ import Button from "../shared/buttons/Button";
 const EnquiryForm: React.FC = () => {
   return (
     <div className="text-gray-600">
-      <p className=" font-medium text-lg">Send enquiry to Owner</p>
+      <p className=" font-medium text-md md:text-lg">Send enquiry to Owner</p>
       <form action="" className="flex flex-col sm:flex-row items-center gap-4">
         <div className="w-full sm:w-1/2">
           <Input type="string" label="Name" />

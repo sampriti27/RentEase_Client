@@ -8,7 +8,7 @@ import propertyAge from "../../assets/images/propertyAgeIcon.png";
 
 const ConfigurationCard: React.FC = () => {
   return (
-    <div className="bg-gray-50 rounded-lg h-full md:p-8 grid grid-cols-2">
+    <div className="bg-gray-50 rounded-lg h-full p-2 md:p-8 grid grid-cols-2">
       {/* ConfigurationItem  */}
       <ConfigurationItem
         imgsrc={configuration}
