@@ -9,7 +9,7 @@ export interface PropertyFormData {
   name: string;
   address: string;
   city: string;
-  pinCode: number;
+  pinCode: string;
   state: string;
   tenantType: string;
   propertyType: string;
@@ -22,6 +22,12 @@ export interface PropertyFormData {
   deposit: number;
   configuration: string;
   description: string;
+}
+
+export interface PostProperty extends PropertyFormData{
+  photos: string[],
+  furnishedAmenities: string[]; // Array of strings
+  otherAmenities: string[]; // Array of strings
 }
 
 export interface PropertyDetails {
@@ -61,11 +67,11 @@ export interface PropertyDetails {
   };
 }
 
-export interface AllPropertyAPIResponse {
+export interface APIResponse<T> {
   message: string;
   success: boolean;
   status: string;
-  data: PropertyDetails[];
+  data: T | T[];
 }
 
 export interface PropertyUpdateForm {

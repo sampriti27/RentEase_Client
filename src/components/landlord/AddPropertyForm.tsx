@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { otherAmenities, furnishedAmmenties } from "../../constants/index";
 import { motion } from "framer-motion";
-import { PropertyFormData } from "../../types";
+import { APIResponse, PostProperty, PropertyDetails, PropertyFormData } from "../../types";
+import ImageUploader from "../shared/image-uploader/ImageUploader";
+import { enqueueSnackbar } from 'notistack';
+import { useMutation } from "react-query";
+import { addProperties } from "../../http";
+import { AxiosResponse } from "axios";
 
 const AddPropertyForm: React.FC = () => {
   // states
@@ -9,12 +14,14 @@ const AddPropertyForm: React.FC = () => {
   const [selectedFurnishedAmenities, setSelectedFurnishedAmenities] = useState<
     string[]
   >([]);
+  const [photos, setPhotos] = useState<string[]>([]);
+
   // states for form inputs
   const [formData, setFormData] = useState<PropertyFormData>({
     name: "",
     address: "",
     city: "",
-    pinCode: 0,
+    pinCode: "",
     state: "",
     tenantType: "",
     propertyType: "",
@@ -62,23 +69,44 @@ const AddPropertyForm: React.FC = () => {
     }
   };
 
+  const handleImageUpload = (newImages: string[]) => {
+    setPhotos(newImages);
+  }
+
   const selectedString = selectedAmenities.join(", ");
   const selectedFurnishedAmenitiesString =
     selectedFurnishedAmenities.join(", ");
 
-  const handleSubmit = (e: React.FormEvent) => {
+
+
+  const handlePostProperty = useMutation({
+    mutationFn : () => {
+      const allFormData:PostProperty = {
+        ...formData,
+        otherAmenities: selectedAmenities,
+        furnishedAmenities: selectedFurnishedAmenities,
+        photos: photos
+      };
+
+      return addProperties(allFormData, "932c3a21-257c-4452-ae0d-db90e4589df6");
+    },
+    onSuccess : (data:AxiosResponse<APIResponse<PropertyDetails>>) => {
+      enqueueSnackbar(data.data.message,  {
+        variant: 'success',
+      });
+      console.log(data.data.message);
+    },
+    onError: (error: any) => {
+      enqueueSnackbar(error?.response.data.message,  {
+        variant: 'error',
+      });
+    },
+  })
+
+  const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault();
-
-    // Log the form data and selected amenities
-    const allFormData = {
-      ...formData,
-      otherAmenities: selectedAmenities,
-      furnishedAmenities: selectedFurnishedAmenities,
-      photos: []
-    };
-
-    console.log(allFormData);
-  };
+    handlePostProperty.mutate();
+  }
 
   return (
     <>
@@ -380,14 +408,7 @@ const AddPropertyForm: React.FC = () => {
                 <label className="block text-sm font-medium text-gray-700">
                   Property Photos
                 </label>
-                <div className="mt-1 border-2 border-dashed border-gray-300 rounded-md p-4 text-center">
-                  <span className="text-gray-400">
-                    Upload all file or drag and drop
-                  </span>
-                  <p className="text-sm text-gray-500 mt-1">
-                    PNG, JPG, GIF up to 10MB
-                  </p>
-                </div>
+                <ImageUploader onImagesUploaded={handleImageUpload}/>
               </div>
 
               <div>

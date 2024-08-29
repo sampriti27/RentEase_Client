@@ -8,21 +8,19 @@ import {
 import { useQuery } from "react-query";
 import { getAllProperties } from "../http";
 import { AxiosResponse } from "axios";
-import { AllPropertyAPIResponse, PropertyDetails } from "../types";
+import { APIResponse, PropertyDetails } from "../types";
 import SkeletonLoader from "../components/loader/Skeleton";
 
 const Home: React.FC = () => {
   const { data: properties, isLoading } = useQuery({
     queryKey: ["properties"],
     retry: 3,
-    queryFn: async (): Promise<AxiosResponse<AllPropertyAPIResponse>> => {
+    queryFn: async (): Promise<AxiosResponse<APIResponse<PropertyDetails>>> => {
       // Function to fetch rooms data
       return await getAllProperties();
     },
   });
 
-  console.log(properties);
-  console.log("Array:", properties?.data.data);
   return (
     <div className="w-full px-1 md:px-3 xl:px-36">
       <Breadcrumb />

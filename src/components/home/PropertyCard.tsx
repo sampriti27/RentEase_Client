@@ -4,20 +4,15 @@ import Button from "../shared/buttons/Button";
 import Rating from "../shared/badges/Rating";
 import TenantTypeBadge from "../shared/badges/TenantTypeBadge";
 import { PropertyDetails } from "../../types";
-import { formatDistance, subDays, parseISO } from "date-fns";
 import ContactIcon from "../icons/ContactIcon";
 import { Link } from "react-router-dom";
+import { formatDateADistance } from "../../utils";
 
 interface Props {
   item: PropertyDetails;
 }
 const PropertyCard: React.FC<Props> = ({ item }) => {
-  // formatted date
-  const formattedDate = formatDistance(
-    subDays(new Date(), 0),
-    parseISO(item.dateListed),
-    { addSuffix: true }
-  );
+
   // display only partial description
   const truncatedDescription =
     item.description.split(" ").length > 30
@@ -86,7 +81,7 @@ const PropertyCard: React.FC<Props> = ({ item }) => {
           <div className="w-full sm:w-1/3  pt-4  text-gray-500">
             <div className="flex items-center gap-2 text-xs sm:text-sm">
               <p>Owner</p>
-              <p>. {formattedDate}</p>
+              <p>. {formatDateADistance(item.dateListed)} ago</p>
             </div>
             <p className="text-gray-700 text-sm sm:text-base">
               {item.landlord.fullName}

@@ -88,6 +88,9 @@ const UpdateProperty: React.FC = () => {
           </select>
         </div>
         <div className="mt-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Add Photos
+          </label>
           <ImageUploader onImagesUploaded={handlePhotosUploaded} />
         </div>
         {/* Bottom Actions */}

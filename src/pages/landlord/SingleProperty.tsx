@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { BackArrow, UpdateIcon } from "../../components/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { desc } from "../../constants/propertyDescription";
@@ -13,12 +13,19 @@ import UpdateProperty from "../../components/landlord/UpdateProperty";
 import alarm from "../../assets/images/bell_8967963.png";
 import staff from "../../assets/images/technician_17474326.png";
 import van from "../../assets/images/van_963684.png";
+import { useQuery } from "react-query";
+import { getPropertyById } from "../../http";
+import { AxiosResponse } from "axios";
+import { APIResponse, PropertyDetails } from "../../types";
+import { formatCurrency, formatDateAsISO } from "../../utils";
 
 const SingleProperty: React.FC = () => {
+  const { propertyId } = useParams();
   const navigate = useNavigate();
   const [showFullDescription, setShowFullDescription] =
     useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [property, setProperty] = useState<PropertyDetails>();
 
   const words = desc.split(" ");
   const description =
@@ -49,6 +56,20 @@ const SingleProperty: React.FC = () => {
     </div>
   );
 
+
+  const { data } = useQuery({
+    queryKey: ["landlord/properties", propertyId],
+    retry: 3,
+    queryFn: async (): Promise<AxiosResponse<APIResponse<PropertyDetails>>> => {
+      return await getPropertyById(propertyId);
+    }
+  });
+
+  useEffect(() => {
+    setProperty(data?.data.data as PropertyDetails);
+  },[data])
+
+
   return (
     <>
       <div className="px-4 py-8 md:py-14">
@@ -71,22 +92,19 @@ const SingleProperty: React.FC = () => {
 
         <div className="w-full md:px-4">
           <div className="text-xs text-gray-400 flex items-center justify-between py-2">
-            <p>Landlord &gt; Properties &gt; Luxury Apartment </p>
-            <p>Posted on Aug 22, 2024 | Ready to move</p>
+            <p>Landlord &gt; Properties &gt; {property?.name} </p>
+            <p>{formatDateAsISO(property?.dateListed)} | {property?.availabilityStatus === "Available" ? "Ready to move" : "Booked"}</p>
           </div>
           <div className="mt-4 flex justify-start sm:justify-normal">
             {/* Property Price  */}
             <div className="w-[45%] sm:w-1/4 h-full">
               <p className="text-base  sm:text-2xl lg:text-3xl text-gray-800 font-semibold">
                 {" "}
-                <span className="text-sm  sm:text-xl lg:text-2xl font-normal mr-1">
-                  &#8377;
-                </span>
-                60 Thousand
+                {formatCurrency(property?.rent as number)}
               </p>
               <p className="text-xs sm:text-sm tracking-tighter text-blue-500">
                 {" "}
-                Deposit Amt &#8377;60 Thousand
+                Deposit Amt {formatCurrency(property?.deposit as number)}
               </p>
             </div>
 
@@ -96,10 +114,10 @@ const SingleProperty: React.FC = () => {
             {/* Property Type and move in status  */}
             <div className="text-sm md:text-base">
               <p className="text-base sm:text-xl lg:text-3xl  text-gray-800 font-semibold">
-                4 BHK
+                {property?.size}
               </p>
               <p className="text-gray-800 text-xs sm:text-sm">
-                Flat/ Apartment in 101 Pine Road
+                {property?.propertyType + " in " + property?.address}
               </p>
               <p className="text-xs sm:text-sm text-gray-800"></p>
             </div>
@@ -114,7 +132,7 @@ const SingleProperty: React.FC = () => {
             </div>
 
             <div className="w-full lg:w-1/2">
-              <ConfigurationCard />
+              <ConfigurationCard pConfiguration={property?.configuration as string} pfloor={property?.floor as string} pRent={property?.rent as number} pAddress={property?.address as string} pRentAge={property?.propertyAge as string} pDeposit={property?.deposit as number} pName={property?.name as string} />
             </div>
           </div>
           {/* Highlight Section  */}

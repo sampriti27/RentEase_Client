@@ -23,10 +23,16 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImagesUploaded }) => {
 
         // Upload to Cloudinary
         axios
-          .post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, formData)
+          .post(
+            `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+            formData
+          )
           .then((response) => {
             const newImageUrl = response.data.secure_url;
-            setUploadedImages((prev) => [...prev, newImageUrl]);
+            const fileName = newImageUrl.split("/").pop();
+            if (fileName) {
+              setUploadedImages((prev) => [...prev, fileName]);
+            }
           })
           .catch((error) => console.error("Error uploading image:", error));
       });
@@ -54,7 +60,9 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImagesUploaded }) => {
           <p className="text-gray-500">
             Upload all files or drag and drop
             <br />
-            <span className="text-xs text-gray-400">PNG, JPG, GIF up to 10MB</span>
+            <span className="text-xs text-gray-400">
+              PNG, JPG, GIF up to 10MB
+            </span>
           </p>
         )}
       </div>
@@ -63,7 +71,11 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImagesUploaded }) => {
       <div className="mt-4 flex flex-wrap gap-4">
         {uploadedImages.map((image, index) => (
           <div key={index} className="w-24 h-24 overflow-hidden rounded-md">
-            <img src={image} alt="Uploaded" className="w-full h-full object-cover" />
+            <img
+              src={`${import.meta.env.VITE_CLOUDINARY_IMG_URL}/${image}`}
+              alt="Uploaded"
+              className="w-full h-full object-cover"
+            />
           </div>
         ))}
       </div>
