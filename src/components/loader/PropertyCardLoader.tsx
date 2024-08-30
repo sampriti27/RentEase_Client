@@ -3,7 +3,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 import React from "react";
 
-const SkeletonLoader: React.FC = () => {
+const PropertyCardLoader: React.FC = () => {
   return (
     <div className="w-full md:h-[328px] bg-white rounded-lg border shadow-md p-4 flex flex-col sm:flex-row items-center gap-2 my-6">
       {/* Skeleton for Property Image */}
@@ -32,4 +32,4 @@ const SkeletonLoader: React.FC = () => {
   );
 };
 
-export default SkeletonLoader;
+export default PropertyCardLoader;

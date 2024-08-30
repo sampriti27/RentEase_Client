@@ -1,8 +1,19 @@
 import React, { useState } from "react";
-import { PropertyUpdateForm } from "../../types";
+import { PropertyDetails, PropertyUpdateForm } from "../../types";
 import ImageUploader from "../shared/image-uploader/ImageUploader";
+import { useMutation, useQueryClient } from "react-query";
+import { updateProperty } from "../../http";
+import { enqueueSnackbar } from "notistack";
 
-const UpdateProperty: React.FC = () => {
+interface Props {
+  property: PropertyDetails;
+  onUpdateSuccess: () => void;
+}
+
+const UpdateProperty: React.FC<Props> = ({ property, onUpdateSuccess }) => {
+
+  const queryClient = useQueryClient();
+
   const [photos, setPhotos] = useState<string[]>([]);
 
   const handlePhotosUploaded = (newImages: string[]) => {
@@ -10,9 +21,9 @@ const UpdateProperty: React.FC = () => {
   };
 
   const [formData, setFormData] = useState({
-    availabilityStatus: "",
-    rent: 0,
-    deposit: 0,
+    availabilityStatus: property.availabilityStatus,
+    rent: property.rent,
+    deposit: property.deposit,
   });
 
   // handlers
@@ -29,21 +40,46 @@ const UpdateProperty: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const updateMutation = useMutation({
+    mutationFn: (propertyId: string) => {
+      // Log the form data and selected amenities
+      const allFormData: PropertyUpdateForm = {
+        ...formData,
+        photos: photos,
+      };
 
-    // Log the form data and selected amenities
+      return updateProperty(allFormData, propertyId);
+    },
+    onSuccess: () => {
+      // Refetch properties after a successful deletion
+      queryClient.invalidateQueries(["landlord/properties", property.propertyId]);
+      enqueueSnackbar("Property Updated successfully!", {
+        variant: "success",
+      });
+    },
+    onError: (error: any) => {
+      enqueueSnackbar(error?.response.data.message, {
+        variant: "error",
+      });
+    },
+
+  });
+
+  const handleUpdate = (e: React.FormEvent, propertyId: string) => {
+    e.preventDefault(); // Prevent the default link behavior
+    updateMutation.mutate(propertyId); // Pass the property ID to the mutation
+    onUpdateSuccess();
     const allFormData: PropertyUpdateForm = {
       ...formData,
       photos: photos,
     };
 
-    console.log(allFormData);
+    console.log(allFormData, propertyId);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => handleUpdate(e, property.propertyId)}>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
@@ -91,13 +127,13 @@ const UpdateProperty: React.FC = () => {
           <label className="block text-sm font-medium text-gray-700">
             Add Photos
           </label>
-          <ImageUploader onImagesUploaded={handlePhotosUploaded} />
+          <ImageUploader
+            images={property.photos}
+            onImagesUploaded={handlePhotosUploaded}
+          />
         </div>
         {/* Bottom Actions */}
         <div className="flex justify-end mt-8 w-full lg:w-auto">
-          <button className="text-sm font-medium text-gray-600 hover:text-gray-800 mr-4">
-            Cancel
-          </button>
           <button
             type="submit"
             className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"

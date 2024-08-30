@@ -9,7 +9,7 @@ import { useQuery } from "react-query";
 import { getAllProperties } from "../http";
 import { AxiosResponse } from "axios";
 import { APIResponse, PropertyDetails } from "../types";
-import SkeletonLoader from "../components/loader/Skeleton";
+import PropertyCardLoader from "../components/loader/PropertyCardLoader";
 
 const Home: React.FC = () => {
   const { data: properties, isLoading } = useQuery({
@@ -34,7 +34,7 @@ const Home: React.FC = () => {
             <div className="w-full h-[calc(100vh-160px)] mt-4 flex flex-col gap-6">
               {/* Skeleton loader for PropertyCards */}
               {[...Array(3)].map((_, index) => (
-                <SkeletonLoader key={index} />
+                <PropertyCardLoader key={index} />
               ))}
             </div>
           ) : (
