@@ -12,11 +12,10 @@ import { APIResponse, PropertyDetails } from "../types";
 import PropertyCardLoader from "../components/loader/PropertyCardLoader";
 
 const Home: React.FC = () => {
-
   const [properties, setProperties] = useState<PropertyDetails[]>();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["properties"],
+    queryKey: ["allProperties"],
     retry: 3,
     queryFn: async (): Promise<AxiosResponse<APIResponse<PropertyDetails>>> => {
       // Function to fetch rooms data
@@ -26,7 +25,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     setProperties(data?.data.data as PropertyDetails[]);
-  },[data])
+  }, [data]);
 
   return (
     <div className="w-full px-1 md:px-3 xl:px-36">

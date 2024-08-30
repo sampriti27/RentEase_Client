@@ -24,8 +24,8 @@ export interface PropertyFormData {
   description: string;
 }
 
-export interface PostProperty extends PropertyFormData{
-  photos: string[],
+export interface PostProperty extends PropertyFormData {
+  photos: string[];
   furnishedAmenities: string[]; // Array of strings
   otherAmenities: string[]; // Array of strings
 }
@@ -75,8 +75,8 @@ export interface APIResponse<T> {
 }
 
 export interface PropertyUpdateForm {
-  rent : number,
-  deposit: number,
+  rent: number;
+  deposit: number;
   availabilityStatus: string;
   photos: string[];
 }

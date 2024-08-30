@@ -3,7 +3,10 @@ import { Carousel } from "react-responsive-carousel";
 
 import React from "react";
 
-const ImageCarousel:React.FC = () => {
+// interface Props {
+//   urls: string[] | undefined;
+// }
+const ImageCarousel: React.FC = () => {
   return (
     <Carousel showThumbs={false} autoPlay infiniteLoop>
       <div>

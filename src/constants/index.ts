@@ -1,1 +1,6 @@
-export { otherAmenities, furnishedAmmenties, amenitiesIcon } from "./ammenties";
+export {
+  otherAmenities,
+  furnishedAmmenties,
+  amenitiesIcon,
+  featureIcon,
+} from "./ammenties";

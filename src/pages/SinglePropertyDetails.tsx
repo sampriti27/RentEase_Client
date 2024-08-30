@@ -1,29 +1,60 @@
-import React, { useState } from "react";
-import ImageCarousel from "../components/property/ImageCarousel";
-import ConfigurationCard from "../components/property/ConfigurationCard";
-import Highlights from "../components/property/Highlights";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { AxiosResponse } from "axios";
+import { useQuery } from "react-query";
+
+import {
+  AmenitiesItem,
+  ConfigurationCard,
+  EnquiryForm,
+  Highlights,
+  ImageCarousel,
+} from "../components/property";
 import { desc } from "../constants/propertyDescription";
-import alarm from "../assets/images/bell_8967963.png";
-import staff from "../assets/images/technician_17474326.png";
-import van from "../assets/images/van_963684.png";
-import { amenitiesIcon } from "../constants";
+import { amenitiesIcon, featureIcon } from "../constants";
 import OwnerDetails from "../components/landlord/OwnerDetails";
-import EnquiryForm from "../components/property/EnquiryForm";
+
 import CrystalButton from "../components/shared/buttons/CrystalButton";
 
-const PropertyDetails: React.FC = () => {
+import { APIResponse, PropertyDetails } from "../types";
+
+import { getPropertyById } from "../http";
+
+const SinglePropertyDetails: React.FC = () => {
+  const { propertyId } = useParams();
+
   const [showFullDescription, setShowFullDescription] =
     useState<boolean>(false);
+  const [property, setProperty] = useState<PropertyDetails>();
 
   const words = desc.split(" ");
   const description =
     words.length > 100 ? words.slice(0, 100).join(" ") + "..." : desc;
+
+  // console.log(propertyId);
+
+  const { data } = useQuery({
+    queryKey: ["properties", propertyId],
+    retry: 3,
+    queryFn: async (): Promise<AxiosResponse<APIResponse<PropertyDetails>>> => {
+      return await getPropertyById(propertyId);
+    },
+  });
+
+  useEffect(() => {
+    setProperty(data?.data.data as PropertyDetails);
+  }, [data]);
+
+  console.log(property);
   return (
     <>
       <div className="w-full px-4 sm:px-8  xl:px-36 ">
         <div className="text-xs text-gray-400 flex items-center justify-between py-2">
-          <p>Home</p>
-          <p>Posted on Aug 22, 2024 | Ready to move</p>
+          <p>Home : {property?.name}</p>
+          <p>
+            Posted on {property?.dateListed} | {property?.availabilityStatus}{" "}
+            {/*have to change the format */}
+          </p>
         </div>
         <div className="mt-4 flex justify-start sm:justify-normal">
           {/* Property Price  */}
@@ -33,11 +64,12 @@ const PropertyDetails: React.FC = () => {
               <span className="text-sm  sm:text-xl lg:text-2xl font-normal mr-1">
                 &#8377;
               </span>
-              60 Thousand
+              {property?.rent} {/*have to change the format */}
             </p>
             <p className="text-xs sm:text-sm tracking-tighter text-sky-500">
               {" "}
-              Deposit Amt &#8377;60 Thousand
+              Deposit Amt &#8377; {property?.deposit}{" "}
+              {/*have to change the format */}
             </p>
           </div>
 
@@ -48,10 +80,12 @@ const PropertyDetails: React.FC = () => {
           <div className="text-sm md:text-base  w-full flex items-center justify-between">
             <div>
               <p className="font-medium text-base sm:text-xl lg:text-3xl  text-gray-600">
-                4 BHK
+                {property?.size}
               </p>
-              <p className="text-gray-400 my-1">Flat/ Apartment for rent</p>
-              <p className="text-sm text-gray-400">in 101 Pine Road</p>
+              <p className="text-gray-400 my-1">
+                {property?.propertyType} for rent
+              </p>
+              <p className="text-sm text-gray-400">{property?.address}</p>
             </div>
             <div className="hidden sm:block">
               <CrystalButton text="Book Now" isDark={true} />
@@ -72,7 +106,15 @@ const PropertyDetails: React.FC = () => {
           </div>
 
           <div className="w-full lg:w-1/2">
-            <ConfigurationCard />
+            <ConfigurationCard
+              pConfiguration={property?.configuration as string}
+              pfloor={property?.floor as string}
+              pRent={property?.rent as number}
+              pAddress={property?.address as string}
+              pRentAge={property?.propertyAge as string}
+              pDeposit={property?.deposit as number}
+              pName={property?.name as string}
+            />
           </div>
         </div>
         {/* Highlight Section  */}
@@ -87,46 +129,10 @@ const PropertyDetails: React.FC = () => {
           <p className=" font-medium text-lg ">Semi-Furnished</p>
           <p className="tracking-tight mt-1">Furnishing Details</p>
           <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Television"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Television</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Air conditioning"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Air conditioning</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Bed"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Bed</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Refrigerator"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Refrigerator</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img
-                src={amenitiesIcon["Television"]}
-                alt="tv"
-                className="w-4 h-4 md:w-7 md:h-7"
-              />
-              <p className="text-sm md:text-base">Television</p>
-            </div>
+            <AmenitiesItem
+              imgsrc={amenitiesIcon["Television"]}
+              title="Television"
+            />
           </div>
         </div>
 
@@ -134,18 +140,10 @@ const PropertyDetails: React.FC = () => {
         <div className="text-gray-500 border-t-2 border-t-gray-300 border-b-2 border-b-gray-300  py-4 lg:py-8">
           <p className=" font-medium text-lg ">Features</p>
           <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
-            <div className="flex items-center gap-2">
-              <img src={alarm} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
-              <p className="text-sm md:text-base">Security / Fire Alarm</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img src={staff} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
-              <p className="text-sm md:text-base">Maintenance Staff</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <img src={van} alt="tick" className="w-4 h-4 md:w-7 md:h-7" />
-              <p className="text-sm md:text-base ">Waste Disposal</p>
-            </div>
+            <AmenitiesItem
+              imgsrc={featureIcon["Waste Disposal"]}
+              title="Waste Disposal"
+            />
           </div>
         </div>
 
@@ -190,4 +188,4 @@ const PropertyDetails: React.FC = () => {
   );
 };
 
-export default PropertyDetails;
+export default SinglePropertyDetails;

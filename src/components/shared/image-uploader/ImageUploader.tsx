@@ -8,8 +8,13 @@ interface ImageUploaderProps {
   onImagesUploaded: (images: string[]) => void; // Callback function to pass uploaded images
 }
 
-const ImageUploader: React.FC<ImageUploaderProps> = ({ images, onImagesUploaded }) => {
-  const [uploadedImages, setUploadedImages] = useState<string[]>(images ? images : []);
+const ImageUploader: React.FC<ImageUploaderProps> = ({
+  images,
+  onImagesUploaded,
+}) => {
+  const [uploadedImages, setUploadedImages] = useState<string[]>(
+    images ? images : []
+  );
 
   // Cloudinary configuration
   const cloudName = import.meta.env.VITE_CLOUDINARY_USERNAME; // Replace with your Cloudinary cloud name
@@ -20,12 +25,12 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ images, onImagesUploaded 
     (acceptedFiles: File[]) => {
       acceptedFiles.forEach((file) => {
         enqueueSnackbar("Uploading Start.....", {
-          variant : "info"
-        })
+          variant: "info",
+        });
         const formData = new FormData();
         formData.append("file", file);
         formData.append("upload_preset", uploadPreset);
-        
+
         // Upload to Cloudinary
         axios
           .post(
@@ -38,15 +43,15 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ images, onImagesUploaded 
             if (fileName) {
               setUploadedImages((prev) => [...prev, fileName]);
               enqueueSnackbar("Uploading Successfull !", {
-                variant : "success"
-              })
+                variant: "success",
+              });
             }
           })
-          .catch((error) => enqueueSnackbar(`Error Uploading image: ${error}` , {
-            variant : "error"
-          }));
-
-          
+          .catch((error) =>
+            enqueueSnackbar(`Error Uploading image: ${error}`, {
+              variant: "error",
+            })
+          );
       });
     },
     [uploadPreset, cloudName]
@@ -58,8 +63,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ images, onImagesUploaded 
   }, [uploadedImages, onImagesUploaded]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-  
-  
+
   return (
     <div className="mt-4">
       <div
