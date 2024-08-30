@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Breadcrumb,
   Filter,
@@ -12,7 +12,10 @@ import { APIResponse, PropertyDetails } from "../types";
 import PropertyCardLoader from "../components/loader/PropertyCardLoader";
 
 const Home: React.FC = () => {
-  const { data: properties, isLoading } = useQuery({
+
+  const [properties, setProperties] = useState<PropertyDetails[]>();
+
+  const { data, isLoading } = useQuery({
     queryKey: ["properties"],
     retry: 3,
     queryFn: async (): Promise<AxiosResponse<APIResponse<PropertyDetails>>> => {
@@ -20,6 +23,10 @@ const Home: React.FC = () => {
       return await getAllProperties();
     },
   });
+
+  useEffect(() => {
+    setProperties(data?.data.data as PropertyDetails[]);
+  },[data])
 
   return (
     <div className="w-full px-1 md:px-3 xl:px-36">
@@ -39,7 +46,7 @@ const Home: React.FC = () => {
             </div>
           ) : (
             <div className="w-full h-[calc(100vh-160px)] mt-4">
-              {properties?.data?.data?.map((item: PropertyDetails) => (
+              {properties?.map((item: PropertyDetails) => (
                 <PropertyCard key={item.propertyId} item={item} />
               ))}
             </div>
