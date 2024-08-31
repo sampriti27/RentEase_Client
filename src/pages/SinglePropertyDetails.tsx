@@ -64,9 +64,6 @@ const SinglePropertyDetails: React.FC = () => {
             <div className="w-1/2 sm:w-1/4 h-full">
               <p className="text-base  sm:text-2xl lg:text-3xl text-gray-600 font-semibold">
                 {" "}
-                <span className="text-sm  sm:text-xl lg:text-2xl font-normal mr-1">
-                  &#8377;
-                </span>
                 {formatCurrency(property?.rent as number)}
               </p>
               <p className="text-xs sm:text-sm tracking-tighter text-sky-500">

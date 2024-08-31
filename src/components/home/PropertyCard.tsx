@@ -6,13 +6,12 @@ import TenantTypeBadge from "../shared/badges/TenantTypeBadge";
 import { PropertyDetails } from "../../types";
 import ContactIcon from "../icons/ContactIcon";
 import { Link } from "react-router-dom";
-import { formatDateADistance } from "../../utils";
+import { formatCurrency, formatDateADistance } from "../../utils";
 
 interface Props {
   item: PropertyDetails;
 }
 const PropertyCard: React.FC<Props> = ({ item }) => {
-
   // display only partial description
   const truncatedDescription =
     item.description.split(" ").length > 30
@@ -55,8 +54,7 @@ const PropertyCard: React.FC<Props> = ({ item }) => {
             {/* Property Price  */}
             <div className="w-1/3 h-full">
               <p className="text-sm md:text-lg text-gray-800 font-semibold">
-                {" "}
-                &#8377; {item.rent}
+                {formatCurrency(item.rent)}
               </p>
             </div>
 
