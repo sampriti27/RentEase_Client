@@ -30,6 +30,20 @@ export interface PostProperty extends PropertyFormData {
   otherAmenities: string[]; // Array of strings
 }
 
+export type Landlord = {
+  userId: string;
+  fullName: string;
+  userName: string;
+  email: string;
+  photoUrl: string;
+  phone: number;
+  address: string;
+  city: string;
+  pinCode: string;
+  state: string;
+  joinedDate: string;
+};
+
 export interface PropertyDetails {
   propertyId: string;
   name: string;
@@ -52,19 +66,7 @@ export interface PropertyDetails {
   furnishedStatus: string;
   furnishedAmenities: string[]; // Array of strings
   otherAmenities: string[]; // Array of strings
-  landlord: {
-    userId: string;
-    fullName: string;
-    userName: string;
-    email: string;
-    photoUrl: string;
-    phone: number;
-    address: string;
-    city: string;
-    pinCode: string;
-    state: string;
-    joinedDate: string;
-  };
+  landlord: Landlord;
 }
 
 export interface APIResponse<T> {

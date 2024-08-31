@@ -10,28 +10,21 @@ import {
   Highlights,
   ImageCarousel,
 } from "../components/property";
-import { desc } from "../constants/propertyDescription";
 import { amenitiesIcon, featureIcon } from "../constants";
 import OwnerDetails from "../components/landlord/OwnerDetails";
 
 import CrystalButton from "../components/shared/buttons/CrystalButton";
 
-import { APIResponse, PropertyDetails } from "../types";
+import { APIResponse, Landlord, PropertyDetails } from "../types";
 
 import { getPropertyById } from "../http";
+import { editedDescription, formatCurrency, formatDateAsISO } from "../utils";
 
 const SinglePropertyDetails: React.FC = () => {
   const { propertyId } = useParams();
 
-  const [showFullDescription, setShowFullDescription] =
-    useState<boolean>(false);
+  const [showFullDescription, setShowFullDescription] = useState<boolean>(true);
   const [property, setProperty] = useState<PropertyDetails>();
-
-  const words = desc.split(" ");
-  const description =
-    words.length > 100 ? words.slice(0, 100).join(" ") + "..." : desc;
-
-  // console.log(propertyId);
 
   const { data } = useQuery({
     queryKey: ["properties", propertyId],
@@ -43,17 +36,23 @@ const SinglePropertyDetails: React.FC = () => {
 
   useEffect(() => {
     setProperty(data?.data.data as PropertyDetails);
-  }, [data]);
+  }, [data?.data.data]);
 
   console.log(property);
+  // console.log(propertyId);
+
+  const fullDescription = property?.description || "";
+  const truncatedDescription = editedDescription(fullDescription);
   return (
     <>
       <div className="w-full px-4 sm:px-8  xl:px-36 ">
         <div className="text-xs text-gray-400 flex items-center justify-between py-2">
-          <p>Home : {property?.name}</p>
+          <p>Home &gt; {property?.name}</p>
           <p>
-            Posted on {property?.dateListed} | {property?.availabilityStatus}{" "}
-            {/*have to change the format */}
+            {formatDateAsISO(property?.dateListed)} |{" "}
+            {property?.availabilityStatus === "Available"
+              ? "Ready to move"
+              : "Booked"}
           </p>
         </div>
         <div className="mt-4 flex justify-start sm:justify-normal">
@@ -64,12 +63,12 @@ const SinglePropertyDetails: React.FC = () => {
               <span className="text-sm  sm:text-xl lg:text-2xl font-normal mr-1">
                 &#8377;
               </span>
-              {property?.rent} {/*have to change the format */}
+              {formatCurrency(property?.rent as number)}
             </p>
             <p className="text-xs sm:text-sm tracking-tighter text-sky-500">
               {" "}
-              Deposit Amt &#8377; {property?.deposit}{" "}
-              {/*have to change the format */}
+              Deposit Amt
+              {formatCurrency(property?.deposit as number)}
             </p>
           </div>
 
@@ -125,25 +124,33 @@ const SinglePropertyDetails: React.FC = () => {
           <Highlights />
         </div>
         {/* Furniture Section  */}
-        <div className="mt-8 lg:mt-16 text-gray-500 border-t-2 border-t-gray-300  py-4 lg:py-8">
-          <p className=" font-medium text-lg ">Semi-Furnished</p>
-          <p className="tracking-tight mt-1">Furnishing Details</p>
-          <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
-            <AmenitiesItem
-              imgsrc={amenitiesIcon["Television"]}
-              title="Television"
-            />
+        {(property?.furnishedAmenities?.length as number) > 0 && (
+          <div className="mt-8 lg:mt-16 text-gray-500 border-t-2 border-t-gray-300  py-4 lg:py-8">
+            <p className=" font-medium text-lg ">{property?.furnishedStatus}</p>
+            <p className="tracking-tight mt-1">Furnishing Details</p>
+            <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
+              {property?.furnishedAmenities.map((item, ind) => (
+                <AmenitiesItem
+                  imgsrc={amenitiesIcon[item]}
+                  title={item}
+                  key={ind}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Features Section  */}
         <div className="text-gray-500 border-t-2 border-t-gray-300 border-b-2 border-b-gray-300  py-4 lg:py-8">
           <p className=" font-medium text-lg ">Features</p>
           <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
-            <AmenitiesItem
-              imgsrc={featureIcon["Waste Disposal"]}
-              title="Waste Disposal"
-            />
+            {property?.otherAmenities.map((item, ind) => (
+              <AmenitiesItem
+                imgsrc={featureIcon[item]}
+                title={item}
+                key={ind}
+              />
+            ))}
           </div>
         </div>
 
@@ -151,14 +158,13 @@ const SinglePropertyDetails: React.FC = () => {
         <div className="py-4 lg:py-8 text-gray-500">
           <p className=" font-medium text-lg">About Property</p>
           <p className="mt-2 tracking-tight text-sm">
-            <span className="text-base font-medium">Address:</span> Chiria
-            bagan, Kolkata North, Kolkata
+            <span className="text-base font-medium">Address:</span>
+            {property?.address}
           </p>
-
-          {words.length >= 100 && !showFullDescription && (
+          {fullDescription.length > 100 && !showFullDescription && (
             <>
               <p className="text-sm tracking-tighter mt-2 text-justify text-gray-500">
-                {description}
+                {truncatedDescription}
               </p>
               <span
                 className="text-sm cursor-pointer hover:underline underline-offset-2"
@@ -168,16 +174,17 @@ const SinglePropertyDetails: React.FC = () => {
               </span>
             </>
           )}
+
           {showFullDescription && (
             <p className="text-sm tracking-tighter mt-2 text-justify text-gray-500">
-              {desc}
+              {fullDescription}
             </p>
           )}
         </div>
         {/* Owner Details and Enquiry Form Section  */}
         <div className=" w-full bg-white shadow-sm flex flex-col md:flex-row items-center mb-10">
           <div className="w-full md:w-1/2 p-4 sm:p-8">
-            <OwnerDetails />
+            <OwnerDetails landlord={property?.landlord as Landlord} />
           </div>
           <div className="w-full md:w-1/2 p-4 sm:p-8">
             <EnquiryForm />

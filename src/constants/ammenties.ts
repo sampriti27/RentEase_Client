@@ -54,6 +54,7 @@ export const furnishedAmmenties: string[] = [
 ];
 
 export const amenitiesIcon: Record<string, string> = {
+  "Air Conditioning": ac,
   "Air conditioning": ac,
   Bed: bed,
   Chimney: chimney,
@@ -66,7 +67,11 @@ export const amenitiesIcon: Record<string, string> = {
   Television: tv,
   Light: light,
   Wardrobe: wardrobe,
+  Wardrobes: wardrobe,
   "Washing Machine": washing,
+  "Modular Kitchen": chimney,
+  "Sofa Set": sofa,
+  "Dining Table": table,
 };
 
 export const featureIcon: Record<string, string> = {
