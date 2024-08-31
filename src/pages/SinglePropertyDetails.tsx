@@ -55,7 +55,7 @@ const SinglePropertyDetails: React.FC = () => {
         <SinglePropertyLoader />
       ) : (
         <div className="w-full px-4 sm:px-8  xl:px-36 ">
-          <div className="text-xs text-gray-400 flex items-center justify-between py-2">
+          <div className="text-xs text-gray-400 flex items-center justify-between py-4">
             <p>Home &gt; {property?.name}</p>
             <p>
               {formatDateAsISO(property?.dateListed)} |{" "}
@@ -67,13 +67,12 @@ const SinglePropertyDetails: React.FC = () => {
           <div className="mt-4 flex justify-start sm:justify-normal">
             {/* Property Price  */}
             <div className="w-1/2 sm:w-1/4 h-full">
-              <p className="text-base  sm:text-2xl lg:text-3xl text-gray-600 font-semibold">
+              <p className="text-base  sm:text-2xl lg:text-3xl text-gray-700 font-semibold">
                 {" "}
                 {formatCurrency(property?.rent as number)}
               </p>
               <p className="text-xs sm:text-sm tracking-tighter text-sky-500">
-                {" "}
-                Deposit Amt
+                Deposit Amt &nbsp;
                 {formatCurrency(property?.deposit as number)}
               </p>
             </div>
@@ -84,13 +83,13 @@ const SinglePropertyDetails: React.FC = () => {
             {/* Property Type and move in status  */}
             <div className="text-sm md:text-base  w-full flex items-center justify-between">
               <div>
-                <p className="font-medium text-base sm:text-xl lg:text-3xl  text-gray-600">
+                <p className="font-medium text-base sm:text-xl lg:text-3xl  text-gray-700">
                   {property?.size}
                 </p>
-                <p className="text-gray-400 my-1">
+                <p className="text-gray-400">
                   {property?.propertyType} for rent
                 </p>
-                <p className="text-sm text-gray-400">{property?.address}</p>
+                <p className="text-sm text-gray-400">in {property?.address}</p>
               </div>
               <div className="hidden sm:block">
                 <CrystalButton text="Book Now" isDark={true} />

@@ -69,12 +69,6 @@ const UpdateProperty: React.FC<Props> = ({ property, onUpdateSuccess }) => {
     e.preventDefault(); // Prevent the default link behavior
     updateMutation.mutate(propertyId); // Pass the property ID to the mutation
     onUpdateSuccess();
-    const allFormData: PropertyUpdateForm = {
-      ...formData,
-      photos: photos,
-    };
-
-    console.log(allFormData, propertyId);
   };
 
   return (

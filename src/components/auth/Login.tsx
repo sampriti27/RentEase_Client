@@ -40,7 +40,7 @@ const Login: React.FC<Props> = ({ setAuth, setOpenAuthModal }) => {
       setOpenAuthModal(false);
     },
     onError: (error: any) => {
-      enqueueSnackbar(error?.response?.data?.message || "Login failed", {
+      enqueueSnackbar(error?.response?.data?.access_denied_reason || "Login failed", {
         variant: "error",
       });
     },
@@ -59,7 +59,7 @@ const Login: React.FC<Props> = ({ setAuth, setOpenAuthModal }) => {
           <Input
             type="text"
             name="userName"
-            label="username"
+            label="Username"
             value={loginData.userName}
             onChange={handleInputChange}
           />
