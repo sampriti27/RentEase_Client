@@ -35,9 +35,9 @@ const Layout: React.FC<Props> = ({ setOpenAuthModal, openAuthModal }) => {
         <h3 className="font-medium text-2xl">Login / Register</h3>
         {/* Login / Register Component  */}
         {auth === "login" ? (
-          <Login setAuth={setAuth} />
+          <Login setAuth={setAuth} setOpenAuthModal={setOpenAuthModal} />
         ) : (
-          <Register setAuth={setAuth} />
+          <Register setAuth={setAuth} setOpenAuthModal={setOpenAuthModal} />
         )}
       </div>
     </motion.div>

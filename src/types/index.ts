@@ -24,16 +24,28 @@ export interface PropertyFormData {
   description: string;
 }
 
+export interface AuthUser {
+  userName: string;
+  password: string;
+}
+
+export interface RegisterUser {
+  username: string;
+  password: string;
+  fullName: string;
+  email: string;
+  role: string;
+}
 export interface PostProperty extends PropertyFormData {
   photos: string[];
   furnishedAmenities: string[]; // Array of strings
   otherAmenities: string[]; // Array of strings
 }
 
-export type Landlord = {
+export interface User {
   userId: string;
   fullName: string;
-  userName: string;
+  username: string;
   email: string;
   photoUrl: string;
   phone: number;
@@ -42,7 +54,17 @@ export type Landlord = {
   pinCode: string;
   state: string;
   joinedDate: string;
-};
+  password?: string; // Optional, might not be included for Landlord
+  role?: string; // Optional, might be used to differentiate roles
+  userActivated?: boolean; // Optional, might be used to indicate activation status
+}
+
+export interface LoginUserData extends User {
+  accessToken: string;
+  refreshToken: string;
+}
+// Define the Landlord type extending User
+export interface Landlord extends User {}
 
 export interface PropertyDetails {
   propertyId: string;

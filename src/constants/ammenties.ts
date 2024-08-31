@@ -55,7 +55,6 @@ export const furnishedAmmenties: string[] = [
 
 export const amenitiesIcon: Record<string, string> = {
   "Air Conditioning": ac,
-  "Air conditioning": ac,
   Bed: bed,
   Chimney: chimney,
   Curtain: curtain,

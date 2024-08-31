@@ -1,15 +1,20 @@
-import React from "react";
-
 interface Props {
   type: string;
   label: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-const Input: React.FC<Props> = ({ type, label }) => {
+
+const Input: React.FC<Props> = ({ type, label, name, value, onChange }) => {
   return (
     <div className="w-full my-4">
       <div className="relative w-full min-w-[200px]">
         <input
           type={type}
+          name={name}
+          value={value}
+          onChange={onChange}
           className="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline-none focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2  focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px]  focus:border-sky-700"
           placeholder=" "
         />

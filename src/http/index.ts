@@ -1,5 +1,10 @@
 import axios from "axios";
-import { PostProperty, PropertyUpdateForm } from "../types";
+import {
+  AuthUser,
+  PostProperty,
+  PropertyUpdateForm,
+  RegisterUser,
+} from "../types";
 
 //axios instance
 const api = axios.create({
@@ -26,3 +31,10 @@ export const updateProperty = (
   data: PropertyUpdateForm,
   propertyId: string | undefined
 ) => api.put(`/api/v1/real-estate/properties/${propertyId}`, data);
+
+//auth apis
+export const registerUser = (data: RegisterUser) =>
+  api.post(`/api/v1/auth/register`, data);
+
+export const loginUser = (data: AuthUser) =>
+  api.post(`api/v1/auth/login`, data);
