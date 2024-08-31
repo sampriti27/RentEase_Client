@@ -47,3 +47,19 @@ export const editedDescription = (desc: string | undefined): string => {
   const words = desc.split(" ");
   return words.length > 100 ? words.slice(0, 100).join(" ") + "..." : desc;
 };
+
+export const findIcon = (
+  item: string,
+  iconMap: Record<string, string>
+): string | undefined => {
+  // Normalize the item text to lowercase
+  const normalizedItem = item.toLowerCase();
+
+  // Find the closest match in the iconMap
+  const match = Object.keys(iconMap).find((key) =>
+    normalizedItem.includes(key.toLowerCase())
+  );
+
+  // Return the corresponding icon if found, otherwise return undefined
+  return match ? iconMap[match] : undefined;
+};

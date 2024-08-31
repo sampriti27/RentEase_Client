@@ -16,13 +16,13 @@ const Highlights: React.FC = () => {
       </div>
       <div className="w-full sm:w-3/4 p-4">
         <div className="bg-[#f0f9ff] p-4 rounded-lg  grid grid-rows-2 grid-flow-col gap-4">
-          <HighlightItem item="Top Floor" />
-          <HighlightItem item="Corner Property" />
-          <HighlightItem item="Kaikhali within 1.5km" />
+          <HighlightItem item="Spacious" />
+          <HighlightItem item="Well Ventilated" />
+          <HighlightItem item="24/7 Security" />
           <HighlightItem item="Pet Friendly" />
           <HighlightItem
             item="
-24*7 Water "
+24/7 Water "
           />
         </div>
       </div>

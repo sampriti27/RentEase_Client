@@ -1,7 +1,7 @@
 import React from "react";
 
 interface Props {
-  imgsrc: string;
+  imgsrc: string | undefined;
   title: string;
 }
 const AmenitiesItem: React.FC<Props> = ({ imgsrc, title }) => {

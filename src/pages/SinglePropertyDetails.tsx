@@ -18,7 +18,12 @@ import CrystalButton from "../components/shared/buttons/CrystalButton";
 import { APIResponse, Landlord, PropertyDetails } from "../types";
 
 import { getPropertyById } from "../http";
-import { editedDescription, formatCurrency, formatDateAsISO } from "../utils";
+import {
+  editedDescription,
+  findIcon,
+  formatCurrency,
+  formatDateAsISO,
+} from "../utils";
 import SinglePropertyLoader from "../components/loader/SinglePropertyLoader";
 
 const SinglePropertyDetails: React.FC = () => {
@@ -134,7 +139,7 @@ const SinglePropertyDetails: React.FC = () => {
               <div className="grid gap-2  grid-cols-2 grid-flow-row lg:gap-4 lg:grid-flow-col lg:grid-rows-1 auto-cols-fr mt-4">
                 {property?.furnishedAmenities.map((item, ind) => (
                   <AmenitiesItem
-                    imgsrc={amenitiesIcon[item]}
+                    imgsrc={findIcon(item, amenitiesIcon)}
                     title={item}
                     key={ind}
                   />

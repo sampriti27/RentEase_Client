@@ -70,13 +70,13 @@ export const amenitiesIcon: Record<string, string> = {
   Wardrobes: wardrobe,
   "Washing Machine": washing,
   "Modular Kitchen": chimney,
-  "Sofa Set": sofa,
-  "Dining Table": table,
 };
 
 export const featureIcon: Record<string, string> = {
-  "Security / Fire Alarm": alarm,
+  "Fire Alarm": alarm,
   "Battery Backup": backup,
+  "Power Backup": backup,
+  Lift: lift,
   Elevator: lift,
   Gym: gym,
   Parking: park,
