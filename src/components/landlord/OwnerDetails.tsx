@@ -11,14 +11,20 @@ interface Props {
 }
 
 const OwnerDetails: React.FC<Props> = ({ landlord }) => {
-  const { data } = useQuery({
+  const { data: properties } = useQuery({
     queryKey: ["properties", landlord?.userId],
     retry: 3,
-    queryFn: async (): Promise<AxiosResponse<APIResponse<PropertyDetails>>> => {
+    queryFn: async (): Promise<
+      AxiosResponse<APIResponse<PropertyDetails[]>>
+    > => {
       return await getAllPropertyOfLandlord(landlord?.userId);
     },
   });
 
+  console.log(properties);
+  const propertyList = Array.isArray(properties?.data.data)
+    ? properties?.data.data
+    : [];
   return (
     <>
       <div className="text-gray-700">
@@ -45,8 +51,8 @@ const OwnerDetails: React.FC<Props> = ({ landlord }) => {
           </div>
         </div>
         <div className="text-sky-500 text-xs sm:text-sm flex items-center mt-4 gap-8">
-          <p>Property Listed: {data?.data.data?.length ?? 0}</p>
-          <p>Property Verified: {data?.data.data?.length ?? 0}</p>
+          <p>Property Listed: {propertyList.length}</p>
+          <p>Property Verified:{propertyList.length}</p>
         </div>
         <p className="mt-2 text-sm md:text-base">
           <span className="font-medium">Localities: </span> {landlord?.state}
