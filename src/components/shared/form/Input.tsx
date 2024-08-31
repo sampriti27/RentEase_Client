@@ -1,9 +1,9 @@
 interface Props {
   type: string;
   label: string;
-  name: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  name?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input: React.FC<Props> = ({ type, label, name, value, onChange }) => {

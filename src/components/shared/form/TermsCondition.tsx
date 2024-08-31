@@ -1,6 +1,6 @@
 interface TermsConditionProps {
-  termsAccepted: boolean;
-  onTermsChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  termsAccepted?: boolean;
+  onTermsChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const TermsCondition: React.FC<TermsConditionProps> = ({
