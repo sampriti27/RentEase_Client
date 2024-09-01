@@ -8,18 +8,19 @@ import { deleteProperty, getAllPropertyOfLandlord } from "../../http";
 import { enqueueSnackbar } from "notistack";
 import { formatDateAsISO } from "../../utils";
 import TableLoader from "../loader/TableLoader";
+import { useSelector } from "react-redux";
 
 const PropertyTable: React.FC = () => {
+  const { userData } = useSelector((state:any) => state.auth);
   const navigate = useNavigate();
-  const landlord = "932c3a21-257c-4452-ae0d-db90e4589df6";
   const queryClient = useQueryClient();
 
   // Fetch all properties for the landlord
   const { data: properties, isLoading } = useQuery({
-    queryKey: ["properties/landlord", landlord],
+    queryKey: ["properties/landlord", userData ? userData.userId : "932c3a21-257c-4452-ae0d-db90e4589df6"],
     retry: 3,
     queryFn: async (): Promise<AxiosResponse<APIResponse<PropertyDetails>>> => {
-      return await getAllPropertyOfLandlord(landlord);
+      return await getAllPropertyOfLandlord(userData ? userData.userId : "932c3a21-257c-4452-ae0d-db90e4589df6");
     },
   });
 
@@ -28,7 +29,7 @@ const PropertyTable: React.FC = () => {
     mutationFn: (id: string) => deleteProperty(id), // Accept the property ID to delete
     onSuccess: () => {
       // Refetch properties after a successful deletion
-      queryClient.invalidateQueries(["properties/landlord", landlord]);
+      queryClient.invalidateQueries(["properties/landlord", userData.userId]);
       enqueueSnackbar("Property Deleted successfully!", {
         variant: "success",
       });
@@ -53,7 +54,7 @@ const PropertyTable: React.FC = () => {
     : [];
 
   return (
-    <div className="overflow-x-auto mt-6 rounded-lg shadow">
+    <div className="overflow-x-auto mt-3 rounded-lg shadow">
       <table className="min-w-full divide-y divide-gray-200">
         <caption className="p-5 text-md md:text-lg font-semibold text-left text-gray-900 bg-white">
           My Properties

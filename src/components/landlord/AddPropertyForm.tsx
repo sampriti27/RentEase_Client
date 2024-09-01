@@ -7,8 +7,10 @@ import { enqueueSnackbar } from 'notistack';
 import { useMutation } from "react-query";
 import { addProperties } from "../../http";
 import { AxiosResponse } from "axios";
+import { useSelector } from "react-redux";
 
 const AddPropertyForm: React.FC = () => {
+  const { userData } = useSelector((state:any) => state.auth);
   // states
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const [selectedFurnishedAmenities, setSelectedFurnishedAmenities] = useState<
@@ -88,7 +90,7 @@ const AddPropertyForm: React.FC = () => {
         photos: photos
       };
 
-      return addProperties(allFormData, "932c3a21-257c-4452-ae0d-db90e4589df6");
+      return addProperties(allFormData, userData.userId);
     },
     onSuccess : (data:AxiosResponse<APIResponse<PropertyDetails>>) => {
       enqueueSnackbar(data.data.message,  {

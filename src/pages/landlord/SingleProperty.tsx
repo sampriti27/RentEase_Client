@@ -115,7 +115,7 @@ const SingleProperty: React.FC = () => {
                   </p>
                   <p className="text-xs sm:text-sm tracking-tighter text-blue-500">
                     {" "}
-                    Deposit Amt {formatCurrency(property?.deposit as number)}
+                    Deposit Amt &nbsp;{formatCurrency(property?.deposit as number)}
                   </p>
                 </div>
 

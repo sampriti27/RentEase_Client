@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { Label, Input } from "../shared/form";
 import Button from "../shared/buttons/Button";
-import { APIResponse, AuthUser, LoginUserData } from "../../types";
+import { AuthUser, LoginUserData } from "../../types";
 import { useMutation } from "react-query";
 import { loginUser } from "../../http";
 import { AxiosResponse } from "axios";
 import { enqueueSnackbar } from "notistack";
+import { useDispatch } from "react-redux";
+import { setAuthData } from "../../store/slices/userSlice";
 
 interface Props {
   setAuth: React.Dispatch<React.SetStateAction<string>>;
   setOpenAuthModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const Login: React.FC<Props> = ({ setAuth, setOpenAuthModal }) => {
+  const dispatch = useDispatch();
   const [loginData, setLoginData] = useState<AuthUser>({
     userName: "",
     password: "",
@@ -27,22 +30,40 @@ const Login: React.FC<Props> = ({ setAuth, setOpenAuthModal }) => {
 
   const loginMutation = useMutation({
     mutationFn: (data: AuthUser) => loginUser(data),
-    onSuccess: (data: AxiosResponse<APIResponse<LoginUserData>>) => {
+    onSuccess: (data: AxiosResponse<LoginUserData>) => {
       enqueueSnackbar(data.data.message, {
         variant: "success",
       });
-      console.log(data.data);
+      console.log(data.data)
+
+       // Correctly dispatch the user data to the Redux store
+       const userData = data.data.user;
+       dispatch(
+         setAuthData({
+           isUserActivated: userData.userActivated as boolean,
+           userData: userData ,
+           role: userData.role as string,
+         })
+       );
+
+       localStorage.setItem("access_token", JSON.stringify(data.data.accessToken));
+       localStorage.setItem("refresh_token", JSON.stringify(data.data.refreshToken));
+
       // Clear the input fields and reset form state
       setLoginData({
         userName: "",
         password: "",
       });
+
       setOpenAuthModal(false);
     },
     onError: (error: any) => {
-      enqueueSnackbar(error?.response?.data?.access_denied_reason || "Login failed", {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        error?.response?.data?.access_denied_reason || "Login failed",
+        {
+          variant: "error",
+        }
+      );
     },
   });
   const handleSubmit = (e: React.FormEvent) => {

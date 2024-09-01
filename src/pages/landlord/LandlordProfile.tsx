@@ -1,10 +1,14 @@
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
+import Alerts from "../../components/shared/alerts/Alerts";
 
-const LandlordProfile:React.FC = () => {
-    const { id } = useParams<{id: string}>();
+const LandlordProfile: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
   return (
-    <div>This is Landlord Profile : {id}</div>
-  )
-}
+    <>
+      <Alerts />
+      <div className="px-4">{id}</div>
+    </>
+  );
+};
 
 export default LandlordProfile;

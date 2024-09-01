@@ -1,9 +1,12 @@
+import Alerts from "../../components/shared/alerts/Alerts";
 
 const LandlordDashboard: React.FC = () => {
+  // const { userData } = useSelector((state:any) => state.auth);
   return (
-    <div className="px-4 py-14">
-      This is Dashbaord
-    </div>
+    <>
+      <Alerts />
+      <div className="px-4">This is Dashboard</div>
+    </>
   );
 };
 

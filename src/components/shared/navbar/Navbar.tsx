@@ -4,7 +4,9 @@ import logo_icon from "../../../assets/RentEase_Icon.png";
 import Search from "../Search";
 import Button from "../buttons/Button";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { clearAuth } from "../../../store/slices/userSlice";
 
 interface Props {
   openAuthModal: boolean;
@@ -12,9 +14,14 @@ interface Props {
 }
 
 const Navbar: React.FC<Props> = ({ openAuthModal, setOpenAuthModal }) => {
+  const { isUserActivated, userData, role } = useSelector(
+    (state: any) => state.auth
+  );
   const [openUserMenu, setOpenUserMenu] = useState<boolean>(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
   const userMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -33,6 +40,22 @@ const Navbar: React.FC<Props> = ({ openAuthModal, setOpenAuthModal }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const handleNavigate = () => {
+    if (role === "Landlord") {
+      navigate(`/profile/landlord/${userData.userId}`);
+    } else {
+      navigate(`/profile/tenant/${userData.userId}`);
+    }
+  };
+
+  const handleLogout = () => {
+    // api call to server
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    dispatch(clearAuth());
+  }
+
 
   return (
     <div className="sticky z-10 top-0 bg-sky-700 border-gray-200 w-full flex items-center justify-between py-4  px-2 sm:px-8 h-[72px]">
@@ -59,17 +82,21 @@ const Navbar: React.FC<Props> = ({ openAuthModal, setOpenAuthModal }) => {
       </div>
       {/* POST PROPERTY + USER ICON */}
       <div className="flex items-center gap-4">
-        <div className="hidden md:block">
-          <Button
-            text="Post Property"
-            badge={
-              <span className="bg-green-800 text-green-100 text-[9px] font-medium me-2 px-1 rounded ">
-                FREE
-              </span>
-            }
-            iconPosition="right"
-          />
-        </div>
+        {role === "Tenant" ? (
+          <></>
+        ) : (
+          <div className="hidden md:block" onClick={() => navigate("/profile/landlord/add-property")} >
+            <Button
+              text="Post Property"
+              badge={
+                <span className="bg-green-800 text-green-100 text-[9px] font-medium me-2 px-1 rounded ">
+                  FREE
+                </span>
+              }
+              iconPosition="right"
+            />
+          </div>
+        )}
         <button
           type="button"
           className="flex text-sm items-center justify-end lg:gap-1 w-auto"
@@ -133,27 +160,62 @@ const Navbar: React.FC<Props> = ({ openAuthModal, setOpenAuthModal }) => {
                 setOpenUserMenu(false);
               }}
             >
-              <span className="block font-medium text-sm text-sky-700 truncate cursor-pointer">
-                LOGIN/REGISTER
-              </span>
+              {userData ? (
+                <span
+                  onClick={handleNavigate}
+                  className="block font-medium text-sm text-sky-700 truncate cursor-pointer"
+                >
+                  {userData.fullName.toUpperCase()}
+                </span>
+              ) : (
+                <span className="block font-medium text-sm text-sky-700 truncate cursor-pointer">
+                  LOGIN/REGISTER
+                </span>
+              )}
             </div>
             <ul className="py-2" aria-labelledby="user-menu-button">
-              <li>
-                <Link
-                  to="/profile/landlord"
-                  className="block px-4 py-2 text-sm text-text-color hover:bg-gray-50"
-                >
-                  For LandLords
-                </Link>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-text-color hover:bg-gray-50"
-                >
-                  For Tenants
-                </a>
-              </li>
+              {!role ? (
+                // If no role (not logged in), show both links
+                <>
+                  <li>
+                    <Link
+                      to="/profile/landlord"
+                      className="block px-4 py-2 text-sm text-text-color hover:bg-gray-50"
+                    >
+                      For Landlords
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/"
+                      className="block px-4 py-2 text-sm text-text-color hover:bg-gray-50"
+                    >
+                      For Tenants
+                    </Link>
+                  </li>
+                </>
+              ) : role === "Landlord" ? (
+                // If role is Landlord, show only the "For Landlords" link
+                <li>
+                  <Link
+                    to="/profile/landlord"
+                    className="block px-4 py-2 text-sm text-text-color hover:bg-gray-50"
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+              ) : role === "Tenant" ? (
+                // If role is Tenant, show only the "For Tenants" link
+                <li>
+                  <Link
+                    to="/"
+                    className="block px-4 py-2 text-sm text-text-color hover:bg-gray-50"
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+              ) : null}
+
               <li>
                 <a
                   href="#"
@@ -162,16 +224,54 @@ const Navbar: React.FC<Props> = ({ openAuthModal, setOpenAuthModal }) => {
                   Recently Viewed
                 </a>
               </li>
-              <li>
+              {userData && (
+                <li onClick={handleLogout}>
+                  <Link
+                    to="/"
+                    className="block px-4 py-2 text-sm text-text-color hover:bg-gray-50"
+                  >
+                    Logout
+                  </Link>
+                </li>
+              )}
+              {role === "Tenant" ? (
+                <li>
                 <div className="border-t border-gray-100 pt-4 px-4">
-                  <button className="flex item-center w-full px-4 py-2 text-xs text-sky-900 bg-sky-100  font-medium rounded-lg hover:text-white hover:bg-sky-600 transition ease-in ">
-                    Post Property{" "}
-                    <span className="bg-green-800 text-green-100 text-[9px] font-medium ms-2 px-1 rounded ">
-                      FREE
-                    </span>
+                  <button
+                    onClick={() => {
+                      if (role) {
+                        if (role === "Landlord") {
+                          navigate("/profile/landlord/add-property");
+                        }
+                      }
+                    }}
+                    className="flex item-center w-full px-4 py-2 text-xs text-sky-900 bg-sky-100  font-medium rounded-lg hover:text-white hover:bg-sky-600 transition ease-in "
+                  >
+                    Recently Contacted {" "}
                   </button>
                 </div>
               </li>
+              ) : (
+                <li>
+                  <div className="border-t border-gray-100 pt-4 px-4">
+                    <button
+                      onClick={() => {
+                        if (role) {
+                          if (role === "Landlord") {
+                            navigate("/profile/landlord/add-property");
+                          }
+                        }
+                      }}
+                      className="flex item-center w-full px-4 py-2 text-xs text-sky-900 bg-sky-100  font-medium rounded-lg hover:text-white hover:bg-sky-600 transition ease-in "
+                    >
+                      Post Property{" "}
+                      <span className="bg-green-800 text-green-100 text-[9px] font-medium ms-2 px-1 rounded ">
+                        FREE
+                      </span>
+                    </button>
+                  </div>
+                </li>
+              )}
             </ul>
           </motion.div>
         )}

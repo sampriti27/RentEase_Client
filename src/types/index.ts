@@ -59,9 +59,13 @@ export interface User {
   userActivated?: boolean; // Optional, might be used to indicate activation status
 }
 
-export interface LoginUserData extends User {
+export interface LoginUserData {
+  message: string;
+  success: boolean;
+  status: string;
   accessToken: string;
   refreshToken: string;
+  user : User
 }
 // Define the Landlord type extending User
 export interface Landlord extends User {}

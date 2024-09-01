@@ -3,18 +3,29 @@ import { Link, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import logo from "../../../assets/images/download.svg";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { clearAuth } from "../../../store/slices/userSlice";
 
 interface SideBarProps {
   children: React.ReactNode;
 }
 
 const Sidebar = ({ children }: SideBarProps) => {
+  const { userData} = useSelector((state:any) => state.auth)
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+
+  const handleLogout = () => {
+    // api call to server
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    dispatch(clearAuth());
+  }
 
   return (
     <div className="flex">
@@ -146,7 +157,7 @@ const Sidebar = ({ children }: SideBarProps) => {
           </div>
         </div>
         <div className="flex flex-col justify-start items-center gap-2">
-          <Link to="/profile/landlord/123">
+          <Link to={`/profile/landlord/${userData ? userData.userId : "123"}`}>
             <div
               className="bg-blue-100 hover:bg-blue-200  text-blue-600 hover:text-blue-700 rounded-lg  p-1 flex justify-center items-center"
               data-tooltip-id="profile"
@@ -170,7 +181,7 @@ const Sidebar = ({ children }: SideBarProps) => {
             </div>
             <Tooltip id="profile" />
           </Link>
-          <Link to="">
+          <Link onClick={handleLogout} to="">
             <div
               className="bg-blue-100 hover:bg-blue-200  text-blue-600 hover:text-blue-700 rounded-lg  p-1 flex justify-center items-center mb-5 "
               data-tooltip-id="logout"
@@ -305,7 +316,7 @@ const Sidebar = ({ children }: SideBarProps) => {
                   <span>Tenants</span>
                 </div>
               </Link>
-              <Link to="/profile/landlord/123" onClick={toggleSidebar} >
+              <Link to={`/profile/landlord/${userData ? userData.userId : "123"}`} onClick={toggleSidebar} >
                 <div
                   className="bg-blue-100 hover:bg-blue-200 text-blue-900 hover:text-blue-700 rounded-lg p-2 flex justify-start items-center w-full"
                   data-tooltip-id="profile"
@@ -330,7 +341,7 @@ const Sidebar = ({ children }: SideBarProps) => {
                 </div>
                 <Tooltip id="profile" />
               </Link>
-              <Link to="">
+              <Link onClick={handleLogout} to="">
                 <div
                   className="bg-blue-100 hover:bg-blue-200 text-blue-900 hover:text-blue-700 rounded-lg p-2 flex justify-start items-center w-full mb-5"
                   data-tooltip-id="logout"

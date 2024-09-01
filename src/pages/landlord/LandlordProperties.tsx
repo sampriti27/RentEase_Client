@@ -4,8 +4,9 @@ import { PlusIcon } from "../../components/icons";
 import PropertyTable from "../../components/landlord/PropertyTable";
 
 const LandlordProperties: React.FC = () => {
+
   return (
-    <div className="px-4 py-8 md:py-14">
+    <div className="px-4 py-6 md:py-14">
       <CrystalButton
         text="Add Property"
         icon={<PlusIcon isFilter={false} />}

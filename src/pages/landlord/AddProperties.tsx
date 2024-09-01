@@ -10,7 +10,7 @@ const AddProperties: React.FC = () => {
 
   return (
     <>
-      <div className="px-4 py-8 md:py-14">
+      <div className="px-4 py-6 md:py-14">
         <div onClick={() => navigate(-1)} className="bg-blue-100 p-1 w-10 mb-4 cursor-pointer rounded-full text-blue-500 hover:bg-blue-200">
           <BackArrow />
         </div>

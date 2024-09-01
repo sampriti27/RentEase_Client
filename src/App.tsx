@@ -19,8 +19,12 @@ import {
 } from "./pages/landlord";
 import Layout from "./components/auth/Layout";
 import PropertyDetails from "./pages/SinglePropertyDetails";
+import { useLoadingWithRefresh } from "./hooks/useLoadingWithRefresh";
 
 function App() {
+
+  const { loading } = useLoadingWithRefresh();
+
   return (
     <Router>
       <Routes>
