@@ -14,7 +14,7 @@ interface Props {
 }
 
 const Navbar: React.FC<Props> = ({ openAuthModal, setOpenAuthModal }) => {
-  const { isUserActivated, userData, role } = useSelector(
+  const { userData, role } = useSelector(
     (state: any) => state.auth
   );
   const [openUserMenu, setOpenUserMenu] = useState<boolean>(false);

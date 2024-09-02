@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { LoginUserData } from "../types";
 import { setAuthData } from "../store/slices/userSlice";
-import { enqueueSnackbar } from "notistack";
 
 export const useLoadingWithRefresh = () => {
   const [loading, setLoading] = useState<boolean>(true);
