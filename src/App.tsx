@@ -24,6 +24,7 @@ import { useLoadingWithRefresh } from "./hooks/useLoadingWithRefresh";
 function App() {
 
   const { loading } = useLoadingWithRefresh();
+  console.log(loading);
 
   return (
     <Router>
