@@ -3,24 +3,25 @@ import { CloseIcon } from "../icons";
 import Login from "./Login";
 import { motion } from "framer-motion";
 import Register from "./Register";
+import { useDispatch, useSelector } from "react-redux";
+import { closeAuthModal } from "../../store/slices/modalSlice";
 
-interface Props {
-  openAuthModal: boolean;
-  setOpenAuthModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
-const Layout: React.FC<Props> = ({ setOpenAuthModal, openAuthModal }) => {
+
+const Layout: React.FC = () => {
+  const { authModal } = useSelector((state:any) => state.modal);
+  const dispatch = useDispatch();
   const handleClose = () => {
-    setOpenAuthModal(false);
+    dispatch(closeAuthModal());
   };
   const [auth, setAuth] = useState<string>("login");
   return (
     <motion.div
       initial={{ scale: 0.9, x: "-50%", y: "-50%", opacity: 0 }}
       animate={{
-        scale: openAuthModal ? 1 : 0.9,
-        x: openAuthModal ? "-50%" : "-50%",
-        y: openAuthModal ? "-50%" : "-50%",
-        opacity: openAuthModal ? 1 : 0,
+        scale: authModal ? 1 : 0.9,
+        x: authModal ? "-50%" : "-50%",
+        y: authModal ? "-50%" : "-50%",
+        opacity: authModal ? 1 : 0,
       }}
       exit={{ scale: 0.9, x: "-50%", y: "-50%", opacity: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -35,9 +36,9 @@ const Layout: React.FC<Props> = ({ setOpenAuthModal, openAuthModal }) => {
         <h3 className="font-medium text-2xl">Login / Register</h3>
         {/* Login / Register Component  */}
         {auth === "login" ? (
-          <Login setAuth={setAuth} setOpenAuthModal={setOpenAuthModal} />
+          <Login setAuth={setAuth} />
         ) : (
-          <Register setAuth={setAuth} setOpenAuthModal={setOpenAuthModal} />
+          <Register setAuth={setAuth} />
         )}
       </div>
     </motion.div>

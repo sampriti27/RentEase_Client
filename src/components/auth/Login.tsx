@@ -8,12 +8,12 @@ import { AxiosResponse } from "axios";
 import { enqueueSnackbar } from "notistack";
 import { useDispatch } from "react-redux";
 import { setAuthData } from "../../store/slices/userSlice";
+import { closeAuthModal } from "../../store/slices/modalSlice";
 
 interface Props {
   setAuth: React.Dispatch<React.SetStateAction<string>>;
-  setOpenAuthModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const Login: React.FC<Props> = ({ setAuth, setOpenAuthModal }) => {
+const Login: React.FC<Props> = ({ setAuth }) => {
   const dispatch = useDispatch();
   const [loginData, setLoginData] = useState<AuthUser>({
     userName: "",
@@ -34,20 +34,27 @@ const Login: React.FC<Props> = ({ setAuth, setOpenAuthModal }) => {
       enqueueSnackbar(data.data.message, {
         variant: "success",
       });
-      console.log(data.data)
+      console.log(data.data);
 
-       // Correctly dispatch the user data to the Redux store
-       const userData = data.data.user;
-       dispatch(
-         setAuthData({
-           isUserActivated: userData.userActivated as boolean,
-           userData: userData ,
-           role: userData.role as string,
-         })
-       );
+      // Correctly dispatch the user data to the Redux store
+      const userData = data.data.user;
+      dispatch(
+        setAuthData({
+          isAuth: true,
+          isUserActivated: userData.userActivated as boolean,
+          userData: userData,
+          role: userData.role as string,
+        })
+      );
 
-       localStorage.setItem("access_token", JSON.stringify(data.data.accessToken));
-       localStorage.setItem("refresh_token", JSON.stringify(data.data.refreshToken));
+      localStorage.setItem(
+        "access_token",
+        JSON.stringify(data.data.accessToken)
+      );
+      localStorage.setItem(
+        "refresh_token",
+        JSON.stringify(data.data.refreshToken)
+      );
 
       // Clear the input fields and reset form state
       setLoginData({
@@ -55,7 +62,7 @@ const Login: React.FC<Props> = ({ setAuth, setOpenAuthModal }) => {
         password: "",
       });
 
-      setOpenAuthModal(false);
+      dispatch(closeAuthModal());
     },
     onError: (error: any) => {
       enqueueSnackbar(

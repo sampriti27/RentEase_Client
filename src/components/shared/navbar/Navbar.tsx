@@ -7,16 +7,10 @@ import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearAuth } from "../../../store/slices/userSlice";
+import { setOpenAuthModal } from "../../../store/slices/modalSlice";
 
-interface Props {
-  openAuthModal: boolean;
-  setOpenAuthModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const Navbar: React.FC<Props> = ({ openAuthModal, setOpenAuthModal }) => {
-  const { userData, role } = useSelector(
-    (state: any) => state.auth
-  );
+const Navbar: React.FC = () => {
+  const { isAuth, userData, role } = useSelector((state: any) => state.auth);
   const [openUserMenu, setOpenUserMenu] = useState<boolean>(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
   const userMenuButtonRef = useRef<HTMLButtonElement>(null);
@@ -54,8 +48,7 @@ const Navbar: React.FC<Props> = ({ openAuthModal, setOpenAuthModal }) => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     dispatch(clearAuth());
-  }
-
+  };
 
   return (
     <div className="sticky z-10 top-0 bg-sky-700 border-gray-200 w-full flex items-center justify-between py-4  px-2 sm:px-8 h-[72px]">
@@ -85,7 +78,14 @@ const Navbar: React.FC<Props> = ({ openAuthModal, setOpenAuthModal }) => {
         {role === "Tenant" ? (
           <></>
         ) : (
-          <div className="hidden md:block" onClick={() => navigate("/profile/landlord/add-property")} >
+          <div
+            className="hidden md:block"
+            onClick={() => {
+              !isAuth
+                ? dispatch(setOpenAuthModal(true))
+                : navigate("/profile/landlord/add-property");
+            }}
+          >
             <Button
               text="Post Property"
               badge={
@@ -156,7 +156,7 @@ const Navbar: React.FC<Props> = ({ openAuthModal, setOpenAuthModal }) => {
             <div
               className="px-4 py-3 hover:bg-gray-50 rounded-lg"
               onClick={() => {
-                setOpenAuthModal(!openAuthModal);
+                dispatch(setOpenAuthModal(true));
                 setOpenUserMenu(false);
               }}
             >
@@ -177,9 +177,13 @@ const Navbar: React.FC<Props> = ({ openAuthModal, setOpenAuthModal }) => {
               {!role ? (
                 // If no role (not logged in), show both links
                 <>
-                  <li>
+                  <li
+                    onClick={() => {
+                      !isAuth && dispatch(setOpenAuthModal(true));
+                    }}
+                  >
                     <Link
-                      to="/profile/landlord"
+                      to=""
                       className="block px-4 py-2 text-sm text-text-color hover:bg-gray-50"
                     >
                       For Landlords
@@ -187,7 +191,7 @@ const Navbar: React.FC<Props> = ({ openAuthModal, setOpenAuthModal }) => {
                   </li>
                   <li>
                     <Link
-                      to="/"
+                      to=""
                       className="block px-4 py-2 text-sm text-text-color hover:bg-gray-50"
                     >
                       For Tenants
@@ -236,29 +240,33 @@ const Navbar: React.FC<Props> = ({ openAuthModal, setOpenAuthModal }) => {
               )}
               {role === "Tenant" ? (
                 <li>
-                <div className="border-t border-gray-100 pt-4 px-4">
-                  <button
-                    onClick={() => {
-                      if (role) {
-                        if (role === "Landlord") {
-                          navigate("/profile/landlord/add-property");
-                        }
-                      }
-                    }}
-                    className="flex item-center w-full px-4 py-2 text-xs text-sky-900 bg-sky-100  font-medium rounded-lg hover:text-white hover:bg-sky-600 transition ease-in "
-                  >
-                    Recently Contacted {" "}
-                  </button>
-                </div>
-              </li>
-              ) : (
-                <li>
                   <div className="border-t border-gray-100 pt-4 px-4">
                     <button
                       onClick={() => {
                         if (role) {
                           if (role === "Landlord") {
                             navigate("/profile/landlord/add-property");
+                          }
+                        }
+                      }}
+                      className="flex item-center w-full px-4 py-2 text-xs text-sky-900 bg-sky-100  font-medium rounded-lg hover:text-white hover:bg-sky-600 transition ease-in "
+                    >
+                      Recently Contacted{" "}
+                    </button>
+                  </div>
+                </li>
+              ) : (
+                <li>
+                  <div className="border-t border-gray-100 pt-4 px-4">
+                    <button
+                      onClick={() => {
+                        if (!isAuth) {
+                          dispatch(setOpenAuthModal(true));
+                        } else {
+                          if (role) {
+                            if (role === "Landlord") {
+                              navigate("/profile/landlord/add-property");
+                            }
                           }
                         }
                       }}

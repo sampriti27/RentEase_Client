@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userSlice from './slices/userSlice'
+import modalSlice from './slices/modalSlice'
 
 export const store = configureStore({
   reducer: {
-    auth : userSlice
+    auth : userSlice,
+    modal : modalSlice
   },
   devTools: import.meta.env.NODE_ENV !== "production"
 })

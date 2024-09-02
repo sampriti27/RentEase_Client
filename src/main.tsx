@@ -16,7 +16,6 @@ const queryClient = new QueryClient({
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <SnackbarProvider autoHideDuration={3000}>
         <Provider store={store}>
@@ -24,5 +23,4 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </Provider>
       </SnackbarProvider>
     </QueryClientProvider>
-  </React.StrictMode>
 );

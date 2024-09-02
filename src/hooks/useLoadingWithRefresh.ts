@@ -26,6 +26,7 @@ export const useLoadingWithRefresh = () => {
           const userData = data.user;
           dispatch(
             setAuthData({
+              isAuth: true,
               isUserActivated: userData.userActivated as boolean,
               userData: userData,
               role: userData.role as string,

@@ -2,15 +2,17 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../types";
 
 export interface IntialStateProps {
+  isAuth: boolean;
   isUserActivated: boolean;
   userData: User | null;
-  role: string;
+  role: string | null;
 }
 
 const initialState: IntialStateProps = {
+  isAuth: false,
   isUserActivated: false,
   userData: null,
-  role: "",
+  role: null,
 };
 
 export const userSlice = createSlice({
@@ -19,11 +21,13 @@ export const userSlice = createSlice({
   reducers: {
     setAuthData: (state, action: PayloadAction<IntialStateProps>) => {
       const { isUserActivated, userData, role } = action.payload;
+      state.isAuth = true;
       state.isUserActivated = isUserActivated;
       state.userData = userData;
       state.role = role;
     },
     clearAuth: (state) => {
+      state.isAuth = false
       state.isUserActivated = false;
       state.userData = null;
       state.role = "";

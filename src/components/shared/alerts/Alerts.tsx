@@ -6,13 +6,13 @@ const Alerts: React.FC = () => {
   const { userData } = useSelector((state: any) => state.auth);
   return (
     <div
-      className="bg-yellow-100 border-t-4 mb-3 border-yellow-500 rounded-b text-yellow-900 mt-6 px-4 py-3 shadow-md"
+      className="bg-blue-100 border-t-4 mb-3 border-blue-500 rounded-b text-blue-900 mt-6 px-4 py-3 shadow-md"
       role="alert"
     >
       <div className="flex flex-col sm:flex-row sm:items-start sm:space-x-4">
         <div className="flex items-center gap-3">
           <svg
-            className="fill-current h-4 md:h-6 w-4 md:w-6 text-yellow-500"
+            className="fill-current h-4 md:h-6 w-4 md:w-6 text-blue-500"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
           >
