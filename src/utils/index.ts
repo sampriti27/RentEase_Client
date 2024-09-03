@@ -63,3 +63,15 @@ export const findIcon = (
   // Return the corresponding icon if found, otherwise return undefined
   return match ? iconMap[match] : undefined;
 };
+
+export const isValidCharCount = (text:string) =>{
+  let len = 0;
+  for (let index = 0; index < text.length; index++) {
+        len++;
+  }
+  if(len > 170){
+    return false;
+  }
+
+  return true;
+}

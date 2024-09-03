@@ -23,7 +23,6 @@ import waste from "../assets/features/van_963684.png";
 import laundry from "../assets/features/washing_3223741.png";
 
 export const otherAmenities: string[] = [
-  "Security / Fire Alarm",
   "Battery Backup",
   "Elevator",
   "Gym",

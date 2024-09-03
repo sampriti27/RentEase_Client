@@ -1,11 +1,15 @@
+import { useSelector } from "react-redux";
+import Metrics from "../../components/landlord/Metrics";
 import Alerts from "../../components/shared/alerts/Alerts";
+import RecentTransaction from "../../components/landlord/RecentTransaction";
 
 const LandlordDashboard: React.FC = () => {
-  // const { userData } = useSelector((state:any) => state.auth);
+  const { isUserActivated } = useSelector((state:any) => state.auth);
   return (
     <>
-      <Alerts />
-      <div className="px-4">This is Dashboard</div>
+      {!isUserActivated && <Alerts />}
+      <Metrics />
+      <RecentTransaction />
     </>
   );
 };
