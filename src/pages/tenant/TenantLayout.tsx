@@ -2,10 +2,10 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../../components/shared/sidebar/Sidebar";
 import Headers from "../../components/shared/sidebar/Headers";
 
-const LandlordLayout: React.FC = () => {
+const TenantLayout: React.FC = () => {
   return (
     <>
-      <Sidebar profile="landlord">
+      <Sidebar profile="tenant">
         <Headers />
         <Outlet />
       </Sidebar>
@@ -13,4 +13,4 @@ const LandlordLayout: React.FC = () => {
   );
 };
 
-export default LandlordLayout;
+export default TenantLayout;

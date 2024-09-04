@@ -8,9 +8,10 @@ import { clearAuth } from "../../../store/slices/userSlice";
 
 interface SideBarProps {
   children: React.ReactNode;
+  profile: "landlord" | "tenant";
 }
 
-const Sidebar = ({ children }: SideBarProps) => {
+const Sidebar = ({ children, profile }: SideBarProps) => {
   const { userData} = useSelector((state:any) => state.auth)
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
@@ -27,13 +28,16 @@ const Sidebar = ({ children }: SideBarProps) => {
     dispatch(clearAuth());
   }
 
+  // Define color classes based on the profile type
+  const colorClasses = profile === "landlord" ? "blue" : "teal";
+
   return (
     <div className="flex">
       {/* Hamburger Menu for Small Screens */}
       <div className="fixed top-4 left-4 md:hidden z-50">
         <button
           onClick={toggleSidebar}
-          className="rounded-lg text-blue-700 p-1 focus:outline-none"
+          className={`rounded-lg text-${colorClasses}-700 p-1 focus:outline-none`}
         >
           {/* Hamburger Icon */}
           <svg
@@ -58,7 +62,8 @@ const Sidebar = ({ children }: SideBarProps) => {
         <div className="flex flex-col justify-start items-center gap-2">
           <Link to="/profile/landlord">
             <div
-              className="bg-blue-500 hover:bg-blue-400 rounded-lg text-white p-1 flex justify-center items-center"
+              className={`bg-${colorClasses}-500 hover:bg-${colorClasses}-400 rounded-lg text-white p-1 flex justify-center 
+              items-center`}
               data-tooltip-id="rentease"
               data-tooltip-content="RentEase"
               data-tooltip-place="right"
@@ -84,7 +89,7 @@ const Sidebar = ({ children }: SideBarProps) => {
           <div className="flex flex-col gap-5 mt-10 justify-start items-center">
             <Link to="/profile/landlord">
               <div
-                className="bg-blue-100 hover:bg-blue-200  text-blue-600 hover:text-blue-700 rounded-lg  p-1 flex justify-center items-center"
+                className={`bg-${colorClasses}-100 hover:bg-${colorClasses}-200 text-${colorClasses}-600 hover:text-${colorClasses}-700 rounded-lg p-1 flex justify-center items-center`}
                 data-tooltip-id="dashboard"
                 data-tooltip-content="Dashboard"
                 data-tooltip-place="right"
@@ -159,7 +164,7 @@ const Sidebar = ({ children }: SideBarProps) => {
         <div className="flex flex-col justify-start items-center gap-2">
           <Link to={`/profile/landlord/${userData ? userData.userId : "123"}`}>
             <div
-              className="bg-blue-100 hover:bg-blue-200  text-blue-600 hover:text-blue-700 rounded-lg  p-1 flex justify-center items-center"
+              className={`bg-${colorClasses}-100 hover:bg-${colorClasses}-200 text-${colorClasses}-600 hover:text-${colorClasses}-700 rounded-lg p-1 flex justify-center items-center`}
               data-tooltip-id="profile"
               data-tooltip-content="Profile"
               data-tooltip-place="right"
@@ -183,7 +188,7 @@ const Sidebar = ({ children }: SideBarProps) => {
           </Link>
           <Link onClick={handleLogout} to="">
             <div
-              className="bg-blue-100 hover:bg-blue-200  text-blue-600 hover:text-blue-700 rounded-lg  p-1 flex justify-center items-center mb-5 "
+              className={`bg-${colorClasses}-100 hover:bg-${colorClasses}-200 text-${colorClasses}-600 hover:text-${colorClasses}-700 rounded-lg p-1 flex justify-center items-center`}
               data-tooltip-id="logout"
               data-tooltip-content="Logout"
               data-tooltip-place="right"
