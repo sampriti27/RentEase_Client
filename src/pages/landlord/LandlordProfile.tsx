@@ -19,19 +19,19 @@ const LandlordProfile: React.FC = () => {
   };
 
   useEffect(() => {
-    document.title = "RentEase | Profile"
-  },[])
+    document.title = "RentEase | Profile";
+  }, []);
 
   return (
     <>
       {!isUserActivated && <Alerts />}
       <section className="container mx-auto px-4 py-6 md:py-14">
         {/* SubHeader */}
-        <div className="flex items-center flex-col w-[400px] gap-7">
-          <div className="flex items-center justify-center mt-4 md:mt-0 md:justify-start w-[100%]">
+        <div className="flex items-center flex-col md:flex-row justify-between gap-7">
+          <div className="flex items-center justify-center mt-4 md:mt-0 md:justify-start">
             <div className="flex items-center gap-3">
               <div
-                className={`border-blue-400 bg-[#fff8f9] w-[80px] h-[80px] rounded-[50%]`}
+                className="border-blue-400 bg-[#fff8f9] w-[80px] h-[80px] rounded-[50%]"
                 style={{
                   borderWidth: "4px",
                   borderStyle: "solid",
@@ -46,17 +46,19 @@ const LandlordProfile: React.FC = () => {
                 />
               </div>
               <div className="flex items-start flex-col">
-                <h3 className="font-bold text-[20px]">Sampriti Mukherjee</h3>
+                <h3 className="font-bold text-[20px]">{userData.fullName}</h3>
                 <span className="text-sm">@{userData.username}</span>
-                <span className="text-sm">
-                  {userData.address +
-                    ", " +
-                    userData.city +
-                    ", " +
-                    userData.pinCode +
-                    ", " +
-                    userData.state}
-                </span>
+                {isUserActivated && (
+                  <span className="text-[12px]">
+                    {userData.address +
+                      ", " +
+                      userData.city +
+                      ", " +
+                      userData.pinCode +
+                      ", " +
+                      userData.state}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -65,7 +67,7 @@ const LandlordProfile: React.FC = () => {
         {/* Personal + Bank Details */}
         <div className="flex flex-col lg:flex-row gap-10 p-8 mt-4 bg-gray-50">
           {/* Left Section - Property Information */}
-          <div className="flex-1">
+          <div className="flex-1 lg:pr-4">
             <h2 className="text-xl font-semibold mb-2">
               Personal Informations
             </h2>
@@ -73,29 +75,45 @@ const LandlordProfile: React.FC = () => {
               Please provide a detailed and accurate property address for
               verification purposes.
             </p>
-            <div className="flex flex-col lg:flex-row gap-10 bg-gray-50">
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={userData.fullName}
-                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                    required
-                  />
-                </div>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={userData.fullName}
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  required
+                />
+              </div>
 
+              <div className="relative">
+                <label className="block text-sm font-medium text-gray-700">
+                  Address
+                </label>
+                <input
+                  type="text"
+                  name="address"
+                  value={userData.address}
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-10"
+                  required
+                />
+                <div className="absolute inset-y-0 right-0 flex items-center pr-3 pt-6">
+                  <EditIcon />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="relative">
                   <label className="block text-sm font-medium text-gray-700">
-                    Address
+                    City
                   </label>
                   <input
                     type="text"
-                    name="address"
-                    value={userData.address}
+                    name="city"
+                    value={userData.city}
                     className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-10"
                     required
                   />
@@ -104,103 +122,85 @@ const LandlordProfile: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="relative">
-                    <label className="block text-sm font-medium text-gray-700">
-                      City
-                    </label>
-                    <input
-                      type="text"
-                      name="city"
-                      value={userData.city}
-                      className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-10"
-                      required
-                    />
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pt-6">
-                      <EditIcon />
-                    </div>
-                  </div>
-
-                  <div className="relative">
-                    <label className="block text-sm font-medium text-gray-700">
-                      Pincode
-                    </label>
-                    <input
-                      type="number"
-                      name="pinCode"
-                      value={userData.pinCode}
-                      className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-10"
-                      required
-                    />
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pt-6">
-                      <EditIcon />
-                    </div>
-                  </div>
-
-                  <div className="relative">
-                    <label className="block text-sm font-medium text-gray-700">
-                      State
-                    </label>
-                    <input
-                      type="text"
-                      name="state"
-                      value={userData.state}
-                      className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-10"
-                      required
-                    />
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pt-6">
-                      <EditIcon />
-                    </div>
+                <div className="relative">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Pincode
+                  </label>
+                  <input
+                    type="number"
+                    name="pinCode"
+                    value={userData.pinCode}
+                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-10"
+                    required
+                  />
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pt-6">
+                    <EditIcon />
                   </div>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Email
-                    </label>
-                    <input
-                      type="text"
-                      name="email"
-                      value={userData.email}
-                      className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                      required
-                    />
-                  </div>
-                  <div className="relative">
-                    <label className="block text-sm font-medium text-gray-700">
-                      Phone
-                    </label>
-                    <input
-                      type="number"
-                      name="phone"
-                      value={userData.phone}
-                      className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-10"
-                      required
-                    />
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pt-6">
-                      <EditIcon />
-                    </div>
+
+                <div className="relative">
+                  <label className="block text-sm font-medium text-gray-700">
+                    State
+                  </label>
+                  <input
+                    type="text"
+                    name="state"
+                    value={userData.state}
+                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-10"
+                    required
+                  />
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pt-6">
+                    <EditIcon />
                   </div>
                 </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Update Profile Pic
+                    Email
                   </label>
-                  <ImageUploader onImagesUploaded={handleImageUpload} />
+                  <input
+                    type="text"
+                    name="email"
+                    value={userData.email}
+                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    required
+                  />
                 </div>
-
-                <button
-                  type="submit"
-                  className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
-                >
-                  Update
-                </button>
+                <div className="relative">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Phone
+                  </label>
+                  <input
+                    type="number"
+                    name="phone"
+                    value={userData.phone}
+                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-10"
+                    required
+                  />
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pt-6">
+                    <EditIcon />
+                  </div>
+                </div>
               </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Update Profile Pic
+                </label>
+                <ImageUploader onImagesUploaded={handleImageUpload} />
+              </div>
+
+              <button
+                type="submit"
+                className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
+              >
+                Update
+              </button>
             </div>
           </div>
 
-          {/* Right Section - Personal Information */}
-          <div className="flex-1">
+          {/* Right Section - Bank Details */}
+          <div className="flex-1 lg:pl-4">
             <h2 className="text-xl font-semibold mb-2">Bank Details</h2>
             <p className="text-sm text-gray-600 mb-4">
               This information will be displayed publicly so share proper
@@ -260,33 +260,29 @@ const LandlordProfile: React.FC = () => {
                 </div>
               </div>
               <div className="relative">
-                <label className="block text-sm font-medium text-gray-700">
-                  Branch Name
-                </label>
-                <input
-                  type="text"
-                  name="branch"
-                  value={bankDetails.branch}
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-10"
-                  required
-                />
-                <div className="absolute inset-y-0 right-0 flex items-center pr-3 pt-6">
-                  <EditIcon />
+                  <label className="block text-sm font-medium text-gray-700">
+                    Bank Address
+                  </label>
+                  <input
+                    placeholder="ex: 40000"
+                    type="text"
+                    name="account"
+                    value={bankDetails.branch}
+                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-10"
+                    required
+                  />
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pt-6">
+                    <EditIcon />
+                  </div>
                 </div>
-              </div>
-
-              <button
-                type="submit"
-                className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
-              >
-                Update
-              </button>
             </div>
+            <button
+              type="submit"
+              className="bg-blue-600 mt-4 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
+            >
+              Update
+            </button>
           </div>
-        </div>
-
-        <div className="mt-4">
-          <CrystalButton text="Delete Account" color="red" />
         </div>
       </section>
     </>

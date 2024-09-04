@@ -107,6 +107,12 @@ const PropertyTable: React.FC = () => {
         <tbody className="bg-white divide-y divide-gray-200">
           {isLoading ? (
             <TableLoader />
+          ) : propertyList.length === 0 ? (
+            <tr>
+              <td colSpan={6} className="px-6 py-4 text-center text-sm md:text-[14px] text-gray-500">
+                No properties found.
+              </td>
+            </tr>
           ) : (
             propertyList.map((property, index) => (
               <tr

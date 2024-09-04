@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 const TenantDetails: React.FC = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    document.title = "RentEase | Tenant Profile"
-  },[])
+    document.title = "RentEase | Tenant Profile";
+  }, []);
   return (
     <section className="container mx-auto px-4 py-6 md:py-14">
       <div className="flex items-center justify-start gap-5  ">
@@ -21,18 +21,18 @@ const TenantDetails: React.FC = () => {
         </div>
       </div>
       {/* SubHeader */}
-      <div className="flex items-center flex-col w-[400px] gap-7">
-        <div className="flex items-center justify-center mt-4 md:mt-0 md:justify-start w-[100%]">
+      <div className="flex items-center flex-col md:flex-row justify-between gap-7">
+        <div className="flex items-center justify-center mt-4 md:mt-0 md:justify-start">
           <div className="flex items-center gap-3">
             <div
-              className={`border-blue-400 bg-[#fff8f9] w-[80px] h-[80px] rounded-[50%]`}
+              className="border-blue-400 bg-[#fff8f9] w-[80px] h-[80px] rounded-[50%]"
               style={{
                 borderWidth: "4px",
                 borderStyle: "solid",
               }}
             >
               <img
-                src="https://api.dicebear.com/7.x/open-peeps/svg?seed=Lucky"
+                src="https://api.dicebear.com/7.x/open-peeps/svg?seed=Lucy"
                 width={30}
                 alt="avatar"
                 height={30}
@@ -42,12 +42,13 @@ const TenantDetails: React.FC = () => {
             <div className="flex items-start flex-col">
               <h3 className="font-bold text-[20px]">Amrit Raj</h3>
               <span className="text-sm">@rajamrit_15</span>
-              <span className="text-sm">
+
+              <span className="text-[12px]">
                 {"Devariya" +
                   ", " +
                   "Jehanabad" +
                   ", " +
-                  "804404" +
+                  "804408" +
                   ", " +
                   "Bihar"}
               </span>
@@ -62,8 +63,7 @@ const TenantDetails: React.FC = () => {
         <div className="flex-1">
           <h2 className="text-xl font-semibold mb-2">Personal Information</h2>
           <p className="text-sm text-gray-600 mb-4">
-            Please provide a detailed and accurate property address for
-            verification purposes.
+            Tenant personal Information.
           </p>
           <div className="space-y-4">
             <div>
@@ -160,9 +160,6 @@ const TenantDetails: React.FC = () => {
           </div>
         </div>
       </div>
-
-      
-
     </section>
   );
 };
