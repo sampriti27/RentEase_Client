@@ -23,7 +23,7 @@ const BudgetFilter: React.FC = () => {
           {minBudget}
         </div>
         <div className="bg-[#091e42] text-white rounded-md px-2 py-1 text-xs">
-          {maxBudget === 100 ? "100+ Crores" : maxBudget}
+          {maxBudget === 100 ? "1 Lakh" : maxBudget}
         </div>
       </div>
 
@@ -46,9 +46,9 @@ const BudgetFilter: React.FC = () => {
         >
           {/* You can add more options as needed */}
           <option value="0">Min Budget</option>
-          <option value="5">5 Lakhs</option>
-          <option value="10">10 Lakhs</option>
-          <option value="15">15 Lakhs</option>
+          <option value="5000">5 Thousand</option>
+          <option value="10000">10 Thousand</option>
+          <option value="15000">15 Thousand</option>
         </select>
         <select
           value={maxBudget}
@@ -57,9 +57,9 @@ const BudgetFilter: React.FC = () => {
         >
           {/* You can add more options as needed */}
           <option value="100">Max Budget</option>
-          <option value="90">90 Crores</option>
-          <option value="80">80 Crores</option>
-          <option value="70">70 Crores</option>
+          <option value="50000">50 Thousand</option>
+          <option value="60000">60 Thousand</option>
+          <option value="70000">70 Thousand</option>
         </select>
       </div>
     </div>

@@ -10,22 +10,43 @@ import { getAllProperties } from "../http";
 import { AxiosResponse } from "axios";
 import { APIResponse, PropertyDetails } from "../types";
 import PropertyCardLoader from "../components/loader/PropertyCardLoader";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 const Home: React.FC = () => {
   const [properties, setProperties] = useState<PropertyDetails[]>();
 
+  const filterParams = useSelector(
+    (state: RootState) => state.filter.filterparams
+  );
+
+  const getValidFilterParams = (params: typeof filterParams) => {
+    return Object.fromEntries(
+      Object.entries(params).filter(([key, value]) => {
+        // Filter out empty strings, empty arrays, and zero values
+        if (Array.isArray(value)) {
+          return value.length > 0 && value[0] !== ""; // Ensure array has values
+        }
+        return value !== "" && value !== 0; // For strings and numbers
+      })
+    );
+  };
   const { data, isLoading } = useQuery({
-    queryKey: ["allProperties"],
+    queryKey: ["allProperties", filterParams],
     retry: 3,
     queryFn: async (): Promise<AxiosResponse<APIResponse<PropertyDetails>>> => {
-      // Function to fetch rooms data
-      return await getAllProperties();
+      const validParams = getValidFilterParams(filterParams); // Get only valid params
+      return await getAllProperties(validParams);
     },
   });
 
   useEffect(() => {
     setProperties(data?.data.data as PropertyDetails[]);
   }, [data]);
+
+  useEffect(() => {
+    console.log("Filter: ", filterParams);
+  }, [filterParams]);
 
   return (
     <div className="w-full px-1 md:px-3 xl:px-36">

@@ -1,5 +1,6 @@
 export interface FilterOption {
   id: number;
+  title: string;
   filterName: string;
   filterItems: string[];
   isOpen: boolean;
@@ -65,7 +66,7 @@ export interface LoginUserData {
   status: string;
   accessToken: string;
   refreshToken: string;
-  user : User
+  user: User;
 }
 // Define the Landlord type extending User
 export interface Landlord extends User {}

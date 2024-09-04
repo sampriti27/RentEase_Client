@@ -16,6 +16,7 @@
     "date-fns": "^3.6.0",
     "framer-motion": "^11.3.24",
     "notistack": "^3.0.1",
+    "qs": "^6.13.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-dropzone": "^14.2.3",

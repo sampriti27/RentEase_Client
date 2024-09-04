@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import AccordionHeader from "../shared/accordion/AccordionHeader";
 import AccordionBody from "../shared/accordion/AccordionBody";
 import { FilterOption } from "../../types";
+import { FilterParams } from "../../store/slices/filterSlice";
 
 interface Props {
   option: FilterOption;
@@ -38,7 +39,10 @@ const Accordion: React.FC<Props> = ({ option }) => {
           isOpen ? "max-h-96" : "max-h-0"
         }`}
       >
-        <AccordionBody optionItems={option.filterItems} />
+        <AccordionBody
+          optionItems={option.filterItems}
+          filterType={option.title as keyof FilterParams}
+        />
       </div>
     </div>
   );

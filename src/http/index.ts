@@ -1,10 +1,12 @@
 import axios from "axios";
+import qs from "qs";
 import {
   AuthUser,
   PostProperty,
   PropertyUpdateForm,
   RegisterUser,
 } from "../types";
+import { FilterParams } from "../store/slices/filterSlice";
 
 //axios instance
 const api = axios.create({
@@ -17,8 +19,15 @@ const api = axios.create({
 });
 
 //List of all api endpoints
-export const getAllProperties = () =>
-  api.get("/api/v1/real-estate/properties/filter");
+// calling the same api to get all properties, if flters are not provided then it will fetch all properties and if filter is provided then it will fetch properties based on filter
+export const getAllProperties = (filterParams: any) => {
+  return api.get("/api/v1/real-estate/properties/filter", {
+    params: filterParams,
+    paramsSerializer: (params) => {
+      return qs.stringify(params, { arrayFormat: "repeat" });
+    },
+  });
+};
 export const addProperties = (data: PostProperty, landlord: string) =>
   api.post(`/api/v1/real-estate/properties/${landlord}`, data);
 export const getAllPropertyOfLandlord = (landlord: string) =>
