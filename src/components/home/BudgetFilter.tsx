@@ -1,19 +1,26 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { updateFilter } from "../../store/slices/filterSlice";
 
 const BudgetFilter: React.FC = () => {
   const [minBudget, setMinBudget] = useState<number>(0);
   const [maxBudget, setMaxBudget] = useState<number>(100);
 
+  const dispatch = useDispatch();
+
   const handleMinBudgetChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setMinBudget(parseInt(event.target.value));
+    dispatch(updateFilter({ paramKey: "minBudget", valueToAdd: minBudget }));
   };
 
   const handleMaxBudgetChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setMaxBudget(parseInt(event.target.value));
+    dispatch(updateFilter({ paramKey: "maxBudget", valueToAdd: maxBudget }));
   };
 
   return (
@@ -23,7 +30,7 @@ const BudgetFilter: React.FC = () => {
           {minBudget}
         </div>
         <div className="bg-[#091e42] text-white rounded-md px-2 py-1 text-xs">
-          {maxBudget === 100 ? "1 Lakh" : maxBudget}
+          {maxBudget === 1000000 ? "10 Lakh" : maxBudget}
         </div>
       </div>
 
@@ -31,7 +38,7 @@ const BudgetFilter: React.FC = () => {
         <input
           type="range"
           min="0"
-          max="100"
+          max="1000000"
           value={minBudget}
           onChange={(e) => setMinBudget(Number(e.target.value))}
           className="w-full h-2 bg-sky-500 rounded-full appearance-none cursor-pointer"
@@ -56,10 +63,12 @@ const BudgetFilter: React.FC = () => {
           className="w-1/2 p-2 border border-gray-300 ml-2 outline-none text-xs text-gray-400"
         >
           {/* You can add more options as needed */}
-          <option value="100">Max Budget</option>
+          <option value="1000000">Max Budget</option>
           <option value="50000">50 Thousand</option>
           <option value="60000">60 Thousand</option>
           <option value="70000">70 Thousand</option>
+          <option value="100000">1 Lakh</option>
+          <option value="1000000">10 Lakhs</option>
         </select>
       </div>
     </div>

@@ -12,6 +12,7 @@ import { APIResponse, PropertyDetails } from "../types";
 import PropertyCardLoader from "../components/loader/PropertyCardLoader";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import notFound from "../assets/NotFound.png";
 
 const Home: React.FC = () => {
   const [properties, setProperties] = useState<PropertyDetails[]>();
@@ -66,9 +67,22 @@ const Home: React.FC = () => {
             </div>
           ) : (
             <div className="w-full h-[calc(100vh-160px)] mt-4">
-              {properties?.map((item: PropertyDetails) => (
-                <PropertyCard key={item.propertyId} item={item} />
-              ))}
+              {(properties?.length as number) > 0 ? (
+                properties?.map((item: PropertyDetails) => (
+                  <PropertyCard key={item.propertyId} item={item} />
+                ))
+              ) : (
+                <div className="w-full flex flex-col items-center justify-center">
+                  <img
+                    src={notFound}
+                    alt="not-found image"
+                    className="bg-transparent"
+                  />
+                  <p className="text-gray-700 font-medium text-2xl">
+                    OOPs! No Property Found with the given filters
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>

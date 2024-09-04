@@ -6,7 +6,6 @@ import {
   PropertyUpdateForm,
   RegisterUser,
 } from "../types";
-import { FilterParams } from "../store/slices/filterSlice";
 
 //axios instance
 const api = axios.create({
