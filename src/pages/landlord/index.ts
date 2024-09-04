@@ -5,3 +5,4 @@ export { default as LandlordLayout } from "./LandlordLayout";
 export { default as LandlordTenants } from "./LandlordTenants";
 export { default as AddProperties } from "./AddProperties";
 export { default as SingleProperty } from "./SingleProperty";
+export { default as TenantDetails } from "./TenantDetails";

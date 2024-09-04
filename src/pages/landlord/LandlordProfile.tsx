@@ -1,25 +1,9 @@
-import { useParams } from "react-router-dom";
 import Alerts from "../../components/shared/alerts/Alerts";
 import { useSelector } from "react-redux";
-import React from "react";
+import React, { useEffect } from "react";
 import ImageUploader from "../../components/shared/image-uploader/ImageUploader";
 import { EditIcon } from "../../components/icons";
-
-const userData = {
-  userId: "bc6e4ca2-2ce5-464a-9c2e-ea008caff877",
-  fullName: "Sampriti Mukherjee",
-  username: "sam123",
-  email: "sam.m@gmail.com",
-  photoUrl: "https://via.placeholder.com/150",
-  phone: 9999999999,
-  address: "Sita Niwas",
-  city: "Dhanabad",
-  pinCode: "826001",
-  state: "Jharkhand",
-  role: "Landlord",
-  joinedDate: "2024-08-25",
-  userActivated: true,
-};
+import CrystalButton from "../../components/shared/buttons/CrystalButton";
 
 const bankDetails = {
   bankName: "XYZ Bank",
@@ -30,10 +14,13 @@ const bankDetails = {
 
 const LandlordProfile: React.FC = () => {
   const { isUserActivated, userData } = useSelector((state: any) => state.auth);
-  const { id } = useParams<{ id: string }>();
   const handleImageUpload = (newImages: string[]) => {
     console.log(newImages);
   };
+
+  useEffect(() => {
+    document.title = "RentEase | Profile"
+  },[])
 
   return (
     <>
@@ -74,11 +61,13 @@ const LandlordProfile: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Personal + Bank Details */}
         <div className="flex flex-col lg:flex-row gap-10 p-8 mt-4 bg-gray-50">
           {/* Left Section - Property Information */}
           <div className="flex-1">
             <h2 className="text-xl font-semibold mb-2">
-              Property Informations
+              Personal Informations
             </h2>
             <p className="text-sm text-gray-600 mb-4">
               Please provide a detailed and accurate property address for
@@ -294,6 +283,10 @@ const LandlordProfile: React.FC = () => {
               </button>
             </div>
           </div>
+        </div>
+
+        <div className="mt-4">
+          <CrystalButton text="Delete Account" color="red" />
         </div>
       </section>
     </>

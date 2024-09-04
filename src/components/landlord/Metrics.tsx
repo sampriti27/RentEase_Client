@@ -36,9 +36,9 @@ const Metrics: React.FC = () => {
         </div>
 
         <div className="mt-6 grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
-          <div className="bg-white shadow-sm border border-gray-200 rounded-lg p-4">
+          <div className="bg-blue-100 shadow-sm border border-gray-200 rounded-lg p-4">
             <div className="flex justify-between items-center">
-              <p className="font-medium text-xs text-gray-600">Revenue</p>
+              <p className="font-medium text-xs text-blue-600">Revenue</p>
               <div className="flex items-center gap-1">
                 <svg
                   className="w-3 h-3 text-red-500"
@@ -57,9 +57,9 @@ const Metrics: React.FC = () => {
             </p>
           </div>
 
-          <div className="bg-white shadow-sm border border-gray-200 rounded-lg p-4">
+          <div className="bg-teal-100 shadow-sm border border-gray-200 rounded-lg p-4">
             <div className="flex justify-between items-center">
-              <p className="font-medium text-xs text-gray-600">
+              <p className="font-medium text-xs text-teal-600">
                 Outbound Clicks
               </p>
               <div className="flex items-center gap-1">
@@ -80,9 +80,9 @@ const Metrics: React.FC = () => {
             </p>
           </div>
 
-          <div className="bg-white shadow-sm border border-gray-200 rounded-lg p-4">
+          <div className="bg-purple-100 shadow-sm border border-gray-200 rounded-lg p-4">
             <div className="flex justify-between items-center">
-              <p className="font-medium text-xs text-gray-600">
+              <p className="font-medium text-xs text-purple-600">
                 Total Audience
               </p>
               <div className="flex items-center gap-1">
@@ -103,9 +103,9 @@ const Metrics: React.FC = () => {
             </p>
           </div>
 
-          <div className="bg-white shadow-sm border border-gray-200 rounded-lg p-4">
+          <div className="bg-pink-100 shadow-sm border border-gray-200 rounded-lg p-4">
             <div className="flex justify-between items-center">
-              <p className="font-medium text-xs text-gray-600">Event Count</p>
+              <p className="font-medium text-xs text-pink-600">Event Count</p>
               <div className="flex items-center gap-1">
                 <svg
                   className="w-3 h-3 text-red-500"
@@ -137,9 +137,9 @@ const Metrics: React.FC = () => {
           </div>
         </div>
         <div className="mt-6 grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
-          <div className="bg-white shadow-sm border border-gray-200 rounded-lg p-4">
+          <div className="bg-fuchsia-100 shadow-sm border border-gray-200 rounded-lg p-4">
             <div className="flex justify-between items-center">
-              <p className="font-medium text-xs text-gray-600">
+              <p className="font-medium text-xs text-fuchsia-600">
                 Total Properties
               </p>
               <div className="flex items-center gap-1">
@@ -157,9 +157,9 @@ const Metrics: React.FC = () => {
             </div>
             <p className="mt-1 font-semibold text-2xl text-blue-gray-900">12</p>
           </div>
-          <div className="bg-white shadow-sm border border-gray-200 rounded-lg p-4">
+          <div className="bg-rose-100 shadow-sm border border-gray-200 rounded-lg p-4">
             <div className="flex justify-between items-center">
-              <p className="font-medium text-xs text-gray-600">Total Tenants</p>
+              <p className="font-medium text-xs text-rose-600">Total Tenants</p>
               <div className="flex items-center gap-1">
                 <svg
                   className="w-3 h-3 text-green-500"
@@ -175,9 +175,9 @@ const Metrics: React.FC = () => {
             </div>
             <p className="mt-1 font-semibold text-2xl text-blue-gray-900">22</p>
           </div>
-          <div className="bg-white shadow-sm border border-gray-200 rounded-lg p-4">
+          <div className="bg-cyan-100 shadow-sm border border-gray-200 rounded-lg p-4">
             <div className="flex justify-between items-center">
-              <p className="font-medium text-xs text-gray-600">
+              <p className="font-medium text-xs text-cyan-600">
                 Active Tenants
               </p>
               <div className="flex items-center gap-1">

@@ -10,7 +10,7 @@ export const formatDateADistance = (dateListed: string) => {
   return formattedDate;
 };
 
-export const formatDateAsISO = (dateListed?: string) => {
+export const formatDateAsISO = (dateListed?: string, isTenantTable?:boolean) => {
   if (!dateListed) {
     return "Date not available"; // Handle missing date case
   }
@@ -18,7 +18,7 @@ export const formatDateAsISO = (dateListed?: string) => {
   try {
     const parsedDate = parseISO(dateListed);
     const formattedDate = format(parsedDate, "MMM dd, yyyy");
-    return `Posted on ${formattedDate}`;
+    return isTenantTable ? `Joined on ${formattedDate}` : `Posted on ${formattedDate}`;
   } catch (error) {
     console.error("Error parsing date:", error);
     return "Invalid date"; // Handle parse errors

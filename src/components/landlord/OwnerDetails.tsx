@@ -46,7 +46,7 @@ const OwnerDetails: React.FC<Props> = ({ landlord }) => {
               <p className="text-gray-400 text-sm">Owner</p>
             </div>
             <div>
-              <CrystalButton text="View Number" isDark={true} />
+              <CrystalButton text="View Number" color="sky" />
             </div>
           </div>
         </div>

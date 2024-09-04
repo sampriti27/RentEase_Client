@@ -49,6 +49,13 @@ const SinglePropertyDetails: React.FC = () => {
 
   const fullDescription = property?.description || "";
   const truncatedDescription = editedDescription(fullDescription);
+
+
+  useEffect(() => {
+    document.title = "RentEase | Property Details"
+  },[])
+
+
   return (
     <>
       {isLoading ? (
@@ -92,7 +99,7 @@ const SinglePropertyDetails: React.FC = () => {
                 <p className="text-sm text-gray-400">in {property?.address}</p>
               </div>
               <div className="hidden sm:block">
-                <CrystalButton text="Book Now" isDark={true} />
+                <CrystalButton text="Book Now" color="sky" />
               </div>
             </div>
           </div>

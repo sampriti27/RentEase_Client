@@ -17,11 +17,13 @@ import {
   LandlordProperties,
   LandlordTenants,
   SingleProperty,
+  TenantDetails,
 } from "./pages/landlord";
 import Layout from "./components/auth/Layout";
 import PropertyDetails from "./pages/SinglePropertyDetails";
 import { useLoadingWithRefresh } from "./hooks/useLoadingWithRefresh";
 import { useSelector } from "react-redux";
+
 
 function App() {
   const { loading } = useLoadingWithRefresh();
@@ -53,6 +55,7 @@ function App() {
           <Route path="properties/:propertyId" element={<SingleProperty />} />
           <Route path="tenants" element={<LandlordTenants />} />
           <Route path="add-property" element={<AddProperties />} />
+          <Route path="tenants/:tenantId" element={<TenantDetails />} />
         </Route>
       </Routes>
     </Router>

@@ -27,6 +27,10 @@ const Home: React.FC = () => {
     setProperties(data?.data.data as PropertyDetails[]);
   }, [data]);
 
+  useEffect(() => {
+    document.title = "RentEase | Home"
+  },[])
+
   return (
     <div className="w-full px-1 md:px-3 xl:px-36">
       <Breadcrumb />

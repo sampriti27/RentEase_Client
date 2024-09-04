@@ -25,6 +25,7 @@
     "react-redux": "^9.1.2",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.26.1",
+    "react-spinners": "^0.14.1",
     "react-tooltip": "^5.28.0",
     "tailwind-scrollbar-hide": "^1.1.7"
   },

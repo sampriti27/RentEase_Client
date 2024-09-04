@@ -22,7 +22,7 @@ const RecentTransaction: React.FC = () => {
           <tbody>
             {/* Example row with Java UUID format for Tenant ID */}
             <tr className="border-b">
-              <td className="py-3 px-4">550e8400-e29b-41d4-a716-446655440000</td>
+              <td className="py-3 px-4">550e8400</td>
               <td className="py-3 px-4">john.doe@example.com</td>
               <td className="py-3 px-4">Sunset Apartments</td>
               <td className="py-3 px-4">$1200</td>

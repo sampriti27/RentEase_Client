@@ -72,6 +72,10 @@ const SingleProperty: React.FC = () => {
     setProperty(data?.data.data as PropertyDetails);
   }, [data]);
 
+  useEffect(() => {
+    document.title = `RentEase | Property Detail`
+  },[])
+
   return (
     <>
       <div className="px-4 py-8 md:py-14">
@@ -87,7 +91,7 @@ const SingleProperty: React.FC = () => {
               text="Update Property"
               iconPosition="right"
               icon={<UpdateIcon />}
-              isDark={true}
+              color="orange"
             />
           </div>
         </div>
