@@ -260,21 +260,21 @@ const LandlordProfile: React.FC = () => {
                 </div>
               </div>
               <div className="relative">
-                  <label className="block text-sm font-medium text-gray-700">
-                    Bank Address
-                  </label>
-                  <input
-                    placeholder="ex: 40000"
-                    type="text"
-                    name="account"
-                    value={bankDetails.branch}
-                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-10"
-                    required
-                  />
-                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pt-6">
-                    <EditIcon />
-                  </div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Bank Address
+                </label>
+                <input
+                  placeholder="ex: 40000"
+                  type="text"
+                  name="account"
+                  value={bankDetails.branch}
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-10"
+                  required
+                />
+                <div className="absolute inset-y-0 right-0 flex items-center pr-3 pt-6">
+                  <EditIcon />
                 </div>
+              </div>
             </div>
             <button
               type="submit"
@@ -283,6 +283,9 @@ const LandlordProfile: React.FC = () => {
               Update
             </button>
           </div>
+        </div>
+        <div className="mt-4">
+          <CrystalButton text="Delete Account" color="red" />
         </div>
       </section>
     </>
