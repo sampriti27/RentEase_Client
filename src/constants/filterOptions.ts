@@ -4,7 +4,7 @@ export const filterOptions = [
     title: "propertyTypes",
     filterName: "Type of property",
     filterItems: ["House", "Apartment"],
-    isOpen: false,
+    isOpen: true,
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ export const filterOptions = [
     title: "availabilityStatus",
     filterName: "Availability",
     filterItems: ["Ready to Move", "in 1 month", "in 2 month"],
-    isOpen: false,
+    isOpen: true,
   },
   {
     id: 4,
@@ -44,6 +44,6 @@ export const filterOptions = [
     title: "furnishedStatuses",
     filterName: "Furnishing Status",
     filterItems: ["Unfurnished", "Semi Furnished", "Fully Furnished"],
-    isOpen: false,
+    isOpen: true,
   },
 ];
