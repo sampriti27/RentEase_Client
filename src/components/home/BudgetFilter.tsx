@@ -5,22 +5,24 @@ import { updateFilter } from "../../store/slices/filterSlice";
 
 const BudgetFilter: React.FC = () => {
   const [minBudget, setMinBudget] = useState<number>(0);
-  const [maxBudget, setMaxBudget] = useState<number>(100);
+  const [maxBudget, setMaxBudget] = useState<number>(1000000);
 
   const dispatch = useDispatch();
 
   const handleMinBudgetChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setMinBudget(parseInt(event.target.value));
-    dispatch(updateFilter({ paramKey: "minBudget", valueToAdd: minBudget }));
+    const value = parseInt(event.target.value);
+    setMinBudget(value);
+    dispatch(updateFilter({ paramKey: "minBudget", valueToAdd: value }));
   };
 
   const handleMaxBudgetChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setMaxBudget(parseInt(event.target.value));
-    dispatch(updateFilter({ paramKey: "maxBudget", valueToAdd: maxBudget }));
+    const value = parseInt(event.target.value);
+    setMaxBudget(value);
+    dispatch(updateFilter({ paramKey: "maxBudget", valueToAdd: value }));
   };
 
   return (

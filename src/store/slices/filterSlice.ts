@@ -10,6 +10,7 @@ export interface FilterParams {
   amenities: string[];
   city: string;
   state: string;
+  sortBy: string;
 }
 export interface InitialStateProps {
   filterparams: FilterParams;
@@ -18,7 +19,7 @@ export interface InitialStateProps {
 const initialState: InitialStateProps = {
   filterparams: {
     minBudget: 0,
-    maxBudget: 100000,
+    maxBudget: 1000000,
     propertyTypes: [],
     size: [],
     furnishedStatuses: [],
@@ -26,6 +27,7 @@ const initialState: InitialStateProps = {
     amenities: [],
     city: "",
     state: "",
+    sortBy: "newest-first",
   },
 };
 

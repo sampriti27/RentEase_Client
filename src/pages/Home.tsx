@@ -16,7 +16,6 @@ import notFound from "../assets/NotFound.png";
 
 const Home: React.FC = () => {
   const [properties, setProperties] = useState<PropertyDetails[]>();
-
   const filterParams = useSelector(
     (state: RootState) => state.filter.filterparams
   );
@@ -24,30 +23,32 @@ const Home: React.FC = () => {
   const getValidFilterParams = (params: typeof filterParams) => {
     return Object.fromEntries(
       Object.entries(params).filter(([key, value]) => {
-        // Filter out empty strings, empty arrays, and zero values
+        console.log(key);
         if (Array.isArray(value)) {
-          return value.length > 0 && value[0] !== ""; // Ensure array has values
+          return value.length > 0 && value[0] !== "";
         }
-        return value !== "" && value !== 0; // For strings and numbers
+        return value !== "" && value !== 0;
       })
     );
   };
-  const { data, isLoading } = useQuery({
-    queryKey: ["allProperties", filterParams],
+
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["allProperties"],
     retry: 3,
     queryFn: async (): Promise<AxiosResponse<APIResponse<PropertyDetails>>> => {
-      const validParams = getValidFilterParams(filterParams); // Get only valid params
+      const validParams = getValidFilterParams(filterParams);
       return await getAllProperties(validParams);
     },
+    enabled: false, // Prevent automatic fetching on component mount
   });
+
+  useEffect(() => {
+    refetch(); // Manually refetch whenever filterParams change
+  }, [filterParams, refetch]);
 
   useEffect(() => {
     setProperties(data?.data.data as PropertyDetails[]);
   }, [data]);
-
-  useEffect(() => {
-    console.log("Filter: ", filterParams);
-  }, [filterParams]);
 
   return (
     <div className="w-full px-1 md:px-3 xl:px-36">
@@ -76,9 +77,9 @@ const Home: React.FC = () => {
                   <img
                     src={notFound}
                     alt="not-found image"
-                    className="bg-transparent"
+                    className="h-36 sm:h-56 opacity-75"
                   />
-                  <p className="text-gray-700 font-medium text-2xl">
+                  <p className="text-gray-700 font-medium text-sm sm:text-xl">
                     OOPs! No Property Found with the given filters
                   </p>
                 </div>
