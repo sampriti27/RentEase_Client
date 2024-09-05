@@ -4,9 +4,31 @@
 @tailwind components;
 @tailwind utilities;
 
+html{
+  scrollbar-width: none;
+}
+
 body {
   @apply font-rubik;
   background: #f3f4f6;
-  
 }
 
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #0369a1;
+  border-radius: 10px;
+  border: 3px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
