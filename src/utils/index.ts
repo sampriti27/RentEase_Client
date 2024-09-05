@@ -1,13 +1,12 @@
-import { formatDistance, subDays, parseISO, format } from "date-fns";
+import { formatDistance, parseISO, format } from "date-fns";
 
 export const formatDateADistance = (dateListed: string) => {
-  const formattedDate = formatDistance(
-    subDays(new Date(), 0),
-    parseISO(dateListed),
-    { addSuffix: false }
-  );
+  const formattedDate = formatDistance(parseISO(dateListed), new Date(), {
+    addSuffix: true,
+  });
 
-  return formattedDate;
+  // Remove "about" from the result if it exists
+  return formattedDate.replace(/^about /, "");
 };
 
 export const formatDateAsISO = (dateListed?: string, isTenantTable?:boolean) => {

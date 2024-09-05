@@ -1,5 +1,4 @@
 import React from "react";
-import propertyImg from "../../assets/images/modern-apartment-architecture_1268-14696.avif";
 import Button from "../shared/buttons/Button";
 import Rating from "../shared/badges/Rating";
 import TenantTypeBadge from "../shared/badges/TenantTypeBadge";
@@ -7,6 +6,7 @@ import { PropertyDetails } from "../../types";
 import ContactIcon from "../icons/ContactIcon";
 import { Link } from "react-router-dom";
 import { formatCurrency, formatDateADistance } from "../../utils";
+import { ImageCarousel } from "../property";
 
 interface Props {
   item: PropertyDetails;
@@ -21,11 +21,7 @@ const PropertyCard: React.FC<Props> = ({ item }) => {
     <div className="w-full md:h-[328px] bg-white rounded-lg border shadow-md p-4 flex flex-col sm:flex-row items-center gap-2 my-6">
       {/* Prroperty Image  */}
       <div className="w-full md:w-2/5 h-full border rounded-lg">
-        <img
-          src={propertyImg}
-          alt="property image"
-          className="rounded-lg w-full h-full"
-        />
+        <ImageCarousel />
       </div>
       {/* Property Details Container  */}
       <div className="w-full md:w-3/5 h-full  rounded-lg p-2">
@@ -79,7 +75,7 @@ const PropertyCard: React.FC<Props> = ({ item }) => {
           <div className="w-full sm:w-1/3  pt-4  text-gray-500">
             <div className="flex items-center gap-2 text-xs sm:text-sm">
               <p>Owner</p>
-              <p>. {formatDateADistance(item.dateListed)} ago</p>
+              <p>. {formatDateADistance(item.dateListed)} </p>
             </div>
             <p className="text-gray-700 text-sm sm:text-base">
               {item.landlord.fullName}

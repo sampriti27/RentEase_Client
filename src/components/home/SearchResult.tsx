@@ -12,19 +12,22 @@ import { motion } from "framer-motion";
 import { filterOptions } from "../../constants/filterOptions";
 import Accordion from "./Accordion";
 import Budget from "./Budget";
+import { useDispatch } from "react-redux";
+import { clearFilters } from "../../store/slices/filterSlice";
 
 const SearchResult: React.FC = () => {
   const [sortOptionOpen, setSortOptionOpen] = useState<boolean>(false);
   const [filterOptionOpen, setFilterOptionOpen] = useState<boolean>(false);
-
+  const dispatch = useDispatch();
   const handleClose = () => {
     setFilterOptionOpen(false);
+    dispatch(clearFilters());
   };
 
   return (
     <div className="text-sky-950 font-medium">
       <p className="tracking-wide text-xl">
-        18465 results | Property in Kolkata for Sale
+        18465 results | Property in Kolkata for Rent
       </p>
       {/* FOR DESKTOP */}
       <div className="hidden sm:flex bg-[#f7f5dc] items-center gap-3 px-4 py-2 rounded-sm mt-5">
@@ -148,6 +151,7 @@ const SearchResult: React.FC = () => {
               <button
                 type="button"
                 className="fixed bottom-4 right-4 bg-sky-500 text-white p-3 rounded-md shadow-lg hover:bg-sky-600 transition-colors duration-300"
+                onClick={() => setFilterOptionOpen(false)}
               >
                 <ApplyIcon />
               </button>

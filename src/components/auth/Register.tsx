@@ -7,8 +7,7 @@ import { useSnackbar } from "notistack";
 import { AxiosResponse } from "axios";
 import { useMutation } from "react-query";
 import { registerUser } from "../../http";
-import { useDispatch } from "react-redux";
-import { closeAuthModal } from "../../store/slices/modalSlice";
+
 interface Props {
   setAuth: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -25,7 +24,6 @@ const Register: React.FC<Props> = ({ setAuth }) => {
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-  const dispatch = useDispatch();
 
   const handleTermsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTermsAccepted(e.target.checked);
@@ -64,7 +62,7 @@ const Register: React.FC<Props> = ({ setAuth }) => {
       });
       setSelectedRole(null);
       setTermsAccepted(false);
-      dispatch(closeAuthModal());
+      setAuth("login");
     },
     onError: (error: any) => {
       enqueueSnackbar(error?.response?.data?.message || "Registration failed", {
