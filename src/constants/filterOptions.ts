@@ -15,9 +15,9 @@ export const filterOptions = [
   },
   {
     id: 3,
-    title: "availabilityStatus",
-    filterName: "Availability",
-    filterItems: ["Ready to Move", "in 1 month", "in 2 month"],
+    title: "tenantType",
+    filterName: "Tenant Type",
+    filterItems: ["Family", "Bachelor"],
     isOpen: true,
   },
   {
