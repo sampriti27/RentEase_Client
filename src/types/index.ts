@@ -108,3 +108,13 @@ export interface PropertyUpdateForm {
   availabilityStatus: string;
   photos: string[];
 }
+
+export interface UpdateProfileProps {
+  fullName: string;
+  photoUrl: string;
+  phone: number;
+  address: string;
+  city: string;
+  pinCode: string;
+  state: string
+}
