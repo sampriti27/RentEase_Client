@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { sortOptions } from "../../constants/sortOptions";
 import { useDispatch } from "react-redux";
 import { updateFilter, removeFilter } from "../../store/slices/filterSlice";
 
 const SortFilter: React.FC = () => {
   const dispatch = useDispatch();
-  const [selectedValue, setSelectedValue] = useState<string | null>(null);
+  const [selectedValue, setSelectedValue] = useState<string | null>(
+    "newest-first"
+  );
+
+  useEffect(() => {
+    // Set the default sort option when the component mounts
+    dispatch(updateFilter({ paramKey: "sortBy", valueToAdd: "newest-first" }));
+  }, [dispatch]);
 
   const handleCheck: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const value = e.target.value;
@@ -15,8 +22,9 @@ const SortFilter: React.FC = () => {
       setSelectedValue(value);
       dispatch(updateFilter({ paramKey: "sortBy", valueToAdd: value }));
     } else {
-      setSelectedValue(null);
+      setSelectedValue("newest-first");
       dispatch(removeFilter({ paramKey: "sortBy", valueToRemove: value }));
+      // Resetting the sort option when unchecked
     }
   };
 

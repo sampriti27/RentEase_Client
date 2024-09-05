@@ -1,5 +1,4 @@
 import React from "react";
-import propertyImg from "../../assets/images/modern-apartment-architecture_1268-14696.avif";
 import Button from "../shared/buttons/Button";
 import Rating from "../shared/badges/Rating";
 import TenantTypeBadge from "../shared/badges/TenantTypeBadge";
@@ -76,7 +75,7 @@ const PropertyCard: React.FC<Props> = ({ item }) => {
           <div className="w-full sm:w-1/3  pt-4  text-gray-500">
             <div className="flex items-center gap-2 text-xs sm:text-sm">
               <p>Owner</p>
-              <p>. {formatDateADistance(item.dateListed)} ago</p>
+              <p>. {formatDateADistance(item.dateListed)} </p>
             </div>
             <p className="text-gray-700 text-sm sm:text-base">
               {item.landlord.fullName}
