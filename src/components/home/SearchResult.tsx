@@ -12,10 +12,16 @@ import { motion } from "framer-motion";
 import { filterOptions } from "../../constants/filterOptions";
 import Accordion from "./Accordion";
 import Budget from "./Budget";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearFilters } from "../../store/slices/filterSlice";
+import { PropertyDetails } from "../../types";
+import { RootState } from "../../store/store";
 
-const SearchResult: React.FC = () => {
+interface Props {
+  result: PropertyDetails[];
+}
+
+const SearchResult: React.FC<Props> = ({ result }) => {
   const [sortOptionOpen, setSortOptionOpen] = useState<boolean>(false);
   const [filterOptionOpen, setFilterOptionOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
@@ -23,11 +29,23 @@ const SearchResult: React.FC = () => {
     setFilterOptionOpen(false);
     dispatch(clearFilters());
   };
+  const filterparams = useSelector(
+    (state: RootState) => state.filter.filterparams
+  );
 
   return (
     <div className="text-sky-950 font-medium">
       <p className="tracking-wide text-xl">
-        18465 results | Property in Kolkata for Rent
+        {result?.length} Results | Property{" "}
+        <span>
+          in{" "}
+          {filterparams?.state == "" && filterparams.city == ""
+            ? "India"
+            : filterparams?.state == ""
+            ? filterparams?.city
+            : filterparams?.state}
+        </span>{" "}
+        for Rent
       </p>
       {/* FOR DESKTOP */}
       <div className="hidden sm:flex bg-[#f7f5dc] items-center gap-3 px-4 py-2 rounded-sm mt-5">

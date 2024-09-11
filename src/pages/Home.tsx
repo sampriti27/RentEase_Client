@@ -51,8 +51,8 @@ const Home: React.FC = () => {
   }, [data]);
 
   useEffect(() => {
-    document.title = "RentEase | Home"
-  },[])
+    document.title = "RentEase | Home";
+  }, []);
 
   return (
     <div className="w-full px-1 md:px-3 xl:px-36">
@@ -62,7 +62,8 @@ const Home: React.FC = () => {
           <Filter />
         </div>
         <div className="w-full lg:w-3/4 px-2 pt-2">
-          <SearchResult />
+          <SearchResult result={properties as PropertyDetails[]} />
+
           {isLoading ? (
             <div className="w-full h-[calc(100vh-160px)] mt-4 flex flex-col gap-6">
               {/* Skeleton loader for PropertyCards */}
