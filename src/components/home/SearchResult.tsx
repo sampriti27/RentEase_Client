@@ -32,29 +32,25 @@ const SearchResult: React.FC<Props> = ({ result }) => {
   const filterparams = useSelector(
     (state: RootState) => state.filter.filterparams
   );
-
+  const place =
+    filterparams?.state == "" && filterparams.city == ""
+      ? "India"
+      : filterparams?.state == ""
+      ? filterparams?.city
+      : filterparams?.state;
   return (
     <div className="text-sky-950 font-medium">
       <p className="tracking-wide text-xl">
-        {result?.length} Results | Property{" "}
-        <span>
-          in{" "}
-          {filterparams?.state == "" && filterparams.city == ""
-            ? "India"
-            : filterparams?.state == ""
-            ? filterparams?.city
-            : filterparams?.state}
-        </span>{" "}
-        for Rent
+        {result?.length} Results | Property <span>in {place}</span> for Rent
       </p>
       {/* FOR DESKTOP */}
       <div className="hidden sm:flex bg-[#f7f5dc] items-center gap-3 px-4 py-2 rounded-sm mt-5">
         <img alt="Map" src={mapIcon} className="h-6 md:h-8 w-6 md:w-8" />
         <p className="font-medium text-[10px] md:text-sm text-gray-900 flex items-center">
           Get to know more about{" "}
-          <span className="font-semibold ps-1 text-xs md:text-sm">Kolkata</span>{" "}
+          <span className="font-semibold ps-1 text-xs md:text-sm">{place}</span>{" "}
           <span className="ps-1 md:ps-2 font-semibold text-blue-800 text-xs md:text-sm flex items-center">
-            <a href="https://en.wikipedia.org/wiki/Kolkata" target="_blank">
+            <a href={`https://en.wikipedia.org/wiki/${place}`} target="_blank">
               View Insights
             </a>
             <svg
