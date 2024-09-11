@@ -6,7 +6,8 @@ export interface FilterParams {
   propertyTypes: string[];
   size: string[];
   furnishedStatuses: string[];
-  tenantType: string[];
+  tenantTypes: string[];
+  availabilityStatus: string;
   amenities: string[];
   city: string;
   state: string;
@@ -23,7 +24,8 @@ const initialState: InitialStateProps = {
     propertyTypes: [],
     size: [],
     furnishedStatuses: [],
-    tenantType: [],
+    tenantTypes: [],
+    availabilityStatus: "Available",
     amenities: [],
     city: "",
     state: "",

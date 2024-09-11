@@ -119,7 +119,7 @@ const SearchResult: React.FC = () => {
               }}
               exit={{ scale: 0.9, y: "-20%", opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="absolute right-3 mt-[170px] z-1 w-48 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-lg py-4"
+              className="absolute right-3 mt-[170px] z-10 w-48 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-lg py-4"
               id="user-dropdown"
             >
               <SortFilter />

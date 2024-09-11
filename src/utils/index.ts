@@ -1,4 +1,5 @@
 import { formatDistance, parseISO, format } from "date-fns";
+import { stateNames } from "../constants";
 
 export const formatDateADistance = (dateListed: string) => {
   const formattedDate = formatDistance(parseISO(dateListed), new Date(), {
@@ -9,7 +10,10 @@ export const formatDateADistance = (dateListed: string) => {
   return formattedDate.replace(/^about /, "");
 };
 
-export const formatDateAsISO = (dateListed?: string, isTenantTable?:boolean) => {
+export const formatDateAsISO = (
+  dateListed?: string,
+  isTenantTable?: boolean
+) => {
   if (!dateListed) {
     return "Date not available"; // Handle missing date case
   }
@@ -17,7 +21,9 @@ export const formatDateAsISO = (dateListed?: string, isTenantTable?:boolean) => 
   try {
     const parsedDate = parseISO(dateListed);
     const formattedDate = format(parsedDate, "MMM dd, yyyy");
-    return isTenantTable ? `Joined on ${formattedDate}` : `Posted on ${formattedDate}`;
+    return isTenantTable
+      ? `Joined on ${formattedDate}`
+      : `Posted on ${formattedDate}`;
   } catch (error) {
     console.error("Error parsing date:", error);
     return "Invalid date"; // Handle parse errors
@@ -63,14 +69,21 @@ export const findIcon = (
   return match ? iconMap[match] : undefined;
 };
 
-export const isValidCharCount = (text:string) =>{
+export const isValidCharCount = (text: string) => {
   let len = 0;
   for (let index = 0; index < text.length; index++) {
-        len++;
+    len++;
   }
-  if(len > 170){
+  if (len > 170) {
     return false;
   }
 
   return true;
-}
+};
+
+export const validateState = (input: string) => {
+  if (stateNames.includes(input.toLowerCase())) {
+    return true;
+  }
+  return false;
+};

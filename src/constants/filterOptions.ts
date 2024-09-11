@@ -15,7 +15,7 @@ export const filterOptions = [
   },
   {
     id: 3,
-    title: "tenantType",
+    title: "tenantTypes",
     filterName: "Tenant Type",
     filterItems: ["Family", "Bachelor"],
     isOpen: true,

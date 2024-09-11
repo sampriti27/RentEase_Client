@@ -18,7 +18,7 @@ const PropertyCard: React.FC<Props> = ({ item }) => {
       ? item.description.split(" ").slice(0, 30).join(" ") + "..."
       : item.description;
   return (
-    <div className="w-full md:h-[328px] bg-white rounded-lg border shadow-md p-4 flex flex-col sm:flex-row items-center gap-2 my-6">
+    <div className="w-full md:h-[328px] bg-white rounded-lg border shadow-md p-4 flex flex-col sm:flex-row items-center gap-2 my-6 z-0">
       {/* Prroperty Image  */}
       <div className="w-full md:w-2/5 h-full border rounded-lg">
         <ImageCarousel />
