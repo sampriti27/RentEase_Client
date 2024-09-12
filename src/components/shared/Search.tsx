@@ -55,7 +55,7 @@ const Search: React.FC = () => {
           <input
             type="search"
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => setInput(e.target.value.trimStart().trimEnd())}
             onKeyDown={handleKeyDown}
             className="w-full px-4 py-1 text-gray-800 rounded-full focus:outline-none text-sm md:text-base placeholder:text-sm placeholder:tracking-wide placeholder:font-normal"
             placeholder="Enter Locality/ Project/ Society/ City"
