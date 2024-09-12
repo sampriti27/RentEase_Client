@@ -14,6 +14,7 @@ import { addProperties } from "../../http";
 import { AxiosResponse } from "axios";
 import { useSelector } from "react-redux";
 import { isValidCharCount } from "../../utils";
+import { ThreeDots } from "react-loader-spinner";
 
 const AddPropertyForm: React.FC = () => {
   const { userData } = useSelector((state: any) => state.auth);
@@ -491,7 +492,18 @@ const AddPropertyForm: React.FC = () => {
             type="submit"
             className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
           >
-            Add
+            {handlePostProperty.isLoading ? (
+              <ThreeDots
+                visible={true}
+                height="20"
+                width="30"
+                color="#ffffff"
+                radius="9"
+                ariaLabel="three-dots-loading"
+              />
+            ) : (
+              "Add"
+            )}
           </button>
         </div>
       </form>

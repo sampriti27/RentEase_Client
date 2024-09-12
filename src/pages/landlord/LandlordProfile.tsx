@@ -1,5 +1,5 @@
 import Alerts from "../../components/shared/alerts/Alerts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import ImageUploader from "../../components/shared/image-uploader/ImageUploader";
 import { EditIcon } from "../../components/icons";
@@ -7,6 +7,8 @@ import CrystalButton from "../../components/shared/buttons/CrystalButton";
 import { UpdateProfileProps } from "../../types";
 import { useMutation } from "react-query";
 import { updateProfile } from "../../http";
+import { setAuthData } from "../../store/slices/userSlice";
+import { ThreeDots } from "react-loader-spinner";
 
 const bankDetails = {
   bankName: "XYZ Bank",
@@ -16,6 +18,7 @@ const bankDetails = {
 };
 
 const LandlordProfile: React.FC = () => {
+  const dispatch = useDispatch();
   const { isUserActivated, userData } = useSelector((state: any) => state.auth);
   const [picUrl, setPicUrl] = useState<string>();
   const [formData, setFormData] = useState<UpdateProfileProps>({
@@ -26,11 +29,11 @@ const LandlordProfile: React.FC = () => {
     pinCode: userData.pinCode || "",
     state: userData.state || "",
     phone: userData.phone || 0,
+    dob: userData.dob || "",
   });
 
   const handleImageUpload = (newImages: string[]) => {
     setPicUrl(newImages[0]);
-    console.log(picUrl);
   };
 
   // Handle input changes
@@ -47,7 +50,15 @@ const LandlordProfile: React.FC = () => {
       return updateProfile(userData.role, userData.userId, formData);
     },
     onSuccess: (data) => {
-      console.log(data);
+      console.log(data.data);
+      dispatch(
+        setAuthData({
+          isAuth: true,
+          isUserActivated: userData.userActivated as boolean,
+          userData: data.data.data,
+          role: userData.role as string,
+        })
+      );
     },
     onError: (error) => {
       console.log(error);
@@ -59,7 +70,7 @@ const LandlordProfile: React.FC = () => {
     e.preventDefault();
     // Logic to handle form submission, like sending data to an API
     updateMutation.mutate(formData);
-    console.log("Form data submitted:", formData);
+    // console.log("Form data submitted:", formData);
   };
 
   useEffect(() => {
@@ -121,19 +132,32 @@ const LandlordProfile: React.FC = () => {
             </p>
             <form onSubmit={handleSubmit}>
               <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.fullName}
-                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                    readOnly
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.fullName}
+                      className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      readOnly
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">
+                      Email
+                    </label>
+                    <input
+                      type="text"
+                      name="email"
+                      value={userData.email}
+                      className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      readOnly
+                    />
+                  </div>
                 </div>
-
                 <div className="relative">
                   <label className="block text-sm font-medium text-gray-700">
                     Address
@@ -204,18 +228,6 @@ const LandlordProfile: React.FC = () => {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Email
-                    </label>
-                    <input
-                      type="text"
-                      name="email"
-                      value={userData.email}
-                      className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                      readOnly
-                    />
-                  </div>
                   <div className="relative">
                     <label className="block text-sm font-medium text-gray-700">
                       Phone
@@ -224,6 +236,22 @@ const LandlordProfile: React.FC = () => {
                       type="number"
                       name="phone"
                       value={formData.phone}
+                      onChange={handleChange}
+                      className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-10"
+                      required
+                    />
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pt-6">
+                      <EditIcon />
+                    </div>
+                  </div>
+                  <div className="relative">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Date Of Birth
+                    </label>
+                    <input
+                      type="text"
+                      name="dob"
+                      value={formData.dob}
                       onChange={handleChange}
                       className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-10"
                       required
@@ -244,7 +272,18 @@ const LandlordProfile: React.FC = () => {
                   type="submit"
                   className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
                 >
-                  Update
+                  {updateMutation.isLoading ? (
+                    <ThreeDots
+                      visible={true}
+                      height="20"
+                      width="40"
+                      color="#ffffff"
+                      radius="9"
+                      ariaLabel="three-dots-loading"
+                    />
+                  ) : (
+                    "Update"
+                  )}
                 </button>
               </div>
             </form>

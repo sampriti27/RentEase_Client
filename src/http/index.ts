@@ -7,7 +7,7 @@ import {
   RegisterUser,
   UpdateProfileProps,
 } from "../types";
-import { enqueueSnackbar } from "notistack";
+
 
 //axios instances
 const publicApi = axios.create({
@@ -19,17 +19,6 @@ const publicApi = axios.create({
   },
 });
 
-const privateApi = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
-  withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-    Authorization: `Bearer ${JSON.parse(
-      localStorage.getItem("access_token") as string
-    )}`,
-  },
-});
 
 //LIST OF PUBLIC API ENDPOINTS
 export const getAllProperties = () =>
@@ -54,72 +43,72 @@ export const registerUser = (data: RegisterUser) =>
 export const loginUser = (data: AuthUser) =>
   publicApi.post(`api/v1/auth/login`, data);
 
-//LIST OF PRIVATE API ENDPOINTS
 
+
+// PRIVATE ROUTES
+
+export const privateApi = axios.create({
+  baseURL: import.meta.env.VITE_BASE_URL,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    Authorization: "Bearer " + JSON.parse(localStorage.getItem("access_token") as string),
+  },
+});
+
+
+//LIST OF PRIVATE API ENDPOINTS
 export const updateProfile = (
   role: string,
   userId: string,
   data: UpdateProfileProps
 ) => privateApi.put(`/api/v1/users/${role}/${userId}`, data);
 
-// Private API Interceptor
+
+// INTERCEPTOR
+
+// Add interceptor for privateApi
 privateApi.interceptors.response.use(
-  (response: AxiosResponse) => {
+  (response) => {
+    // Simply return the response if it is successful
     return response;
   },
-  async (error: any) => {
+  async (error) => {
     const originalRequest = error.config;
 
-    if (
-      error.response?.status === 401 &&
-      originalRequest &&
-      !originalRequest._isRetry
-    ) {
-      originalRequest._isRetry = true;
+    // Check if the error is a 401 and the request has not been retried
+    if (error.response && error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
 
       try {
-        const refreshToken = JSON.parse(
-          localStorage.getItem("refresh_token") as string
-        );
-        if (!refreshToken) {
-          throw new Error("No refresh token found");
-        }
+        // Get refresh token from localStorage
+        const refreshToken: string = JSON.parse(localStorage.getItem("refresh_token") as string);
 
+        // Call refresh token API to get new access token
         const { data }: AxiosResponse<LoginUserData> = await axios.post(
           `${import.meta.env.VITE_BASE_URL}/api/v1/auth/refresh`,
-          { token: refreshToken }, // Send an empty object as the body if no data is needed
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          }
+          { token: refreshToken }
         );
-        console.log(data);
 
-        if (data) {
-          localStorage.setItem("access_token", data.accessToken);
-          localStorage.setItem("refresh_token", data.refreshToken);
-        }
+        // Update access token in localStorage
+        localStorage.setItem("access_token", JSON.stringify(data.accessToken));
+        localStorage.setItem("refresh_token", JSON.stringify(data.refreshToken));
 
-        // Update the Authorization header in privateApi instance
-        privateApi.defaults.headers.Authorization = `Bearer ${data.accessToken}`;
+        // Set the Authorization header with the new token
+        privateApi.defaults.headers["Authorization"] = "Bearer " + data.accessToken;
 
         // Retry the original request with the new token
-        return privateApi.request(originalRequest);
-      } catch (refreshError: any) {
-        enqueueSnackbar(
-          refreshError.response?.data?.message || "Token refresh failed",
-          {
-            variant: "error",
-          }
-        );
+        originalRequest.headers["Authorization"] = "Bearer " + data.accessToken;
+        return privateApi(originalRequest);
+      } catch (refreshError) {
+        console.error("Refresh token failed", refreshError);
+        // Optionally: Log out the user or redirect to the login page
         return Promise.reject(refreshError);
       }
     }
 
+    // If error is not 401 or the retry failed, reject the promise
     return Promise.reject(error);
   }
 );
-
-export default privateApi;

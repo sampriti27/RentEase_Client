@@ -47,6 +47,7 @@ export interface User {
   fullName: string;
   username: string;
   email: string;
+  dob: string;
   photoUrl: string;
   phone: number;
   address: string;
@@ -116,5 +117,6 @@ export interface UpdateProfileProps {
   address: string;
   city: string;
   pinCode: string;
-  state: string
+  state: string;
+  dob: string
 }

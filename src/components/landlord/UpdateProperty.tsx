@@ -4,6 +4,7 @@ import ImageUploader from "../shared/image-uploader/ImageUploader";
 import { useMutation, useQueryClient } from "react-query";
 import { updateProperty } from "../../http";
 import { enqueueSnackbar } from "notistack";
+import { ThreeDots } from "react-loader-spinner";
 
 interface Props {
   property: PropertyDetails;
@@ -132,7 +133,14 @@ const UpdateProperty: React.FC<Props> = ({ property, onUpdateSuccess }) => {
             type="submit"
             className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
           >
-            Update
+            {updateMutation.isLoading ? <ThreeDots
+                visible={true}
+                height="20"
+                width="30"
+                color="#ffffff"
+                radius="9"
+                ariaLabel="three-dots-loading"
+              /> :"Update"}
           </button>
         </div>
       </form>
