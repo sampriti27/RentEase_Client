@@ -13,13 +13,14 @@ import PropertyCardLoader from "../components/loader/PropertyCardLoader";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import notFound from "../assets/NotFound.png";
+import { selectPlace } from "../store/slices/filterSlice";
 
 const Home: React.FC = () => {
   const [properties, setProperties] = useState<PropertyDetails[]>();
   const filterParams = useSelector(
     (state: RootState) => state.filter.filterparams
   );
-
+  const place = useSelector(selectPlace);
   const getValidFilterParams = (params: typeof filterParams) => {
     return Object.fromEntries(
       Object.entries(params).filter(([key, value]) => {
@@ -51,8 +52,8 @@ const Home: React.FC = () => {
   }, [data]);
 
   useEffect(() => {
-    document.title = "RentEase | Home";
-  }, []);
+    document.title = `Properties in ${place} | Rentease`;
+  }, [place]);
 
   return (
     <div className="w-full px-1 md:px-3 xl:px-36">

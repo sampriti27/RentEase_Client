@@ -23,7 +23,7 @@ import Layout from "./components/auth/Layout";
 import PropertyDetails from "./pages/SinglePropertyDetails";
 import { useLoadingWithRefresh } from "./hooks/useLoadingWithRefresh";
 import { useSelector } from "react-redux";
-
+import FilterComponent from "./components/shared/FilterComponent";
 
 function App() {
   const { loading } = useLoadingWithRefresh();
@@ -32,6 +32,7 @@ function App() {
     <></>
   ) : (
     <Router>
+      <FilterComponent />
       <Routes>
         {/* Common Routes with Navbar */}
         <Route element={<CommonLayout />}>

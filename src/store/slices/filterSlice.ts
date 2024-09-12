@@ -38,7 +38,7 @@ type FilterKeys = keyof FilterParams;
 type FilterValue<K extends FilterKeys> = FilterParams[K];
 
 const filterSlice = createSlice({
-  name: "filters",
+  name: "filter",
   initialState,
   reducers: {
     updateFilter: <K extends FilterKeys>(
