@@ -13,9 +13,8 @@ import { filterOptions } from "../../constants/filterOptions";
 import Accordion from "./Accordion";
 import Budget from "./Budget";
 import { useDispatch, useSelector } from "react-redux";
-import { clearFilters } from "../../store/slices/filterSlice";
+import { clearFilters, selectPlace } from "../../store/slices/filterSlice";
 import { PropertyDetails } from "../../types";
-import { RootState } from "../../store/store";
 
 interface Props {
   result: PropertyDetails[];
@@ -24,20 +23,13 @@ interface Props {
 const SearchResult: React.FC<Props> = ({ result }) => {
   const [sortOptionOpen, setSortOptionOpen] = useState<boolean>(false);
   const [filterOptionOpen, setFilterOptionOpen] = useState<boolean>(false);
+  const place = useSelector(selectPlace);
   const dispatch = useDispatch();
   const handleClose = () => {
     setFilterOptionOpen(false);
     dispatch(clearFilters());
   };
-  const filterparams = useSelector(
-    (state: RootState) => state.filter.filterparams
-  );
-  const place =
-    filterparams?.state == "" && filterparams.city == ""
-      ? "India"
-      : filterparams?.state == ""
-      ? filterparams?.city
-      : filterparams?.state;
+
   return (
     <div className="text-sky-950 font-medium">
       <p className="tracking-wide text-xl">
@@ -76,12 +68,12 @@ const SearchResult: React.FC<Props> = ({ result }) => {
           <img alt="Map" src={mapIcon} className="h-6 md:h-8 w-6 md:w-8" />
           <p className="text-[13px] ms-2">
             Know
-            <span className="ms-1 me-1 font-semibold">Kolkata</span>
+            <span className="ms-1 me-1 font-semibold">{place}</span>
             with
           </p>
         </div>
         <span className="text-blue-800 flex items-center text-[13px]">
-          <a href="https://en.wikipedia.org/wiki/Kolkata" target="_blank">
+          <a href={`https://en.wikipedia.org/wiki/${place}`} target="_blank">
             Locality Insights
           </a>
           <svg

@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { validateState } from "../../utils";
-import { useDispatch } from "react-redux";
-import { removeFilter, updateFilter } from "../../store/slices/filterSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  removeFilter,
+  selectPlace,
+  updateFilter,
+} from "../../store/slices/filterSlice";
+import { CloseIcon } from "../icons";
 
 const Search: React.FC = () => {
   const [input, setInput] = useState<string>("");
+  const [show, setShow] = useState<boolean>(false);
+  const place = useSelector(selectPlace);
   const dispatch = useDispatch();
 
   const handleSearchClick = () => {
@@ -16,6 +23,7 @@ const Search: React.FC = () => {
       dispatch(updateFilter({ paramKey: "city", valueToAdd: input }));
       dispatch(removeFilter({ paramKey: "state", valueToRemove: "" }));
     }
+    setShow(true);
     setInput("");
   };
 
@@ -24,18 +32,35 @@ const Search: React.FC = () => {
       handleSearchClick();
     }
   };
-
+  const handleClose = () => {
+    setShow(false);
+    if (validateState(place)) {
+      dispatch(removeFilter({ paramKey: "state", valueToRemove: place }));
+    } else {
+      dispatch(removeFilter({ paramKey: "city", valueToRemove: place }));
+    }
+  };
   return (
     <div className="flex items-center w-full mx-auto bg-bg-primary rounded-lg">
       <div className="w-full">
-        <input
-          type="search"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          className="w-full px-4 py-1 text-gray-800 rounded-full focus:outline-none text-sm md:text-base placeholder:text-sm placeholder:tracking-wide placeholder:font-normal"
-          placeholder="Enter Locality/ Project/ Society/ City"
-        />
+        {show ? (
+          <button
+            type="button"
+            className="ml-2 sm:ml-4 border focus:outline-none rounded-md text-xs sm:text-sm font-medium flex items-center px-2 sm:px-3 py-0.5 sm:py-1 gap-1 bg-blue-100 hover:bg-blue-200 text-gray-700 border-blue-500"
+          >
+            {place}
+            <CloseIcon onClick={handleClose} size={4} />
+          </button>
+        ) : (
+          <input
+            type="search"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className="w-full px-4 py-1 text-gray-800 rounded-full focus:outline-none text-sm md:text-base placeholder:text-sm placeholder:tracking-wide placeholder:font-normal"
+            placeholder="Enter Locality/ Project/ Society/ City"
+          />
+        )}
       </div>
       <div>
         <button

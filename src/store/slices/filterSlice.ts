@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store"; // Adjust the import based on your store setup
 
 export interface FilterParams {
   minBudget: number;
@@ -46,15 +47,12 @@ const filterSlice = createSlice({
     ) => {
       const { paramKey, valueToAdd } = action.payload;
 
-      // Check if the field is an array
       if (Array.isArray(state.filterparams[paramKey])) {
         const array = state.filterparams[paramKey] as string[];
-        // Add the new value if it's not already in the array
         if (!array.includes(valueToAdd as string)) {
           array.push(valueToAdd as string);
         }
       } else {
-        // If it's not an array, set the value directly
         state.filterparams[paramKey] = valueToAdd;
       }
     },
@@ -65,13 +63,11 @@ const filterSlice = createSlice({
     ) => {
       const { paramKey, valueToRemove } = action.payload;
 
-      // Check if the field is an array and filter out the value if so
       if (Array.isArray(state.filterparams[paramKey])) {
         state.filterparams[paramKey] = (
           state.filterparams[paramKey] as string[]
         ).filter((item) => item !== valueToRemove) as FilterValue<K>;
       } else {
-        // Else reset the value to the initial state
         state.filterparams[paramKey] = initialState.filterparams[paramKey];
       }
     },
@@ -81,6 +77,15 @@ const filterSlice = createSlice({
     },
   },
 });
+
+// Selector to compute the "place" value
+export const selectPlace = (state: RootState) => {
+  const { city, state: regionState } = state.filter.filterparams;
+
+  if (!regionState && !city) return "India";
+  if (!regionState) return city;
+  return regionState;
+};
 
 export const { updateFilter, removeFilter, clearFilters } = filterSlice.actions;
 export default filterSlice.reducer;

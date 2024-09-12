@@ -1,6 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { selectPlace } from "../../store/slices/filterSlice";
 
 const Breadcrumb: React.FC = () => {
+  const place = useSelector(selectPlace);
   return (
     <div className="p-4 text-xs text-gray-400 flex items-center gap-1">
       <span>Home</span>
@@ -20,7 +23,7 @@ const Breadcrumb: React.FC = () => {
           />
         </svg>
       </span>
-      <span>Property in Kolkata</span>
+      <span>Property in {place}</span>
     </div>
   );
 };
