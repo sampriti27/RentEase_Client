@@ -6,15 +6,18 @@ import { useMutation } from "react-query";
 import { loginUser } from "../../http";
 import { AxiosResponse } from "axios";
 import { enqueueSnackbar } from "notistack";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setAuthData } from "../../store/slices/userSlice";
 import { closeAuthModal } from "../../store/slices/modalSlice";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   setAuth: React.Dispatch<React.SetStateAction<string>>;
 }
 const Login: React.FC<Props> = ({ setAuth }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { redirect } = useSelector((state:any) => state.modal);
   const [loginData, setLoginData] = useState<AuthUser>({
     userName: "",
     password: "",
@@ -63,6 +66,7 @@ const Login: React.FC<Props> = ({ setAuth }) => {
       });
 
       dispatch(closeAuthModal());
+      navigate(redirect);
     },
     onError: (error: any) => {
       enqueueSnackbar(

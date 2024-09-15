@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface InitialStateProps {
   authModal: boolean;
+  redirect: string;
 }
 
 const initialState: InitialStateProps = {
   authModal: false,
+  redirect: ""
 };
 
 export const modalSlice = createSlice({
@@ -13,8 +15,9 @@ export const modalSlice = createSlice({
   initialState,
   reducers: {
     // Simplified to accept a boolean directly
-    setOpenAuthModal: (state, action: PayloadAction<boolean>) => {
-      state.authModal = action.payload;
+    setOpenAuthModal: (state, action: PayloadAction<InitialStateProps>) => {
+      state.authModal = action.payload.authModal;
+      state.redirect = action.payload.redirect
     },
     // Close action remains the same
     closeAuthModal: (state) => {

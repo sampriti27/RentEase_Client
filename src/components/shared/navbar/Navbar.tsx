@@ -82,7 +82,7 @@ const Navbar: React.FC = () => {
             className="hidden md:block"
             onClick={() => {
               !isAuth
-                ? dispatch(setOpenAuthModal(true))
+                ? dispatch(setOpenAuthModal({authModal : true, redirect : '/profile/landlord/add-property'}))
                 : navigate("/profile/landlord/add-property");
             }}
           >
@@ -155,10 +155,6 @@ const Navbar: React.FC = () => {
           >
             <div
               className="px-4 py-3 hover:bg-gray-50 rounded-lg"
-              onClick={() => {
-                dispatch(setOpenAuthModal(true));
-                setOpenUserMenu(false);
-              }}
             >
               {userData ? (
                 <span
@@ -168,7 +164,10 @@ const Navbar: React.FC = () => {
                   {userData.fullName.toUpperCase()}
                 </span>
               ) : (
-                <span className="block font-medium text-sm text-sky-700 truncate cursor-pointer">
+                <span onClick={() => {
+                  dispatch(setOpenAuthModal({authModal : true, redirect : ''}));
+                  setOpenUserMenu(false);
+                }} className="block font-medium text-sm text-sky-700 truncate cursor-pointer">
                   LOGIN/REGISTER
                 </span>
               )}
@@ -179,7 +178,7 @@ const Navbar: React.FC = () => {
                 <>
                   <li
                     onClick={() => {
-                      !isAuth && dispatch(setOpenAuthModal(true));
+                      !isAuth && dispatch(setOpenAuthModal({authModal : true, redirect : '/profile/landlord'}));
                     }}
                   >
                     <Link
@@ -261,7 +260,7 @@ const Navbar: React.FC = () => {
                     <button
                       onClick={() => {
                         if (!isAuth) {
-                          dispatch(setOpenAuthModal(true));
+                          dispatch(setOpenAuthModal({authModal : true, redirect : '/profile/landlord/add-property'}));
                         } else {
                           if (role) {
                             if (role === "Landlord") {
