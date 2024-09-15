@@ -9,6 +9,7 @@ import { useMutation } from "react-query";
 import { updateProfile } from "../../http";
 import { setAuthData } from "../../store/slices/userSlice";
 import { ThreeDots } from "react-loader-spinner";
+import { enqueueSnackbar } from "notistack";
 
 const bankDetails = {
   bankName: "XYZ Bank",
@@ -50,7 +51,7 @@ const LandlordProfile: React.FC = () => {
       return updateProfile(userData.role, userData.userId, formData);
     },
     onSuccess: (data) => {
-      console.log(data.data);
+      // console.log(data.data);
       dispatch(
         setAuthData({
           isAuth: true,
@@ -59,9 +60,15 @@ const LandlordProfile: React.FC = () => {
           role: userData.role as string,
         })
       );
+      enqueueSnackbar("Data Updated Successfully!", {
+        variant: "success"
+      })
     },
     onError: (error) => {
-      console.log(error);
+      console.log(error)
+      enqueueSnackbar("Something went wrong!", {
+        variant: "error"
+      })
     },
   });
 
