@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import { RootState } from "../../store/store"; // Adjust import based on your store setup
+import { RootState } from "../../store/store";
 
 const FilterComponent: React.FC = () => {
   const filterParams = useSelector(
