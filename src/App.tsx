@@ -82,7 +82,6 @@ const CommonLayout: React.FC = () => {
 
 const LandlordRoutes: React.FC<RouteProps> = ({ children }) => {
   const { isAuth, role } = useSelector((state: any) => state.auth);
-  console.log(role, isAuth);
   // Check if user is authenticated and has the "Landlord" role
   if (isAuth && role === "Landlord") {
     // Render children if checks pass

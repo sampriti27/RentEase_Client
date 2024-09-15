@@ -48,6 +48,7 @@ export interface User {
   fullName: string;
   username: string;
   email: string;
+  dob: string;
   photoUrl: string;
   phone: number;
   address: string;
@@ -108,4 +109,15 @@ export interface PropertyUpdateForm {
   deposit: number;
   availabilityStatus: string;
   photos: string[];
+}
+
+export interface UpdateProfileProps {
+  fullName: string;
+  photoUrl: string;
+  phone: number;
+  address: string;
+  city: string;
+  pinCode: string;
+  state: string;
+  dob: string
 }
