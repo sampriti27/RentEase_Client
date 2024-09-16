@@ -17,7 +17,7 @@ interface Props {
 const Login: React.FC<Props> = ({ setAuth }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { redirect } = useSelector((state:any) => state.modal);
+  const { redirect } = useSelector((state: any) => state.modal);
   const [loginData, setLoginData] = useState<AuthUser>({
     userName: "",
     password: "",

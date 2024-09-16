@@ -25,6 +25,7 @@ import {
   formatDateAsISO,
 } from "../utils";
 import SinglePropertyLoader from "../components/loader/SinglePropertyLoader";
+import { Link } from "react-router-dom";
 
 const SinglePropertyDetails: React.FC = () => {
   const { propertyId } = useParams();
@@ -50,11 +51,9 @@ const SinglePropertyDetails: React.FC = () => {
   const fullDescription = property?.description || "";
   const truncatedDescription = editedDescription(fullDescription);
 
-
   useEffect(() => {
-    document.title = "RentEase | Property Details"
-  },[])
-
+    document.title = "RentEase | Property Details";
+  }, []);
 
   return (
     <>
@@ -99,7 +98,12 @@ const SinglePropertyDetails: React.FC = () => {
                 <p className="text-sm text-gray-400">in {property?.address}</p>
               </div>
               <div className="hidden sm:block">
-                <CrystalButton text="Book Now" color="sky" />
+                <Link
+                  to={`/properties/${propertyId}/booking`}
+                  className="w-full"
+                >
+                  <CrystalButton text="Book Now" color="sky" />
+                </Link>
               </div>
             </div>
           </div>
@@ -108,7 +112,9 @@ const SinglePropertyDetails: React.FC = () => {
           <div className="hidden sm:block  border-b border-gray-300 my-4"></div>
 
           <div className="block sm:hidden my-4">
-            <CrystalButton text="Book Now" isDark={true} />
+            <Link to={`/properties/${propertyId}/booking`} className="w-full">
+              <CrystalButton text="Book Now" isDark={true} />
+            </Link>
           </div>
           {/* Images and configuration section  */}
           <div className="mt-2   sm:mt-0 flex flex-col lg:flex-row gap-8 lg:gap-4 items-center">
@@ -125,6 +131,7 @@ const SinglePropertyDetails: React.FC = () => {
                 pRentAge={property?.propertyAge as string}
                 pDeposit={property?.deposit as number}
                 pName={property?.name as string}
+                pFurnishingStatus={property?.furnishedStatus as string}
               />
             </div>
           </div>

@@ -5,6 +5,7 @@ import ConfigurationItem from "./ConfigurationItem";
 import rent from "../../assets/images/pricingIcon.png";
 import address from "../../assets/images/addressIcon.png";
 import propertyAge from "../../assets/images/propertyAgeIcon.png";
+import furnishedStatus from "../../assets/furnishedStatus.png";
 
 interface Props {
   pConfiguration: string;
@@ -14,6 +15,7 @@ interface Props {
   pRentAge: string;
   pDeposit: number;
   pName: string;
+  pFurnishingStatus: string;
 }
 
 const ConfigurationCard: React.FC<Props> = ({
@@ -24,6 +26,7 @@ const ConfigurationCard: React.FC<Props> = ({
   pRentAge,
   pDeposit,
   pName,
+  pFurnishingStatus,
 }) => {
   return (
     <div className="bg-gray-50 rounded-lg h-full p-2 md:p-8 grid grid-cols-2">
@@ -51,6 +54,12 @@ const ConfigurationCard: React.FC<Props> = ({
         title="
         Property Age"
         content={pRentAge}
+      />
+      <ConfigurationItem
+        imgsrc={furnishedStatus}
+        title="
+        Furninshing Status"
+        content={pFurnishingStatus}
       />
     </div>
   );

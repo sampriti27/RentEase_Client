@@ -25,6 +25,7 @@ import {
 import Layout from "./components/auth/Layout";
 import { useLoadingWithRefresh } from "./hooks/useLoadingWithRefresh";
 import { useSelector } from "react-redux";
+import Booking from "./pages/Booking";
 
 function App() {
   const { loading } = useLoadingWithRefresh();
@@ -39,6 +40,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/properties/:propertyId" element={<PropertyDetails />} />
         </Route>
+
+        {/* Booking page  */}
+        <Route path="/properties/:propertyId/booking" element={<Booking />} />
 
         {/* Landlord Routes with Sidebar */}
         <Route

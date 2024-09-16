@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import logo from "../../../assets/rentease_white.png";
-import logo_icon from "../../../assets/RentEase_Icon.png";
-import Search from "../Search";
-import Button from "../buttons/Button";
+import logo from "../../assets/rentease_white.png";
+import logo_icon from "../../assets/RentEase_Icon.png";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearAuth } from "../../../store/slices/userSlice";
-import { setOpenAuthModal } from "../../../store/slices/modalSlice";
+import { clearAuth } from "../../store/slices/userSlice";
+import { setOpenAuthModal } from "../../store/slices/modalSlice";
 
 const Navbar: React.FC = () => {
   const { isAuth, userData, role } = useSelector((state: any) => state.auth);
@@ -66,42 +64,9 @@ const Navbar: React.FC = () => {
           />
         </Link>
       </div>
-      {/* SEARCH BAR */}
-      <div
-        className="items-center justify-between flex w-60 sm:w-1/2 px-4 sm:px-0"
-        id="navbar-user"
-      >
-        <Search />
-      </div>
-      {/* POST PROPERTY + USER ICON */}
+
+      {/*USER ICON */}
       <div className="flex items-center gap-4">
-        {role === "Tenant" ? (
-          <></>
-        ) : (
-          <div
-            className="hidden md:block"
-            onClick={() => {
-              !isAuth
-                ? dispatch(
-                    setOpenAuthModal({
-                      authModal: true,
-                      redirect: "/profile/landlord/add-property",
-                    })
-                  )
-                : navigate("/profile/landlord/add-property");
-            }}
-          >
-            <Button
-              text="Post Property"
-              badge={
-                <span className="bg-green-800 text-green-100 text-[9px] font-medium me-2 px-1 rounded ">
-                  FREE
-                </span>
-              }
-              iconPosition="right"
-            />
-          </div>
-        )}
         <button
           type="button"
           className="flex text-sm items-center justify-end lg:gap-1 w-auto"
