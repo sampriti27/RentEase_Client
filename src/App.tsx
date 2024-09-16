@@ -1,14 +1,16 @@
-import Navbar from "./components/shared/navbar/Navbar";
-import Home from "./pages/Home";
 import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Outlet,
-  RouteProps,
   Navigate,
+  useLocation,
 } from "react-router-dom";
+import Navbar from "./components/shared/navbar/Navbar";
+import Home from "./pages/Home";
+import PropertyDetails from "./pages/SinglePropertyDetails";
+import FilterComponent from "./components/shared/FilterComponent";
 import {
   AddProperties,
   LandlordDashboard,
@@ -20,10 +22,8 @@ import {
   TenantDetails,
 } from "./pages/landlord";
 import Layout from "./components/auth/Layout";
-import PropertyDetails from "./pages/SinglePropertyDetails";
 import { useLoadingWithRefresh } from "./hooks/useLoadingWithRefresh";
 import { useSelector } from "react-redux";
-import FilterComponent from "./components/shared/FilterComponent";
 
 function App() {
   const { loading } = useLoadingWithRefresh();
@@ -32,7 +32,6 @@ function App() {
     <></>
   ) : (
     <Router>
-      <FilterComponent />
       <Routes>
         {/* Common Routes with Navbar */}
         <Route element={<CommonLayout />}>
@@ -66,10 +65,13 @@ function App() {
 // Layout for routes that require a Navbar
 const CommonLayout: React.FC = () => {
   const { authModal } = useSelector((state: any) => state.modal);
+  const location = useLocation(); // Use useLocation here since it's wrapped by <Router>
 
   return (
     <div>
       <Navbar />
+      {/* Render FilterComponent only on home route */}
+      {location.pathname === "/" && <FilterComponent />}
       <Outlet /> {/* Renders the child routes */}
       {authModal && (
         <div className="flex justify-center items-center fixed inset-0 bg-black bg-opacity-70 z-40">
