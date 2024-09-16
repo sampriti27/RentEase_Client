@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  RouteProps,
   Outlet,
   Navigate,
   useLocation,
