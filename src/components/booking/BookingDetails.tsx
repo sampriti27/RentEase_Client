@@ -209,7 +209,7 @@ const BookingDetails: React.FC<Props> = ({ property }) => {
                   <input
                     type="text"
                     name="name"
-                    value={property.rent + property.deposit}
+                    value={property?.rent + property?.deposit}
                     className="mt-1 block w-full p-2 border border-gray-300 rounded-md   pr-10 outline-none"
                     readOnly
                   />
