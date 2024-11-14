@@ -8,8 +8,9 @@ import {
   RegisterUser,
   UpdateProfileProps,
 } from "../types";
+import { ReqProps } from "../components/property/EnquiryForm";
 
-//axios instances
+// Public Axios Instance
 const publicApi = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   withCredentials: true,
@@ -19,7 +20,7 @@ const publicApi = axios.create({
   },
 });
 
-//List of all api endpoints
+// Public Endpoints
 // calling the same api to get all properties, if flters are not provided then it will fetch all properties and if filter is provided then it will fetch properties based on filter
 export const getAllProperties = (filterParams: any) => {
   return publicApi.get("/api/v1/real-estate/properties/filter", {
@@ -41,6 +42,10 @@ export const updateProperty = (
   data: PropertyUpdateForm,
   propertyId: string | undefined
 ) => publicApi.put(`/api/v1/real-estate/properties/${propertyId}`, data);
+export const sendEnquiry = (
+  data : ReqProps,
+  propertyId : string | undefined
+) => publicApi.post(`api/v1/real-estate/properties/send-enquiry/${propertyId}`, data)
 
 //AUTH API'S
 export const registerUser = (data: RegisterUser) =>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ownerImg from "../../assets/images/owner_pnava.png";
 import CrystalButton from "../shared/buttons/CrystalButton";
 import { APIResponse, Landlord, PropertyDetails } from "../../types";
@@ -11,6 +11,12 @@ interface Props {
 }
 
 const OwnerDetails: React.FC<Props> = ({ landlord }) => {
+  const [showPhone, setShowPhone] = useState<boolean>(false);
+
+  const handleShowPhone = (): void => {
+    setShowPhone(!showPhone);
+  };
+
   const { data: properties } = useQuery({
     queryKey: ["properties", landlord?.userId],
     retry: 3,
@@ -21,7 +27,7 @@ const OwnerDetails: React.FC<Props> = ({ landlord }) => {
     },
   });
 
-  console.log(properties);
+  // console.log(properties);
   const propertyList = Array.isArray(properties?.data.data)
     ? properties?.data.data
     : [];
@@ -45,8 +51,16 @@ const OwnerDetails: React.FC<Props> = ({ landlord }) => {
               </p>
               <p className="text-gray-400 text-sm">Owner</p>
             </div>
-            <div>
-              <CrystalButton text="View Number" color="sky" />
+            {showPhone && (
+              <div className="text-sm -mt-4">
+                <p>
+                  Phone:
+                  <span className="font-medium">+91-{landlord?.phone}</span>
+                </p>
+              </div>
+            )}
+            <div onClick={handleShowPhone}>
+              {showPhone ? <CrystalButton text="Hide Number" color="sky" /> : <CrystalButton text="View Number" color="sky" />}
             </div>
           </div>
         </div>

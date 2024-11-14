@@ -44,17 +44,15 @@ const SinglePropertyDetails: React.FC = () => {
     setProperty(data?.data.data as PropertyDetails);
   }, [data?.data.data]);
 
-  console.log(property);
+  // console.log(property);
   // console.log(propertyId);
 
   const fullDescription = property?.description || "";
   const truncatedDescription = editedDescription(fullDescription);
 
-
   useEffect(() => {
-    document.title = "RentEase | Property Details"
-  },[])
-
+    document.title = "RentEase | Property Details";
+  }, []);
 
   return (
     <>
@@ -201,7 +199,7 @@ const SinglePropertyDetails: React.FC = () => {
               <OwnerDetails landlord={property?.landlord as Landlord} />
             </div>
             <div className="w-full md:w-1/2 p-4 sm:p-8">
-              <EnquiryForm />
+              <EnquiryForm propertyId={property?.propertyId} />
             </div>
           </div>
         </div>
