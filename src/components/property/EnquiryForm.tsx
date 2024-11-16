@@ -31,6 +31,9 @@ const EnquiryForm: React.FC<Props> = ({ propertyId }) => {
       enqueueSnackbar("Enquiry sent successfully!", {
         variant: "success",
       });
+      setName("");
+      setEmail("");
+      setMessage("");
     },
     onError: (error: any) => {
       enqueueSnackbar(error?.response.data.message, {
