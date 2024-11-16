@@ -4,20 +4,15 @@ import TermsCondition from "../shared/form/TermsCondition";
 import Button from "../shared/buttons/Button";
 import { useMutation } from "react-query";
 import { enqueueSnackbar } from "notistack";
-import { PropertyDetails } from "../../types";
 import { sendEnquiry } from "../../http";
 
-interface ClientDetails {
+export interface ClientDetails {
   name : string | undefined,
   email : string | undefined,
   message : string | undefined
 }
 interface Props {
   propertyId: string | undefined;
-}
-
-export interface ReqProps {
-  clientDetails : ClientDetails
 }
 
 const EnquiryForm: React.FC<Props> = ({ propertyId }) => {
@@ -27,7 +22,7 @@ const EnquiryForm: React.FC<Props> = ({ propertyId }) => {
   const [termsAccepted, setTermsAccepted] = useState(false);
 
   const sendMutation = useMutation({
-    mutationFn: (data: ReqProps) => {
+    mutationFn: (data: ClientDetails) => {
       console.log(data);
       return sendEnquiry(data, propertyId);
     },
@@ -46,12 +41,10 @@ const EnquiryForm: React.FC<Props> = ({ propertyId }) => {
 
   const handleSendEnquiry = (e: React.FormEvent) => {
     e.preventDefault();
-    const reqObj:ReqProps = {
-      clientDetails: {
+    const reqObj:ClientDetails = {
         name: name,
         email: email,
         message: msg
-      }
     };
     if(!termsAccepted) {
       enqueueSnackbar("Please accept terms & conditions and privacy policy!", {
@@ -88,7 +81,7 @@ const EnquiryForm: React.FC<Props> = ({ propertyId }) => {
       <TermsCondition termsAccepted={termsAccepted}
               onTermsChange={handleTermsChange} />
       <div className="w-1/2 mt-4" onClick={handleSendEnquiry}>
-        <Button text="Send Email" isDark={true} />
+        <Button text="Send Email" isDark={true} loading={sendMutation.isLoading} />
       </div>
     </div>
   );

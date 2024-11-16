@@ -8,7 +8,7 @@ import {
   RegisterUser,
   UpdateProfileProps,
 } from "../types";
-import { ReqProps } from "../components/property/EnquiryForm";
+import { ClientDetails } from "../components/property/EnquiryForm";
 
 // Public Axios Instance
 const publicApi = axios.create({
@@ -43,9 +43,9 @@ export const updateProperty = (
   propertyId: string | undefined
 ) => publicApi.put(`/api/v1/real-estate/properties/${propertyId}`, data);
 export const sendEnquiry = (
-  data : ReqProps,
+  data : ClientDetails,
   propertyId : string | undefined
-) => publicApi.post(`api/v1/real-estate/properties/send-enquiry/${propertyId}`, data)
+) => publicApi.post(`/api/v1/emails/send-enquiry/${propertyId}`, data)
 
 //AUTH API'S
 export const registerUser = (data: RegisterUser) =>
